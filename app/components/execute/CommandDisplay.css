@@ -1,0 +1,68 @@
+:local(.this) {
+}
+
+:local(.content) {
+    padding: 4px;
+}
+
+
+.object {
+    cursor: default;
+    display: table;
+    border: 2px solid grey;
+    background: lightgrey;
+}
+
+.object-key {
+    cursor: pointer;
+}
+
+.object-key,.object-value {
+    display: table-cell;
+}
+
+.object-key,.object-value,.array-item-marker,.array-item-content {
+    padding: 2px 4px;
+}
+
+.object-key:after {
+    content: ': '
+}
+
+.object-property {
+    display: table-row;
+}
+
+.object-collapsed:after {
+    content: '[...]';
+    cursor: pointer;
+}
+
+.array {
+    cursor: default;
+    border: 2px solid deepskyblue;
+    background: lightskyblue;
+}
+
+.array-item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.array-item.collapsed:after {
+    content: '[...]';
+    cursor: pointer;
+}
+
+.array-item-marker:after {
+    content: '- ';
+    cursor: pointer;
+}
+
+.array.empty:after {
+    content: '[  ]';
+}
+
+
+

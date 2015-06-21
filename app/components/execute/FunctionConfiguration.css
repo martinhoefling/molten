@@ -1,0 +1,9 @@
+:local(.this .configuration) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+:local(.this .documentation) {
+    width: 100%;
+}

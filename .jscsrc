@@ -1,0 +1,96 @@
+{
+    "fileExtensions": [".js", ".jsx"],
+    "esprima": "./node_modules/esprima-fb",
+    
+    "requireCurlyBraces": [
+        "else",
+        "for",
+        "while",
+        "do",
+        "try",
+        "catch"
+    ],
+    "requireSpaceAfterKeywords": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "do",
+        "switch",
+        "return",
+        "try",
+        "catch"
+    ],
+    "requireSpaceBeforeBlockStatements": true,
+    "requireParenthesesAroundIIFE": true,
+    "requireSpacesInConditionalExpression": {
+        "afterTest": true,
+        "beforeConsequent": true,
+        "afterConsequent": true,
+        "beforeAlternate": true
+    },
+    "disallowPaddingNewlinesInBlocks": true,
+    "disallowEmptyBlocks": true,
+    "disallowSpacesInsideArrayBrackets": "all",
+    "disallowSpacesInsideParentheses": true,
+    "requireSpacesInsideObjectBrackets": "all",
+    "disallowQuotedKeysInObjects": "allButReserved",
+    "disallowSpaceAfterObjectKeys": true,
+    "requireCommaBeforeLineBreak": true,
+    "disallowSpaceAfterPrefixUnaryOperators": true,
+    "disallowSpaceBeforePostfixUnaryOperators": true,
+    "disallowSpaceBeforeBinaryOperators": [
+        ","
+    ],
+    "requireSpaceBeforeBinaryOperators": [
+        "=",
+        "+",
+        "-",
+        "/",
+        "*",
+        "==",
+        "===",
+        ">=",
+        "<=",
+        "!=",
+        "!=="
+    ],
+    "requireSpaceAfterBinaryOperators": [
+        "=",
+        ",",
+        "+",
+        "-",
+        "/",
+        "*",
+        "==",
+        "===",
+        ">=",
+        "<=",
+        "!=",
+        "!=="
+    ],
+    "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+    "disallowKeywords": ["with"],
+    "disallowMultipleLineBreaks": true,
+    "validateIndentation": 4,
+    "disallowMixedSpacesAndTabs": true,
+    "disallowTrailingComma": true,
+    "disallowKeywordsOnNewLine": ["else"],
+    "disallowYodaConditions": true,
+    "requireSpaceAfterLineComment": true,
+    "requireSpacesInAnonymousFunctionExpression": {
+        "beforeOpeningCurlyBrace": true
+    },
+    "requireSpacesInNamedFunctionExpression": {
+        "beforeOpeningCurlyBrace": true
+    },
+    "disallowSpacesInNamedFunctionExpression": {
+        "beforeOpeningRoundBrace": true
+    },
+    "requireSpacesInFunctionDeclaration": {
+        "beforeOpeningCurlyBrace": true
+    },
+    "disallowSpacesInFunctionDeclaration": {
+        "beforeOpeningRoundBrace": true
+    }
+}

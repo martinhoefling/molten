@@ -1,0 +1,13 @@
+:local(.this) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+:local(.this .clientselect) {
+    display: flex;
+    flex: 0 1 auto;
+    justify-content: flex-start;
+    align-items: flex-end;
+    flex-basis: 280px;
+}

@@ -1,0 +1,8 @@
+:local(.this) {
+    white-space: pre;
+    overflow: hidden;
+}
+
+:local(.content) {
+    padding: 4px;
+}
