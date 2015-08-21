@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/martinhoefling/molten.svg)](https://travis-ci.org/martinhoefling/molten)
+
 # Molten - Salt API frontend powered by React.js
 
 ##Features:
