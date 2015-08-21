@@ -1,6 +1,5 @@
 var Constants = require('Constants');
 var REST = require('helpers/rest');
-var Cookies = require('cookies-js');
 
 var API_URL = window.location.origin;
 
