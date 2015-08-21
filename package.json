@@ -15,7 +15,7 @@
     "lint": "npm run jscs && npm run eslint"
   },
   "author": "Martin Hoefling",
-  "license": "BSD",
+  "license": "MIT",
   "dependencies": {
     "classnames": "^2.1.2",
     "fluxxor": "^1.5.4",
