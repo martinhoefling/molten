@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "description": "Molten is a Salt Web API UI written in React. ",
   "main": "app.js",
+  "repository" :
+      {
+        "type" : "git",
+        "url" : "https://github.com/martinhoefling/molten.git"
+      },
   "scripts": {
     "test": "echo \"No tests yet\" && exit 0",
     "build-dev": "webpack --progress --profile --colors",
