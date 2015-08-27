@@ -6,7 +6,7 @@ var Paper = require('material-ui/lib/paper');
 
 var StructuredElement = require('elements/structuredElement');
 
-var rowStyles = require('../ConfigurationRowLayout.less');
+var rowStyles = require('components/RowLayout.less');
 var styles = require('./SearchDisplay.less');
 
 var SearchDisplay = React.createClass({

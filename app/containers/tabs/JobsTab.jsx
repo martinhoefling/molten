@@ -7,7 +7,7 @@ var tabStyle = require('./Tab.less');
 var JobsTab = React.createClass({
     mixins: [FluxMixin],
     render() {
-        return (<div>jobs tab</div>);
+        return (<div className={tabStyle.this}>jobs tab</div>);
     }
 });
 

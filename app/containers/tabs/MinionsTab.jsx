@@ -7,7 +7,7 @@ var tabStyle = require('./Tab.less');
 var MinionsTab = React.createClass({
     mixins: [FluxMixin],
     render() {
-        return (<div>minions tab</div>);
+        return (<div className={tabStyle.this}>minions tab</div>);
     }
 });
 

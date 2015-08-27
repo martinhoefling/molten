@@ -5,7 +5,7 @@ var classnames = require('classnames');
 var ValidatedTextField = require('elements/ValidatedTextField');
 var SelectField = require('material-ui/lib/select-field');
 
-var rowStyles = require('../ConfigurationRowLayout.less');
+var rowStyles = require('components/RowLayout.less');
 var styles = require('./TargetConfiguration.less');
 
 const EXPRESSION_FORM = [

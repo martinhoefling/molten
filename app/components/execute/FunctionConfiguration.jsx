@@ -9,7 +9,7 @@ var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 var ValidatedTextField = require('elements/ValidatedTextField');
 var SearchDisplay = require('components/execute/SearchDisplay');
 
-var rowStyles = require('../ConfigurationRowLayout.less');
+var rowStyles = require('components/RowLayout.less');
 var styles = require('./FunctionConfiguration.less');
 
 var RunnerConfiguration = React.createClass({

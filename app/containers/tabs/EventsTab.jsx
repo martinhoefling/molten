@@ -47,7 +47,7 @@ var EventsTab = React.createClass({
 
     render() {
         return (
-            <div>
+            <div className={tabStyle.this}>
                 {this.renderHeader()}
                 {this.renderEvents()}
             </div>
