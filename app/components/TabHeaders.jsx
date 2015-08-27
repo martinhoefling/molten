@@ -7,7 +7,7 @@ var MaterialButton = require('../elements/MaterialButton');
 var Fluxxor = require('fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
 
-var styles = require('./TabHeaders.css');
+var styles = require('./TabHeaders.less');
 
 var TABS = ['Execute', 'Jobs', 'Minions', 'Events', 'Settings'];
 

@@ -3,8 +3,8 @@ var Paper = require('material-ui/lib/paper');
 var classnames = require('classnames');
 var StructuredElement = require('elements/structuredElement');
 
-var rowStyles = require('../ConfigurationRowLayout.css');
-var styles = require('./CommandDisplay.css');
+var rowStyles = require('../ConfigurationRowLayout.less');
+var styles = require('./CommandDisplay.less');
 
 var CommandDisplay = React.createClass({
     propTypes: {

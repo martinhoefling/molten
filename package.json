@@ -40,6 +40,7 @@
     "eslint": "^1.2.1",
     "eslint-plugin-react": "^3.2.2",
     "esprima-fb": "^15001.1001.0-dev-harmony-fb",
+    "extract-text-webpack-plugin": "^0.8.2",
     "http-server": "^0.8.0",
     "jscs": "^2.1.0",
     "less": "^2.5.1",

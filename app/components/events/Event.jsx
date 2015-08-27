@@ -4,8 +4,8 @@ var classnames = require('classnames');
 var moment = require('moment');
 var StructuredElement = require('elements/structuredElement');
 
-var rowStyles = require('../ConfigurationRowLayout.css');
-var styles = require('./Event.css');
+var rowStyles = require('../ConfigurationRowLayout.less');
+var styles = require('./Event.less');
 
 var Event = React.createClass({
     propTypes: {

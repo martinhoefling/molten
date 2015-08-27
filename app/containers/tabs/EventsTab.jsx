@@ -5,7 +5,7 @@ var RaisedButton = require('material-ui/lib/raised-button');
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 var Event = require('components/events/Event');
-var tabStyle = require('./Tab.css');
+var tabStyle = require('./Tab.less');
 
 var EventsTab = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin('EventStore')],

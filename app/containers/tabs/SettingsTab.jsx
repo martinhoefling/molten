@@ -2,7 +2,7 @@ var React = require('react');
 var Fluxxor = require('fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
 
-var tabStyle = require('./Tab.css');
+var tabStyle = require('./Tab.less');
 
 var SettingsTab = React.createClass({
     mixins: [FluxMixin],

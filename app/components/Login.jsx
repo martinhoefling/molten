@@ -5,7 +5,7 @@ var FlatButton = require('material-ui/lib/flat-button');
 var Fluxxor = require('fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
 
-var styles = require('./Login.css');
+var styles = require('./Login.less');
 
 var Login = React.createClass({
     mixins: [FluxMixin],

@@ -7,8 +7,8 @@ var Checkbox = require('material-ui/lib/checkbox');
 
 var MODE = require('models/Clients').MODE;
 
-var rowStyles = require('../ConfigurationRowLayout.css');
-var styles = require('./ClientConfiguration.css');
+var rowStyles = require('../ConfigurationRowLayout.less');
+var styles = require('./ClientConfiguration.less');
 
 var ClientConfiguration = React.createClass({
     propTypes: {

@@ -9,8 +9,8 @@ var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 var ValidatedTextField = require('elements/ValidatedTextField');
 var SearchDisplay = require('components/execute/SearchDisplay');
 
-var rowStyles = require('../ConfigurationRowLayout.css');
-var styles = require('./FunctionConfiguration.css');
+var rowStyles = require('../ConfigurationRowLayout.less');
+var styles = require('./FunctionConfiguration.less');
 
 var RunnerConfiguration = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin('DocumentationStore')],

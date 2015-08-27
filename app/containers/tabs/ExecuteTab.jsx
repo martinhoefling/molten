@@ -9,8 +9,8 @@ var TargetConfiguration = require('components/execute/TargetConfiguration');
 var FunctionConfiguration = require('components/execute/FunctionConfiguration');
 var CommandDisplay = require('components/execute/CommandDisplay');
 
-var tabStyle = require('./Tab.css');
-var styles = require('./ExecuteTab.css');
+var tabStyle = require('./Tab.less');
+var styles = require('./ExecuteTab.less');
 
 var ExecuteTab = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin('CapabilityStore', 'CommandStore')],

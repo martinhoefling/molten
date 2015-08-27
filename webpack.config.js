@@ -1,3 +1,5 @@
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 module.exports = {
     context: __dirname + '/app',
     entry: ['./app.jsx'],
@@ -19,7 +21,11 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                loader: "style!css!less"
+                loader: ExtractTextPlugin.extract(
+                    // activate source maps via loader query
+                    'css?sourceMap!' +
+                    'less?sourceMap'
+                )
             },
             {
                 test: /\.png$/,
@@ -36,10 +42,14 @@ module.exports = {
         extensions: ['', '.js', '.jsx'],
         modulesDirectories: ['node_modules']
     },
-    devtool: '#source-map',
+    devtool: 'source-map',
     devServer: {
         headers: {
             'Access-Control-Allow-Origin': '*'
         }
-    }
+    },
+    plugins: [
+        // extract inline css into separate 'styles.css'
+        new ExtractTextPlugin('styles.css')
+    ]
 };

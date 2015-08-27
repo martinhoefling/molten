@@ -5,8 +5,8 @@ var classnames = require('classnames');
 var ValidatedTextField = require('elements/ValidatedTextField');
 var SelectField = require('material-ui/lib/select-field');
 
-var rowStyles = require('../ConfigurationRowLayout.css');
-var styles = require('./TargetConfiguration.css');
+var rowStyles = require('../ConfigurationRowLayout.less');
+var styles = require('./TargetConfiguration.less');
 
 const EXPRESSION_FORM = [
     { name: 'glob', description: 'Bash glob completion' },
