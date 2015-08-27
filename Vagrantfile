@@ -17,11 +17,11 @@ Vagrant.configure(2) do |config|
     service salt-master stop
     service salt-minion stop
     service salt-api stop
-    salt-key -y -a vagrant
-    salt-key
     service salt-master start
     service salt-minion start
     service salt-api start
+    salt-key -y -a vagrant
+    salt-key -L
     salt '*' test.ping
     useradd test
     echo test:molten | chpasswd

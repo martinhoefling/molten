@@ -24,5 +24,5 @@
 
 ## Development
 * install vagrant / virtualbox
-* start webpack bundler `npm dev`
+* start webpack bundler `npm watch`
 * `vagrant up` then connect to 192.168.42.42:8000 as test / molten
