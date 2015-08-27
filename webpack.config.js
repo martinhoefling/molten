@@ -16,10 +16,6 @@ module.exports = {
                 loader: 'babel'
             },
             {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader'
-            },
-            {
                 test: /\.less$/,
                 loader: ExtractTextPlugin.extract(
                     // activate source maps via loader query
