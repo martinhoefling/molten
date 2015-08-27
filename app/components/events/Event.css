@@ -1,0 +1,8 @@
+:local(.this) {
+    padding: 2px 4px;
+}
+:local(.header) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

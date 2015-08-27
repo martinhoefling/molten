@@ -1,6 +1,8 @@
 var React = require('react');
 var classnames = require('classnames');
 
+var styles = require('./StructuredElement.less');
+
 var StructuredElement = React.createClass({
     propTypes: {
         element: React.PropTypes.any.isRequired
@@ -119,7 +121,11 @@ var StructuredElement = React.createClass({
     },
 
     render() {
-        return this.renderItem(this.props.element);
+        return (
+            <div className={styles.this}>
+                {this.renderItem(this.props.element)}
+            </div>
+        );
     }
 });
 

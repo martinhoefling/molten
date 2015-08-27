@@ -14,7 +14,7 @@ module.exports = (
     <Route handler={Main} name='home' path='/'>
         <Route handler={ExecuteTab} name='execute' path='/execute' />
         <Route handler={JobsTab} name='jobs' path='/jobs' />
-        <Route handler={MinionsTab} name='minions' path='/minions' />
+        <Route handler={MinionsTab} name='minions' path='/minion' />
         <Route handler={EventsTab} name='events' path='/events' />
         <Route handler={SettingsTab} name='settings' path='/settings' />
         <DefaultRoute handler={ExecuteTab} />
