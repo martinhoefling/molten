@@ -27,8 +27,12 @@
     }
 
     .object-collapsed:after {
-        content: '[...]';
+        content: '{...}';
         cursor: pointer;
+    }
+
+    .object.empty:after {
+        content: '{ }'
     }
 
     .array {

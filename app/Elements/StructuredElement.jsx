@@ -21,7 +21,7 @@ var StructuredElement = React.createClass({
         newCollapsedItems[item] = !this.state.collapsedItems[item];
         this.setState({ collapsedItems: newCollapsedItems });
     },
-    
+
     toggleArrayCollapse() {
         this.setState({ arrayCollapsed: !this.state.arrayCollapsed });
     },
@@ -71,7 +71,8 @@ var StructuredElement = React.createClass({
         return (
             <div className='object-collapsed'
                  onClick={this.toggleObjectCollapse.bind(this, key)}>
-            </div>);
+            </div>
+        );
     },
 
     renderObject(object) {
@@ -89,7 +90,7 @@ var StructuredElement = React.createClass({
             );
         }.bind(this));
         return (
-            <div className='object'>
+            <div className={classnames('object', { empty: !objectProps.length })}>
                 {objectProps}
             </div>
         );
