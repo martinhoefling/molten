@@ -7,9 +7,18 @@ var StructuredElement = require('elements/structuredElement');
 var rowStyles = require('components/RowLayout.less');
 var styles = require('./Event.less');
 
+var UPDATE_INTERVAL = 10000;
+
 var Event = React.createClass({
     propTypes: {
-        event: React.PropTypes.object.isRequired
+        event: React.PropTypes.object.isRequired,
+        filtered: React.PropTypes.bool
+    },
+
+    getDefaultProps() {
+        return {
+            filtered: false
+        };
     },
 
     getInitialState() {
@@ -24,7 +33,7 @@ var Event = React.createClass({
     },
 
     componentWillMount() {
-        var interval = setInterval(this.updateTimestamp, 10000);
+        var interval = setInterval(this.updateTimestamp, UPDATE_INTERVAL);
         this.setState({ interval });
     },
 
@@ -34,6 +43,16 @@ var Event = React.createClass({
 
     componentWillUnmount() {
         clearInterval(this.state.interval);
+    },
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.filtered !== this.props.filtered) {
+            return true;
+        }
+        if (nextState.time !== this.state.time) {
+            return true;
+        }
+        return false;
     },
 
     renderHeader() {
@@ -55,7 +74,7 @@ var Event = React.createClass({
 
     render() {
         return (
-            <Paper className={classnames(rowStyles.this, styles.this)} zDepth={2}>
+            <Paper className={classnames(rowStyles.this, styles.this, { filtered: this.props.filtered })} zDepth={2}>
                 {this.renderHeader()}
                 {this.renderBody()}
             </Paper>
