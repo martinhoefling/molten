@@ -8,6 +8,7 @@ var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var Login = require('components/Login');
 var TabHeaders = require('components/TabHeaders');
+var styles = require('./Main.less');
 
 var Main = React.createClass({
     propTypes: {
@@ -57,7 +58,7 @@ var Main = React.createClass({
 
     render() {
         return (
-            <div>
+            <div className={styles.this}>
                 {this.renderLogin()}
                 {this.renderTabs()}
                 {this.renderRouteHandler()}
