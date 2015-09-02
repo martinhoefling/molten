@@ -1,8 +1,6 @@
 var Fluxxor = require('fluxxor');
 var Constants = require('Constants');
 
-var Clients = require('models/Clients');
-
 var EventStore = Fluxxor.createStore({
     initialize() {
         this.events = [];

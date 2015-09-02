@@ -73,5 +73,27 @@ module.exports = {
             fun: 'doc.' + options.type
         };
         return this.postAPI(options, success, fail);
+    },
+
+    getMinions(options, success, fail) {
+        request.get(options.basepath + '/minions/')
+            .set('Accept', 'application/json')
+            .end(function (err, res) {
+                if (err) return fail(err);
+                if (res.status !== 200)
+                    return fail(new Error('Request failed with ' + res.status + ': ' + res.text));
+                success(res.body);
+            });
+    },
+
+    getMinion(options, success, fail) {
+        request.get(options.basepath + '/minions/' + options.minion)
+            .set('Accept', 'application/json')
+            .end(function (err, res) {
+                if (err) return fail(err);
+                if (res.status !== 200)
+                    return fail(new Error('Request failed with ' + res.status + ': ' + res.text));
+                success(res.body);
+            });
     }
 };

@@ -3,16 +3,16 @@
 # Molten - Salt API frontend powered by React.js
 
 ##Features:
-
 * Full access to all salt clients supported via Rest API
 * Simple deployment: no intermediate Python / Node.js application required
 * Live updates, i.e. for events
 * No page reloads / Single page app 
 
 ## ToDo
-- Special format for highstate output
+- Special format for highstate output and events
 - Styling
-- Minions, Jobs and Event tab
+- Implement Minions and Jobs tab
+- Properly route to login page
 - ...
 
 ## Deployment

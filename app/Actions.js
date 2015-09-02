@@ -35,11 +35,20 @@ function _listenForEvents() {
     source.onmessage = event => this.dispatch(Constants.SERVER_EVENT_RECEIVED, event);
 }
 
+function _loadMinions() {
+    this.dispatch(Constants.GET_MINIONS);
+    REST.getMinions({ basepath: API_URL },
+        minionList => this.dispatch(Constants.GET_MINIONS_SUCCESS, minionList),
+        error => this.dispatch(Constants.GET_MINIONS_FAIL, error)
+    );
+}
+
 function _sessionSuccess(session) {
     this.dispatch(Constants.SET_SESSION_SUCCESS, session || {});
     _getCapabilities.call(this);
     _getDocumentation.call(this);
     _listenForEvents.call(this);
+    _loadMinions.call(this);
 }
 
 module.exports = {

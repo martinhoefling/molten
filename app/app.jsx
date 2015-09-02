@@ -16,6 +16,7 @@ var CommandStore = require('stores/CommandStore');
 var EventStore = require('stores/EventStore');
 var DocumentationStore = require('stores/DocumentationStore');
 var RoutingStore = require('stores/RoutingStore');
+var MinionStore = require('stores/MinionStore');
 
 var Router = require('react-router');
 var routes = require('Routes');
@@ -25,8 +26,9 @@ var stores = {
     SessionStore: new SessionStore(),
     CapabilityStore: new CapabilityStore(),
     CommandStore: new CommandStore(),
-    EventStore: new EventStore(),
     DocumentationStore: new DocumentationStore(),
+    EventStore: new EventStore(),
+    MinionStore: new MinionStore(),
     RoutingStore: new RoutingStore({ router: router })
 };
 
