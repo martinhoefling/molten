@@ -29,7 +29,7 @@ var Event = React.createClass({
 
     render() {
         return (
-            <Paper className={classnames(rowStyles.this, styles.this, { filtered: this.props.filtered })} zDepth={2}>
+            <Paper className={classnames(rowStyles.this, styles.this)} zDepth={2}>
                 {this.renderHeader()}
                 {this.renderBody()}
             </Paper>
