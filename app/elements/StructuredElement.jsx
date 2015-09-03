@@ -7,8 +7,8 @@ var StructuredElement = React.createClass({
     propTypes: {
         element: React.PropTypes.any.isRequired,
         subComponent: React.PropTypes.func,
-        arraysInitiallyCollapsed: React.PropTypes.array,
-        initiallyCollapsedItems: React.PropTypes.bool
+        arraysInitiallyCollapsed: React.PropTypes.bool,
+        initiallyCollapsedItems: React.PropTypes.array
     },
 
     getDefaultProps() {
