@@ -19,7 +19,7 @@ var MinionsTab = React.createClass({
     },
 
     renderMinions() {
-        return this.state.minions.map(minion => <Minion minion={minion}/>);
+        return this.state.minions.map(minion => <Minion key={minion.id} minion={minion}/>);
     },
 
     render() {
