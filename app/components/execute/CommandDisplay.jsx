@@ -1,7 +1,7 @@
 var React = require('react');
 var Paper = require('material-ui/lib/paper');
 var classnames = require('classnames');
-var StructuredElement = require('elements/structuredElement');
+var StructuredElement = require('elements/StructuredElement');
 
 var rowStyles = require('components/RowLayout.less');
 var styles = require('./CommandDisplay.less');

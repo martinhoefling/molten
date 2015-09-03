@@ -5,21 +5,33 @@ var styles = require('./StructuredElement.less');
 
 var StructuredElement = React.createClass({
     propTypes: {
-        element: React.PropTypes.any.isRequired
+        element: React.PropTypes.any.isRequired,
+        subComponent: React.PropTypes.func,
+        arraysInitiallyCollapsed: React.PropTypes.array,
+        initiallyCollapsedItems: React.PropTypes.bool
+    },
+
+    getDefaultProps() {
+        return {
+            subComponent: StructuredElement,
+            arraysInitiallyCollapsed: false,
+            initiallyCollapsedItems: []
+        };
     },
 
     getInitialState() {
+        var collapsed = {};
+        this.props.initiallyCollapsedItems.forEach(item => collapsed[item] = true);
         return {
-            collapsedItems: [],
-            arrayCollapsed: false
+            collapsedItems: collapsed,
+            arrayCollapsed: this.props.arraysInitiallyCollapsed
         };
     },
 
     toggleObjectCollapse(item) {
-        var newCollapsedItems = this.state.collapsedItems.slice();
-
-        newCollapsedItems[item] = !this.state.collapsedItems[item];
-        this.setState({ collapsedItems: newCollapsedItems });
+        var collapsedItems = _.clone(this.state.collapsedItems);
+        collapsedItems[item] = !collapsedItems[item];
+        this.setState({ collapsedItems });
     },
 
     toggleArrayCollapse() {
@@ -44,7 +56,7 @@ var StructuredElement = React.createClass({
                          onClick={this.toggleArrayCollapse}>
                     </div>
                     <div className='array-item-content'>
-                        <StructuredElement element={item}/>
+                        <this.props.subComponent element={item}/>
                     </div>
                 </div>
             );
@@ -59,14 +71,14 @@ var StructuredElement = React.createClass({
         return (
             <div
                 className={classnames('array', { empty: !items.length })}>
-                {!this.state.arrayCollapsed ? items : collapsed}
+                {(this.state.arrayCollapsed && items.length) ? collapsed : items}
             </div>
         );
     },
 
     renderExpandableValue(key, value) {
         if (!this.state.collapsedItems[key]) {
-            return (<StructuredElement element={value}/>);
+            return (<this.props.subComponent element={value}/>);
         }
         return (
             <div className='object-collapsed'

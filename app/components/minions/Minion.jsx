@@ -1,7 +1,7 @@
 var React = require('react');
 var Paper = require('material-ui/lib/paper');
 var classnames = require('classnames');
-var StructuredElement = require('elements/structuredElement');
+var CollapsedStructuredElement = require('elements/CollapsedStructuredElement');
 
 var rowStyles = require('components/RowLayout.less');
 var styles = require('./Minion.less');
@@ -22,7 +22,7 @@ var Event = React.createClass({
     renderBody() {
         return (
             <div>
-                <StructuredElement element={this.props.minion.grains}/>
+                <CollapsedStructuredElement element={{grains: this.props.minion.grains}}/>
             </div>
         );
     },
