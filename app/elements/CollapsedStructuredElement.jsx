@@ -2,12 +2,20 @@ var React = require('react');
 
 var StructuredElement = require('elements/StructuredElement');
 
-var CollapsedStructuredElement;
-
-CollapsedStructuredElement = React.createClass({
+var CollapsedStructuredElement = React.createClass({
     propTypes: {
-        element: React.PropTypes.any.isRequired
+        element: React.PropTypes.any.isRequired,
+        collapseOnly: React.PropTypes.array,
+        arraysCollapsed: React.PropTypes.bool
     },
+
+    getDefaultProps() {
+        return {
+            collapseOnly: [],
+            arraysCollapsed: false
+        };
+    },
+
     render() {
         var collapsedItems = [];
         if (typeof this.props.element === 'object' && this.props.element !== null) {
@@ -16,11 +24,16 @@ CollapsedStructuredElement = React.createClass({
                         !Array.isArray(this.props.element[key]))
             );
         }
+
+        if (this.props.collapseOnly.length) {
+            collapsedItems = _.intersection(collapsedItems, this.props.collapseOnly);
+        }
+
         return (
             <StructuredElement
                 subComponent={CollapsedStructuredElement}
-                arraysInitiallyCollapsed={true}
                 initiallyCollapsedItems={collapsedItems}
+                arraysInitiallyCollapsed={this.props.arraysCollapsed}
                 {...this.props}
             />
         );
