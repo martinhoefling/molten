@@ -4,7 +4,6 @@ var classnames = require('classnames');
 var styles = require('./StructuredElement.less');
 
 var StructuredElement;
-
 StructuredElement = React.createClass({
     propTypes: {
         element: React.PropTypes.any.isRequired,
@@ -79,8 +78,10 @@ StructuredElement = React.createClass({
     },
 
     renderSubItem(item) {
-        var component = this.props.subComponent || StructuredElement;
-        return (<component element={item}/>);
+        if (this.props.subComponent) {
+            return <this.props.subComponent element={item}/>;
+        }
+        return <StructuredElement element={item}/>;
     },
 
     renderExpandableValue(key, value) {
