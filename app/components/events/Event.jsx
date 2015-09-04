@@ -2,7 +2,7 @@ var React = require('react');
 var Paper = require('material-ui/lib/paper');
 var classnames = require('classnames');
 var moment = require('moment');
-var StructuredElement = require('elements/StructuredElement');
+var CollapsedStructuredElement = require('elements/CollapsedStructuredElement');
 
 var rowStyles = require('components/RowLayout.less');
 var styles = require('./Event.less');
@@ -67,7 +67,9 @@ var Event = React.createClass({
     renderBody() {
         return (
             <div>
-                <StructuredElement element={this.props.event.data}/>
+                <CollapsedStructuredElement
+                    collapseOnly={['return']}
+                    element={this.props.event.data}/>
             </div>
             );
     },

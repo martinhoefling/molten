@@ -22,7 +22,9 @@ var Event = React.createClass({
     renderBody() {
         return (
             <div>
-                <CollapsedStructuredElement element={{ grains: this.props.minion.grains }}/>
+                <CollapsedStructuredElement
+                    arraysCollapsed={true}
+                    element={{ grains: this.props.minion.grains }}/>
             </div>
         );
     },
