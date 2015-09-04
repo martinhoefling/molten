@@ -3,7 +3,9 @@ var classnames = require('classnames');
 
 var styles = require('./StructuredElement.less');
 
-var StructuredElement = React.createClass({
+var StructuredElement;
+
+StructuredElement = React.createClass({
     propTypes: {
         element: React.PropTypes.any.isRequired,
         subComponent: React.PropTypes.func,
@@ -13,7 +15,7 @@ var StructuredElement = React.createClass({
 
     getDefaultProps() {
         return {
-            subComponent: StructuredElement,
+            subComponent: null,
             arraysInitiallyCollapsed: false,
             initiallyCollapsedItems: []
         };
@@ -56,7 +58,7 @@ var StructuredElement = React.createClass({
                          onClick={this.toggleArrayCollapse}>
                     </div>
                     <div className='array-item-content'>
-                        <this.props.subComponent element={item}/>
+                        {this.renderSubItem(item)}
                     </div>
                 </div>
             );
@@ -76,9 +78,14 @@ var StructuredElement = React.createClass({
         );
     },
 
+    renderSubItem(item) {
+        var component = this.props.subComponent || StructuredElement;
+        return (<component element={item}/>);
+    },
+
     renderExpandableValue(key, value) {
         if (!this.state.collapsedItems[key]) {
-            return (<this.props.subComponent element={value}/>);
+            return this.renderSubItem(value);
         }
         return (
             <div className='object-collapsed'

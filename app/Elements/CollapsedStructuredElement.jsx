@@ -2,7 +2,9 @@ var React = require('react');
 
 var StructuredElement = require('elements/StructuredElement');
 
-var CollapsedStructuredElement = React.createClass({
+var CollapsedStructuredElement;
+
+CollapsedStructuredElement = React.createClass({
     propTypes: {
         element: React.PropTypes.any.isRequired
     },
