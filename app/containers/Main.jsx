@@ -2,6 +2,7 @@ var React = require('react');
 var Router = require('react-router');
 var RouteHandler = Router.RouteHandler;
 var ThemeManager = require('material-ui/lib/styles/theme-manager')();
+
 var Fluxxor = require('fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -16,7 +17,7 @@ var Main = React.createClass({
     },
 
     childContextTypes: {
-        muiTheme: React.PropTypes.instanceOf(ThemeManager).isRequired
+        muiTheme: React.PropTypes.object.isRequired
     },
 
     getChildContext: function () {
