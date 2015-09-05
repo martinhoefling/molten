@@ -65,6 +65,7 @@ var RunnerConfiguration = React.createClass({
             <div className={classnames(rowStyles.this, styles.this)}>
                 <SelectField
                     floatingLabelText='Matcher'
+                    floatingLabelStyle={ { transform: 'perspective(1px) scale(0.75) translate3d(2px, -28px, 0)' } }
                     style={{ width: '130px' }}
                     disabled={this.props.disabled}
                     menuItems={menuItems}
