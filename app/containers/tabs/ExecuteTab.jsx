@@ -8,6 +8,7 @@ var ClientConfiguration = require('components/execute/ClientConfiguration');
 var TargetConfiguration = require('components/execute/TargetConfiguration');
 var FunctionConfiguration = require('components/execute/FunctionConfiguration');
 var CommandDisplay = require('components/execute/CommandDisplay');
+var LoadingIndicator = require('elements/LoadingIndicator');
 
 var tabStyle = require('./Tab.less');
 var styles = require('./ExecuteTab.less');
@@ -80,7 +81,9 @@ var ExecuteTab = React.createClass({
     render() {
         if (!this.state.clients) {
             return (
-                <div>loading client configuration</div>
+                <LoadingIndicator>
+                    loading client configuration
+                </LoadingIndicator>
             );
         }
 
