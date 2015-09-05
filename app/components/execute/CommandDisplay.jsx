@@ -8,7 +8,11 @@ var styles = require('./CommandDisplay.less');
 
 var CommandDisplay = React.createClass({
     propTypes: {
-        command: React.PropTypes.oneOfType(React.PropTypes.array, React.PropTypes.object).isRequired
+        command: React.PropTypes.oneOfType(
+            React.PropTypes.array,
+            React.PropTypes.object,
+            React.PropTypes.string
+        ).isRequired
     },
 
     render() {

@@ -85,7 +85,7 @@ var ExecuteTab = React.createClass({
         }
 
         var currentClient = this.getCurrentClient();
-        var command = this.state.currentResult ? this.state.currentResult.return[0] :
+        var result = this.state.currentResult ? this.state.currentResult.return[0] :
             (this.getFlux().stores.CommandStore.inProgress() ? 'job submitted / in progress' : 'no results yet');
 
         return (
@@ -114,7 +114,7 @@ var ExecuteTab = React.createClass({
                         />
                 </div>
                 <CommandDisplay
-                    command={command}
+                    command={result}
                     />
             </div>
         );
