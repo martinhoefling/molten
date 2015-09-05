@@ -2,6 +2,7 @@ var React = require('react');
 var Fluxxor = require('fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
+var LoadingIndicator = require('elements/LoadingIndicator');
 
 var Minion = require('components/minions/Minion');
 
@@ -12,9 +13,11 @@ var MinionsTab = React.createClass({
 
     getStateFromFlux() {
         var flux = this.getFlux();
-        var minions = flux.stores.MinionStore.getMinions();
+        var minionStore = flux.stores.MinionStore;
+        var minions = minionStore.getMinions();
         return {
-            minions
+            minions,
+            fetchInProgress: minionStore.fetchingMinionsInProgress()
         };
     },
 
@@ -23,6 +26,13 @@ var MinionsTab = React.createClass({
     },
 
     render() {
+        if (this.state.fetchInProgress) {
+            return (
+                <LoadingIndicator>
+                    Loading Minions
+                </LoadingIndicator>
+            );
+        }
         return (
             <div className={tabStyle.this}>
                 {this.renderMinions()}
