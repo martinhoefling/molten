@@ -43,12 +43,21 @@ function _loadMinions() {
     );
 }
 
+function _loadJobs() {
+    this.dispatch(Constants.GET_JOBS);
+    REST.getJobs({ basepath: API_URL },
+        jobList => this.dispatch(Constants.GET_JOBS_SUCCESS, jobList),
+        error => this.dispatch(Constants.GET_JOBS_FAIL, error)
+    );
+}
+
 function _sessionSuccess(session) {
     this.dispatch(Constants.SET_SESSION_SUCCESS, session || {});
     _getCapabilities.call(this);
     _getDocumentation.call(this);
     _listenForEvents.call(this);
     _loadMinions.call(this);
+    _loadJobs.call(this);
 }
 
 module.exports = {

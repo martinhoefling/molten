@@ -14,6 +14,7 @@ var SessionStore = require('stores/SessionStore');
 var CapabilityStore = require('stores/CapabilityStore');
 var CommandStore = require('stores/CommandStore');
 var EventStore = require('stores/EventStore');
+var JobStore = require('stores/JobStore');
 var DocumentationStore = require('stores/DocumentationStore');
 var RoutingStore = require('stores/RoutingStore');
 var MinionStore = require('stores/MinionStore');
@@ -28,6 +29,7 @@ var stores = {
     CommandStore: new CommandStore(),
     DocumentationStore: new DocumentationStore(),
     EventStore: new EventStore(),
+    JobStore: new JobStore(),
     MinionStore: new MinionStore(),
     RoutingStore: new RoutingStore({ router: router })
 };

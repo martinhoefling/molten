@@ -72,5 +72,13 @@ module.exports = {
 
     getMinion(options, success, fail) {
         getRequest(options.basepath + '/minions/' + options.minion, success, fail);
+    },
+
+    getJobs(options, success, fail) {
+        getRequest(options.basepath + '/jobs/', success, fail);
+    },
+
+    getJob(options, success, fail) {
+        getRequest(options.basepath + '/jobs/' + options.jid, success, fail);
     }
 };
