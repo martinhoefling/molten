@@ -18,6 +18,7 @@ var MinionStore = Fluxxor.createStore({
 
     fetchingMinionsStarted() {
         this.fetchingMinions = true;
+        this.emit('change');
     },
 
     fetchingMinionsInProgress() {
@@ -55,4 +56,3 @@ var MinionStore = Fluxxor.createStore({
 });
 
 module.exports = MinionStore;
-

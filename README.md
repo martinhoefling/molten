@@ -9,11 +9,20 @@
 * No page reloads / Single page app 
 
 ## ToDo
-- Special format for highstate output and events
+- Special format for highstate output
 - Styling
-- Implement Minions and Jobs tab
+- Minions:
+  - Fetch pillar
+  - Trigger highstate and inspect output
+  - Reload all/single minon(s)
+- Jobs:
+  - View Job Details
+  - Filter Jobs by runner / target ...
+  - Update on events containing job information
+- Events:
+  - Scroll to end if end is previous position
 - Properly route to login page
-- ...
+- Use shouldComponentUpdate in Events Tab
 
 ## Deployment
 

@@ -14,6 +14,7 @@ var JobStore = Fluxxor.createStore({
 
     fetchingJobsStarted() {
         this.fetchingMinions = true;
+        this.emit('change');
     },
 
     fetchingJobsInProgress() {
