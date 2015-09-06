@@ -8,58 +8,49 @@ var SESSION_TEST = {
     }
 };
 
+function postRequest(url, success, fail, data) {
+    request.post(url)
+        .set('Accept', 'application/json')
+        .type('json')
+        .send(data)
+        .end(function (err, res) {
+            if (err) return fail(err);
+            if (res.status !== 200)
+                return fail(new Error('Request failed with ' + res.status + ': ' + res.text));
+            success(res.body);
+        });
+}
+
+function getRequest(url, success, fail) {
+    request.get(url)
+        .set('Accept', 'application/json')
+        .end(function (err, res) {
+            if (err) return fail(err);
+            if (res.status !== 200)
+                return fail(new Error('Request failed with ' + res.status + ': ' + res.text));
+            success(res.body);
+        });
+}
+
 module.exports = {
     createSession(options, success, fail) {
-        request.post(options.basepath + '/login')
-            .set('Accept', 'application/json')
-            .type('json')
-            .send({
-                username: options.username,
-                password: options.password,
-                eauth: options.eauth
-            })
-            .end(function (err, res) {
-                if (err) return fail(err);
-                if (res.status !== 200)
-                    return fail(new Error('Request failed with ' + res.status + ': ' + res.text));
-                success(res.body);
-            });
+        postRequest(options.basepath + '/login', success, fail, {
+            username: options.username,
+            password: options.password,
+            eauth: options.eauth
+        });
     },
 
     destroySession(options, success, fail) {
-        request.post(options.basepath + '/logout')
-            .set('Accept', 'application/json')
-            .type('json')
-            .end(function (err, res) {
-                if (err) return fail(err);
-                if (res.status !== 200)
-                    return fail(new Error('Request failed with ' + res.status + ': ' + res.text));
-                success(res.body);
-            });
+        postRequest(options.basepath + '/logout', success, fail, '');
     },
 
     getAPI(options, success, fail) {
-        request.get(options.basepath + '/')
-            .set('Accept', 'application/json')
-            .end(function (err, res) {
-                if (err) return fail(err);
-                if (res.status !== 200)
-                    return fail(new Error('Request failed with ' + res.status + ': ' + res.text));
-                success(res.body);
-            });
+        getRequest(options.basepath + '/', success, fail);
     },
 
     postAPI(options, success, fail) {
-        request.post(options.basepath + '/')
-            .set('Accept', 'application/json')
-            .type('json')
-            .send(options.lowstate)
-            .end(function (err, res) {
-                if (err) return fail(err);
-                if (res.status !== 200)
-                    return fail(new Error('Request failed with ' + res.status + ': ' + res.text));
-                success(res.body);
-            });
+        postRequest(options.basepath + '/', success, fail, options.lowstate);
     },
 
     testSession(options, success, fail) {
@@ -76,24 +67,10 @@ module.exports = {
     },
 
     getMinions(options, success, fail) {
-        request.get(options.basepath + '/minions/')
-            .set('Accept', 'application/json')
-            .end(function (err, res) {
-                if (err) return fail(err);
-                if (res.status !== 200)
-                    return fail(new Error('Request failed with ' + res.status + ': ' + res.text));
-                success(res.body);
-            });
+        getRequest(options.basepath + '/minions/', success, fail);
     },
 
     getMinion(options, success, fail) {
-        request.get(options.basepath + '/minions/' + options.minion)
-            .set('Accept', 'application/json')
-            .end(function (err, res) {
-                if (err) return fail(err);
-                if (res.status !== 200)
-                    return fail(new Error('Request failed with ' + res.status + ': ' + res.text));
-                success(res.body);
-            });
+        getRequest(options.basepath + '/minions/' + options.minion, success, fail);
     }
 };
