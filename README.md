@@ -38,7 +38,7 @@ rest_cherrypy:
 Currently, the user must have access to runner/wheel/and jobs.
 
 ### Install molten
-- Extract release tarball to `/dist`.
+- Extract [release tarball](https://github.com/martinhoefling/molten/releases/download/v0.1.0pre1/molten-0.1.0pre1.tar.gz) to `/dist`.
 
 or
 
