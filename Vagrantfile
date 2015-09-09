@@ -17,10 +17,13 @@ Vagrant.configure(2) do |config|
     service salt-master stop
     service salt-minion stop
     service salt-api stop
+    service salt-api stop
     service salt-master start
     service salt-minion start
     service salt-api start
+    sleep 5
     salt-key -y -a vagrant
+    sleep 5
     salt-key -L
     salt '*' test.ping
     useradd test

@@ -81,5 +81,4 @@ or
   - Update on events containing job information
 - Events:
   - Scroll to end if end is previous position
-- Properly route to login page
 - Use shouldComponentUpdate in Events Tab

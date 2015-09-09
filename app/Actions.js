@@ -53,6 +53,7 @@ function _loadJobs() {
 
 function _sessionSuccess(session) {
     this.dispatch(Constants.SET_SESSION_SUCCESS, session || {});
+    this.dispatch(Constants.TRANSITION, { path: '/' });
     _getCapabilities.call(this);
     _getDocumentation.call(this);
     _listenForEvents.call(this);

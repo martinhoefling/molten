@@ -8,6 +8,8 @@ var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var Login = require('components/Login');
+var LoadingIndicator = require('elements/LoadingIndicator');
+
 var TabHeaders = require('components/TabHeaders');
 var styles = require('./Main.less');
 
@@ -26,7 +28,7 @@ var Main = React.createClass({
         };
     },
 
-    mixins: [FluxMixin, StoreWatchMixin('SessionStore')],
+    mixins: [FluxMixin, StoreWatchMixin('SessionStore'), Router.State],
 
     getStateFromFlux: function () {
         var flux = this.getFlux();
@@ -36,31 +38,29 @@ var Main = React.createClass({
         };
     },
 
-    renderLogin() {
-        if (this.state.currentSession) {
-            return null;
-        }
-        return <Login flux={this.props.flux} errorMessage={this.state.sessionErrorMessage}/>;
-    },
-
     renderTabs() {
         if (!this.state.currentSession) {
             return null;
         }
-        return <TabHeaders flux={this.props.flux} session={this.state.currentSession}/>;
+        return <TabHeaders session={this.state.currentSession}/>;
+    },
+
+    isLogin() {
+        return this.getPath() === '/login';
     },
 
     renderRouteHandler() {
-        if (!this.state.currentSession) {
-            return null;
+        if (this.isLogin()) {
+            return <RouteHandler errorMessage={this.state.sessionErrorMessage}/>;
+        } else if (!this.state.currentSession) {
+            return <LoadingIndicator>loading session</LoadingIndicator>;
         }
-        return <RouteHandler flux={this.props.flux}/>;
+        return <RouteHandler/>;
     },
 
     render() {
         return (
             <div className={styles.this}>
-                {this.renderLogin()}
                 {this.renderTabs()}
                 {this.renderRouteHandler()}
             </div>

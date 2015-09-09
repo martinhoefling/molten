@@ -74,7 +74,6 @@ var TabComponent = React.createClass({
                 {this.renderTabs()}
                 <div className={styles.logout}>
                 <MaterialButton
-
                     iconClass='cancel'
                     onClick={this.logout}/>
                 </div>

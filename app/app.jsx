@@ -21,7 +21,7 @@ var MinionStore = require('stores/MinionStore');
 
 var Router = require('react-router');
 var routes = require('Routes');
-var router = Router.create({ routes: routes });
+var router = Router.create({ routes: routes, location: Router.HistoryLocation });
 
 var stores = {
     SessionStore: new SessionStore(),

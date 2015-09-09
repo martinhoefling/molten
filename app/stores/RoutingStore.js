@@ -7,8 +7,21 @@ var RouteStore = Fluxxor.createStore({
         this.router = options.router;
 
         this.bindActions(
-            Constants.TRANSITION, this.routeTransition
+            Constants.TRANSITION, this.routeTransition,
+            Constants.GET_CAPABILITIES_FAIL, this.loginIfRequired,
+            Constants.SET_SESSION_FAIL, this.loginIfRequired,
+            Constants.UNSET_SESSION, this.toLogin
         );
+    },
+
+    loginIfRequired(err) {
+        if (err.status === 401) {
+            this.toLogin();
+        }
+    },
+
+    toLogin() {
+        this.router.transitionTo('/login');
     },
 
     routeTransition: function (payload) {
