@@ -8,8 +8,8 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
-    echo "deb http://debian.saltstack.com/debian jessie-saltstack main" > /etc/apt/sources.list.d/salt.list
-    wget -q -O- "http://debian.saltstack.com/debian-salt-team-joehealy.gpg.key" | apt-key add -
+    echo "deb http://repo.saltstack.com/apt/debian jessie contrib" > /etc/apt/sources.list.d/salt.list
+    wget -q -O- "https://repo.saltstack.com/apt/debian/SALTSTACK-GPG-KEY.pub" | apt-key add -
     sudo apt-get update
     sudo apt-get install -y salt-master salt-api salt-minion
     cp /vagrant/dev/salt/master/custom.conf /etc/salt/master.d/

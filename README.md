@@ -76,7 +76,6 @@ or
   - Trigger highstate and inspect output
   - Reload all/single minon(s)
 - Jobs:
-  - View Job Details
   - Filter Jobs by runner / target ...
   - Update on events containing job information
 - Events:
