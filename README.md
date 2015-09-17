@@ -68,16 +68,3 @@ or
 * start webpack bundler `npm run watch`.
 * `vagrant up` then connect to 192.168.42.42:8000 as test / molten.
 
-### ToDo
-- Special format for highstate output
-- Styling
-- Minions:
-  - Fetch pillar
-  - Trigger highstate and inspect output
-  - Reload all/single minon(s)
-- Jobs:
-  - Filter Jobs by runner / target ...
-  - Update on events containing job information
-- Events:
-  - Scroll to end if end is previous position
-- Use shouldComponentUpdate in Events Tab
