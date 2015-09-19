@@ -110,6 +110,15 @@ module.exports = {
         );
     },
 
+    loadJobResult(jid) {
+        this.dispatch(Constants.GET_JOB, jid);
+        REST.getJob({
+                basepath: API_URL,
+                jid
+            }, job => this.dispatch(Constants.GET_JOB_SUCCESS, job),
+            error => this.dispatch(Constants.GET_JOB_FAIL, error));
+    },
+
     transition: function (path, params) {
         this.dispatch(Constants.TRANSITION, { path: path, params: params });
     }

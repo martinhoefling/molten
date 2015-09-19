@@ -1,7 +1,9 @@
 var React = require('react');
 var Paper = require('material-ui/lib/paper');
+var Link = require('react-router').Link;
 var classnames = require('classnames');
 var moment = require('moment');
+
 var CollapsedStructuredElement = require('elements/CollapsedStructuredElement');
 
 var rowStyles = require('components/RowLayout.less');
@@ -22,7 +24,7 @@ var JobSummary = React.createClass({
     renderHeader() {
         return (
             <div className={classnames(styles.header)}>
-                {this.props.job.id}
+                <Link to={`/job/${this.props.job.jid}`}>{this.props.job.jid}</Link>
             </div>
         );
     },
@@ -32,7 +34,7 @@ var JobSummary = React.createClass({
             <div>
                 <CollapsedStructuredElement
                     collapseOnly={['return']}
-                    element={_.omit(this.props.job, ['id'])}/>
+                    element={this.props.job}/>
             </div>
             );
     },

@@ -90,9 +90,9 @@ var ClientConfiguration = React.createClass({
         var disabled = this.getDisabled(this.props.currentClient);
         return (
             <Checkbox
-                name="Async"
-                value="async"
-                label="Async"
+                name='Async'
+                value='async'
+                label='Async'
                 style={{
                     top: '-12px',
                     left: '40px',

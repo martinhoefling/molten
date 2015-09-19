@@ -50,19 +50,19 @@ var JobsTab = React.createClass({
 
         var filteredJobs = this.state.jobs.filter(function (job) {
             if (fromStr) {
-                if (job.id < fromStr) {
+                if (job.jid < fromStr) {
                     return false;
                 }
             }
             if (toStr) {
-                if (job.id > toStr) {
+                if (job.jid > toStr) {
                     return false;
                 }
             }
             return true;
         });
 
-        return filteredJobs.map(job => <JobSummary key={job.id} job={job}/>);
+        return filteredJobs.map(job => <JobSummary key={job.jid} job={job}/>);
     },
 
     renderHeader() {
