@@ -40,9 +40,9 @@ var DetailedJobTab = React.createClass({
         return (
             <div className={styles.jobSummary}>
                 <div className={styles.informationHeader}>Job information for {this.state.job.jid}:</div>
-                <StructuredElement element={this.state.job}/>
+                <StructuredElement downloadEnabled element={this.state.job}/>
                 <div className={styles.resultsHeader}>Results of {this.state.job.jid}:</div>
-                <StructuredElement element={this.state.result || {} }/>
+                <StructuredElement downloadEnabled element={this.state.result || {} }/>
             </div>
         );
     },

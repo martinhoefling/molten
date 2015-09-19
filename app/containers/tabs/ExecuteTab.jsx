@@ -118,6 +118,7 @@ var ExecuteTab = React.createClass({
                 </div>
                 <CommandDisplay
                     command={result}
+                    downloadEnabled
                     />
             </div>
         );

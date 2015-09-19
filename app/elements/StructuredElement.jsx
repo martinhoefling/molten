@@ -1,11 +1,13 @@
 var React = require('react');
 var classnames = require('classnames');
+var RaisedButton = require('material-ui/lib/raised-button');
 
 var styles = require('./StructuredElement.less');
 
 var StructuredElement = React.createClass({
     propTypes: {
         element: React.PropTypes.any.isRequired,
+        downloadEnabled: React.PropTypes.string,
         subComponent: React.PropTypes.func,
         arraysInitiallyCollapsed: React.PropTypes.bool,
         initiallyCollapsedItems: React.PropTypes.array
@@ -149,9 +151,33 @@ var StructuredElement = React.createClass({
         }
     },
 
+    renderDownload(element) {
+        if (this.props.downloadEnabled) {
+            return (
+                <div className={styles.downloadPlacement}>
+                    <div className={styles.download}>
+                        <RaisedButton
+                            secondary={true}
+                            label='json'
+                            onClick={this.downloadElement}
+                        />
+                    </div>
+                </div>
+            );
+        }
+        return null;
+    },
+
+    downloadElement() {
+        var jsonData = 'data:application/octet-stream;charset=utf-8,' +
+            encodeURIComponent(JSON.stringify(this.props.element, null, 2));
+        window.open(jsonData);
+    },
+
     render() {
         return (
             <div className={styles.this}>
+                {this.renderDownload(this.props.element)}
                 {this.renderItem(this.props.element)}
             </div>
         );

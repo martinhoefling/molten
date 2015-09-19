@@ -68,6 +68,7 @@ var Event = React.createClass({
         return (
             <div>
                 <CollapsedStructuredElement
+                    downloadEnabled
                     collapseOnly={['return']}
                     element={this.props.event.data}/>
             </div>

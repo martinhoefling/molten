@@ -12,14 +12,15 @@ var CommandDisplay = React.createClass({
             React.PropTypes.array,
             React.PropTypes.object,
             React.PropTypes.string
-        ).isRequired
+        ).isRequired,
+        downloadEnabled: React.PropTypes.string
     },
 
     render() {
         return (
             <Paper className={classnames(rowStyles.this, styles.this)} zDepth={2}>
                 <div className={styles.content}>
-                    <StructuredElement element={this.props.command} />
+                    <StructuredElement element={this.props.command} downloadEnabled={this.props.downloadEnabled} />
                 </div>
             </Paper>
         );
