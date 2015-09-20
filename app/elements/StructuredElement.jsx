@@ -1,8 +1,11 @@
 var React = require('react');
 var classnames = require('classnames');
 var RaisedButton = require('material-ui/lib/raised-button');
+var Link = require('react-router').Link;
 
 var styles = require('./StructuredElement.less');
+
+var JID_REGEX = /^\d{20}$/;
 
 var StructuredElement = React.createClass({
     propTypes: {
@@ -129,9 +132,7 @@ var StructuredElement = React.createClass({
     renderPrimitive(primitive) {
         switch (typeof primitive){
             case 'string':
-                return (
-                    <div className='primitive-string'>{primitive}</div>
-                );
+                return this.renderString(primitive);
             case 'boolean':
                 return (
                     <div className='primitive-boolean'>{primitive ? 'True' : 'False'}</div>
@@ -149,6 +150,15 @@ var StructuredElement = React.createClass({
                     <div>Unknown primitive {typeof primitive}</div>
                 );
         }
+    },
+
+    renderString(value) {
+        if (value.match(JID_REGEX)) {
+            return <Link to={`/job/${value}`}>{value}</Link>;
+        }
+        return (
+            <div className='primitive-string'>{value}</div>
+        );
     },
 
     renderDownload(element) {
