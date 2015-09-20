@@ -1,17 +1,23 @@
 var React = require('react');
 var TextField = require('material-ui/lib/text-field');
 var FlatButton = require('material-ui/lib/flat-button');
+var Link = require('react-router').Link;
 
 var Fluxxor = require('fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
+var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var styles = require('./Login.less');
 
 var Login = React.createClass({
-    mixins: [FluxMixin],
+    mixins: [FluxMixin, StoreWatchMixin('SessionStore')],
 
-    propTypes: {
-        errorMessage: React.PropTypes.string.isRequired
+    getStateFromFlux: function () {
+        var flux = this.getFlux();
+        return {
+            currentSession: flux.store('SessionStore').getSession(),
+            sessionErrorMessage: flux.store('SessionStore').getErrorMessage()
+        };
     },
 
     getInitialState() {
@@ -45,7 +51,7 @@ var Login = React.createClass({
         this.refs.passwordTextField.focus();
     },
 
-    render() {
+    renderLogin() {
         return (
             <div className={styles.this}>
                 <TextField
@@ -66,7 +72,7 @@ var Login = React.createClass({
                     />
                 <span
                     className={styles.errorMessage}>
-                    {this.state.firstLogin ? '' : this.props.errorMessage}
+                    {this.state.firstLogin ? '' : this.state.sessionErrorMessage}
                 </span>
                 <FlatButton label='Login'
                     onClick={this.login}
@@ -74,6 +80,17 @@ var Login = React.createClass({
                     />
             </div>
         );
+    },
+
+    render() {
+        if (this.state.currentSession) {
+            return (
+                <div className={styles.this}>
+                    already logged in! <Link to='/'>Continue here</Link>
+                </div>
+            );
+        }
+        return this.renderLogin();
     }
 });
 

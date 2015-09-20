@@ -41,7 +41,7 @@ var TabHeaders = React.createClass({
         }, this);
 
         var path = this.props.location.pathname.substring(1),
-            index = Math.max(0, _.findIndex(TABS, tab => tab.indexOf(path)));
+            index = Math.max(0, _.findIndex(TABS, tab => tab.toLowerCase().indexOf(path) === 0));
 
         return (
             <Tabs initialSelectedIndex={index}>
@@ -56,8 +56,10 @@ var TabHeaders = React.createClass({
 
     render() {
         return (
-            <div>
-                {this.renderTabs()}
+            <div className={styles.this}>
+                <div className={styles.tabs}>
+                    {this.renderTabs()}
+                </div>
                 <div className={styles.logout}>
                 <MaterialButton
                     iconClass='cancel'
