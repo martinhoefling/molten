@@ -9,24 +9,11 @@ var FluxMixin = Fluxxor.FluxMixin(React);
 
 var styles = require('./TabHeaders.less');
 
-var TABS = ['Execute', 'Jobs', 'Minions', 'Events', 'Settings'];
+var TABS = ['Execute', 'Job', 'Minion', 'Event', 'Settings'];
 
-var TabComponent = React.createClass({
-    contextTypes: {
-        router: React.PropTypes.func
-    },
-
-    propTypes: {
-        session: React.PropTypes.object.isRequired
-    },
+var TabHeaders = React.createClass({
 
     mixins: [FluxMixin],
-
-    getDefaultProps() {
-        return {
-            initialTabIndex: 0
-        };
-    },
 
     getInitialState() {
         return {
@@ -53,19 +40,18 @@ var TabComponent = React.createClass({
             );
         }, this);
 
-        var initialTabName = this.context.router.getCurrentRoutes()[1].name,
-            tabNames = TABS.map(name => name.toLowerCase()),
-            initialTabIndex = tabNames.indexOf(initialTabName);
+        var path = this.props.location.pathname.substring(1),
+            index = Math.max(0, _.findIndex(TABS, tab => tab.indexOf(path)));
 
         return (
-            <Tabs initialSelectedIndex={initialTabIndex}>
+            <Tabs initialSelectedIndex={index}>
                 {tabs}
             </Tabs>
         );
     },
 
     _onActive(tab) {
-        this.getFlux().actions.transition(tab.props.route);
+        this.getFlux().actions.transition('/' + tab.props.route);
     },
 
     render() {
@@ -82,4 +68,4 @@ var TabComponent = React.createClass({
     }
 });
 
-module.exports = TabComponent;
+module.exports = TabHeaders;

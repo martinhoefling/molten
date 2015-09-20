@@ -1,6 +1,5 @@
 var React = require('react');
 var Fluxxor = require('fluxxor');
-var moment = require('moment');
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 var LoadingIndicator = require('elements/LoadingIndicator');

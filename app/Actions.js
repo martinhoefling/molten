@@ -53,7 +53,6 @@ function _loadJobs() {
 
 function _sessionSuccess(session) {
     this.dispatch(Constants.SET_SESSION_SUCCESS, session || {});
-    this.dispatch(Constants.TRANSITION, { path: '/' });
     _getCapabilities.call(this);
     _getDocumentation.call(this);
     _listenForEvents.call(this);
@@ -119,7 +118,7 @@ module.exports = {
             error => this.dispatch(Constants.GET_JOB_FAIL, error));
     },
 
-    transition: function (path, params) {
-        this.dispatch(Constants.TRANSITION, { path: path, params: params });
+    transition: function (path) {
+        this.dispatch(Constants.TRANSITION, path);
     }
 };

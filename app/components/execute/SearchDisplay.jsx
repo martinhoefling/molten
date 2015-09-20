@@ -4,14 +4,12 @@ var _ = require('lodash');
 var classnames = require('classnames');
 var Paper = require('material-ui/lib/paper');
 
-var StructuredElement = require('elements/StructuredElement');
-
 var rowStyles = require('components/RowLayout.less');
 var styles = require('./SearchDisplay.less');
 
 var SearchDisplay = React.createClass({
     propTypes: {
-        search: React.PropTypes.oneOfType(React.PropTypes.string, React.PropTypes.object).isRequired,
+        search: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object]).isRequired,
         onFunctionSelect: React.PropTypes.func
     },
 

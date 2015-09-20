@@ -8,12 +8,12 @@ var styles = require('./CommandDisplay.less');
 
 var CommandDisplay = React.createClass({
     propTypes: {
-        command: React.PropTypes.oneOfType(
+        command: React.PropTypes.oneOfType([
             React.PropTypes.array,
             React.PropTypes.object,
             React.PropTypes.string
-        ).isRequired,
-        downloadEnabled: React.PropTypes.string
+        ]).isRequired,
+        downloadEnabled: React.PropTypes.bool
     },
 
     render() {

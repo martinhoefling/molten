@@ -1,10 +1,9 @@
 var Fluxxor = require('fluxxor');
 var Constants = require('Constants');
-var Actions = require('Actions');
 
 var RouteStore = Fluxxor.createStore({
     initialize: function (options) {
-        this.router = options.router;
+        this.history = options.history;
 
         this.bindActions(
             Constants.TRANSITION, this.routeTransition,
@@ -21,14 +20,11 @@ var RouteStore = Fluxxor.createStore({
     },
 
     toLogin() {
-        this.router.transitionTo('/login');
+        this.history.pushState(null, '/login');
     },
 
-    routeTransition: function (payload) {
-        var path = payload.path,
-            params = payload.params;
-
-        this.router.transitionTo(path, params);
+    routeTransition: function (path) {
+        this.history.pushState(null, path);
     }
 });
 

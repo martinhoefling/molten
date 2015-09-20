@@ -10,7 +10,7 @@ var JID_REGEX = /^\d{20}$/;
 var StructuredElement = React.createClass({
     propTypes: {
         element: React.PropTypes.any.isRequired,
-        downloadEnabled: React.PropTypes.string,
+        downloadEnabled: React.PropTypes.bool,
         subComponent: React.PropTypes.func,
         arraysInitiallyCollapsed: React.PropTypes.bool,
         initiallyCollapsedItems: React.PropTypes.array
@@ -161,7 +161,7 @@ var StructuredElement = React.createClass({
         );
     },
 
-    renderDownload(element) {
+    renderDownload() {
         if (this.props.downloadEnabled) {
             return (
                 <div className={styles.downloadPlacement}>
@@ -187,7 +187,7 @@ var StructuredElement = React.createClass({
     render() {
         return (
             <div className={styles.this}>
-                {this.renderDownload(this.props.element)}
+                {this.renderDownload()}
                 {this.renderItem(this.props.element)}
             </div>
         );

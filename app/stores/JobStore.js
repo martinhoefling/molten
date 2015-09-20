@@ -52,6 +52,7 @@ var JobStore = Fluxxor.createStore({
     },
 
     serverEventReceived(event) {
+        console.log('implement event handling' + event);
     },
 
     getJobs() {

@@ -8,8 +8,8 @@ var injectTapEventPlugin = require('react-tap-event-plugin');
 injectTapEventPlugin();
 
 var Fluxxor = require('fluxxor');
+var actions = require('Actions');
 
-var Main = require('containers/Main');
 var SessionStore = require('stores/SessionStore');
 var CapabilityStore = require('stores/CapabilityStore');
 var CommandStore = require('stores/CommandStore');
@@ -19,9 +19,9 @@ var DocumentationStore = require('stores/DocumentationStore');
 var RoutingStore = require('stores/RoutingStore');
 var MinionStore = require('stores/MinionStore');
 
-var Router = require('react-router');
-var routes = require('Routes');
-var router = Router.create({ routes: routes, location: Router.HistoryLocation });
+var Router = require('react-router').Router;
+var createBrowserHistory = require('history/lib/createBrowserHistory');
+var history = createBrowserHistory();
 
 var stores = {
     SessionStore: new SessionStore(),
@@ -31,10 +31,9 @@ var stores = {
     EventStore: new EventStore(),
     JobStore: new JobStore(),
     MinionStore: new MinionStore(),
-    RoutingStore: new RoutingStore({ router: router })
+    RoutingStore: new RoutingStore({ history })
 };
 
-var actions = require('Actions');
 var flux = new Fluxxor.Flux(stores, actions);
 window.flux = flux;
 
@@ -49,9 +48,30 @@ window.React = React;
 
 flux.actions.testSessionStatus();
 
-router.run(function (Handler) {
-    React.render(
-        <Handler flux={flux} />,
-        document.getElementById('content')
-    );
-});
+var routes = require('Routes');
+var ThemeManager = require('material-ui/lib/styles/theme-manager')();
+
+function createElement(Component, props) {
+    var WrapperComponent = React.createClass({
+        childContextTypes: {
+            muiTheme: React.PropTypes.object.isRequired
+        },
+
+        getChildContext: function () {
+            return {
+                muiTheme: ThemeManager.getCurrentTheme()
+            };
+        },
+
+        render() {
+            return <Component flux={flux} {...props}/>;
+        }
+    });
+
+    return <WrapperComponent/>;
+}
+
+React.render(
+    <Router routes={routes} history={history} createElement={createElement}/>,
+    document.getElementById('content')
+);

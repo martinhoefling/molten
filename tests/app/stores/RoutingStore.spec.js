@@ -2,15 +2,15 @@ jest.dontMock('stores/RoutingStore');
 var RoutingStore = require('stores/RoutingStore');
 
 describe('RoutingStore', function() {
-    var store, routerMock;
+    var store, historyMock;
     beforeEach(function () {
-        routerMock = jasmine.createSpyObj('router', ['transitionTo']);
-        store = new RoutingStore({ router: routerMock });
+        historyMock = jasmine.createSpyObj('history', ['pushState']);
+        store = new RoutingStore({ history: historyMock });
     });
 
     it('routes transitions', function() {
-        var payload = { path: 'somepath', params: 'someparam' };
-        store.routeTransition(payload);
-        expect(routerMock.transitionTo).toHaveBeenCalledWith('somepath', 'someparam');
+        var path = 'somepath?somequery';
+        store.routeTransition(path);
+        expect(historyMock.pushState).toHaveBeenCalledWith(null, 'somepath?somequery');
     });
 });

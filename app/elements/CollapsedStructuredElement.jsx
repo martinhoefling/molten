@@ -5,7 +5,7 @@ var StructuredElement = require('elements/StructuredElement');
 var CollapsedStructuredElement = React.createClass({
     propTypes: {
         element: React.PropTypes.any.isRequired,
-        downloadEnabled: React.PropTypes.string,
+        downloadEnabled: React.PropTypes.bool,
         collapseOnly: React.PropTypes.array,
         arraysCollapsed: React.PropTypes.bool
     },

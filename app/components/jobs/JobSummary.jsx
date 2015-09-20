@@ -2,7 +2,6 @@ var React = require('react');
 var Paper = require('material-ui/lib/paper');
 var Link = require('react-router').Link;
 var classnames = require('classnames');
-var moment = require('moment');
 
 var CollapsedStructuredElement = require('elements/CollapsedStructuredElement');
 
