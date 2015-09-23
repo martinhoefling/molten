@@ -48,6 +48,7 @@ window.React = React;
 
 var routes = require('Routes');
 var ThemeManager = require('material-ui/lib/styles/theme-manager')();
+ThemeManager.setPalette(require('Palette'));
 
 function createElement(Component, props) {
     var WrapperComponent = React.createClass({
