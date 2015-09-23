@@ -60,7 +60,7 @@ var JobStore = Fluxxor.createStore({
     },
 
     getJobInternals(jid) {
-        return _.defaultsDeep(this.jobs[jid], { internal: { fetching: false, result: null } }).internal;
+        return _.defaultsDeep(this.jobs[jid] || {}, { internal: { fetching: false, result: null } }).internal;
     },
 
     getJobResult(jid) {
