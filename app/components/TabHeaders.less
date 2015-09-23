@@ -1,18 +1,30 @@
 :local(.this) {
     min-height: 48px;
+    display: flex;
 }
 
 :local(.tabs) {
-    left: 0;
-    position: fixed;
-    top: 0;
-    right: 0;
+    flex-grow: 1;
     z-index: 100;
 }
 
-:local(.logout) {
-    right: 0;
-    position: absolute;
-    top: 0;
+:local(.buttons) {
+    background-color: #00bcd4;
     z-index: 100;
+    display: flex;
+    span.material-icons {
+        color: white;
+        opacity: 0.6;
+        &:hover {
+            opacity: 1.0;
+        }
+    }
+}
+
+:local(.github) {
+    height: 24px;
+    width: 24px;
+    vertical-align: middle;
+    padding: 12px;
+    color: white;
 }

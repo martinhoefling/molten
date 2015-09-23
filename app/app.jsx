@@ -46,8 +46,6 @@ flux.on('dispatch', function (type, payload) {
 // Needed for React Developer Tools
 window.React = React;
 
-flux.actions.testSessionStatus();
-
 var routes = require('Routes');
 var ThemeManager = require('material-ui/lib/styles/theme-manager')();
 

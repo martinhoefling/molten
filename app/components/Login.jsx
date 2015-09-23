@@ -2,6 +2,7 @@ var React = require('react');
 var TextField = require('material-ui/lib/text-field');
 var FlatButton = require('material-ui/lib/flat-button');
 var Link = require('react-router').Link;
+var History = require('react-router').History;
 
 var Fluxxor = require('fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
@@ -10,7 +11,7 @@ var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 var styles = require('./Login.less');
 
 var Login = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin('SessionStore')],
+    mixins: [FluxMixin, History, StoreWatchMixin('SessionStore')],
 
     getStateFromFlux: function () {
         var flux = this.getFlux();
@@ -26,6 +27,12 @@ var Login = React.createClass({
             password: '',
             firstLogin: true
         };
+    },
+
+    componentWillUpdate(nextProps, nextState) {
+        if (nextState.currentSession) {
+            this.history.pushState(null, '/');
+        }
     },
 
     onUsernameChange(event) {

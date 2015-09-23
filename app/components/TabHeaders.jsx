@@ -6,6 +6,7 @@ var MaterialButton = require('../elements/MaterialButton');
 
 var Fluxxor = require('fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
+var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var styles = require('./TabHeaders.less');
 
@@ -13,12 +14,25 @@ var TABS = ['Execute', 'Job', 'Minion', 'Event', 'Settings'];
 
 var TabHeaders = React.createClass({
 
-    mixins: [FluxMixin],
+    mixins: [FluxMixin, StoreWatchMixin('SessionStore')],
 
     getInitialState() {
         return {
             activeTab: 'execution'
         };
+    },
+
+    getStateFromFlux: function () {
+        var flux = this.getFlux();
+        return {
+            currentSession: flux.store('SessionStore').getSession()
+        };
+    },
+
+    componentWillMount() {
+        if (!this.state.currentSession) {
+            this.getFlux().actions.testSessionStatus();
+        }
     },
 
     toggleMenu() {
@@ -60,10 +74,14 @@ var TabHeaders = React.createClass({
                 <div className={styles.tabs}>
                     {this.renderTabs()}
                 </div>
-                <div className={styles.logout}>
-                <MaterialButton
-                    iconClass='cancel'
-                    onClick={this.logout}/>
+                <div className={styles.buttons}>
+                    <MaterialButton
+                        iconClass='cancel'
+                        onClick={this.logout}/>
+                    <a href='https://github.com/martinhoefling/molten'>
+                        <img className={styles.github}
+                             src='assets/github.svg'/>
+                    </a>
                 </div>
             </div>
         );
