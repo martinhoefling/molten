@@ -22,8 +22,10 @@ var SearchDisplay = React.createClass({
     renderList() {
         var rows = _.keys(this.props.search).sort().map(function (fun) {
             return (
-                <tr key={fun}>
-                    <td onClick={() => this.props.onFunctionSelect(fun)}>{fun}</td>
+                <tr className={styles.function}
+                    onClick={() => this.props.onFunctionSelect(fun)}
+                    key={fun}>
+                    <td>{fun}</td>
                     <td>{this.props.search[fun]}</td>
                 </tr>
             );

@@ -29,6 +29,10 @@ var ValidatedTextField = React.createClass({
         return this.validate(event.target.value);
     },
 
+    focus() {
+        return this.refs.textfield.focus();
+    },
+
     validate(value) {
         var valid = value.search(this.props.validationRegexp) > -1;
         if (value) {

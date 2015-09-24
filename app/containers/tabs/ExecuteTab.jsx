@@ -78,6 +78,27 @@ var ExecuteTab = React.createClass({
         );
     },
 
+    renderResult() {
+        var result = this.state.currentResult ? this.state.currentResult.return[0]: null;
+        var progress = this.getFlux().stores.CommandStore.inProgress();
+
+        if (progress) {
+            return (
+                <div className={styles.loadingIndicator}>
+                    <LoadingIndicator>
+                        job is executed, waiting for job result
+                    </LoadingIndicator>
+                </div>
+            );
+        }
+
+        return (
+            <CommandDisplay
+                command={result || 'no job result yet...'}
+                downloadEnabled
+            />);
+    },
+
     render() {
         if (!this.state.clients) {
             return (
@@ -88,8 +109,6 @@ var ExecuteTab = React.createClass({
         }
 
         var currentClient = this.getCurrentClient();
-        var result = this.state.currentResult ? this.state.currentResult.return[0] :
-            (this.getFlux().stores.CommandStore.inProgress() ? 'job submitted / in progress' : 'no results yet');
 
         return (
             <div className={tabStyle.this}>
@@ -116,10 +135,7 @@ var ExecuteTab = React.createClass({
                         onClick={this.onSubmit}
                         />
                 </div>
-                <CommandDisplay
-                    command={result}
-                    downloadEnabled
-                    />
+                {this.renderResult()}
             </div>
         );
     }

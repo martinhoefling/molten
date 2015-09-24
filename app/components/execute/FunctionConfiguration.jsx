@@ -12,6 +12,8 @@ var SearchDisplay = require('components/execute/SearchDisplay');
 var rowStyles = require('components/RowLayout.less');
 var styles = require('./FunctionConfiguration.less');
 
+var FUNC_WITH_TRAILING_WS_REGEX = /([\w\.]+)(\s+)/;
+
 var RunnerConfiguration = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin('DocumentationStore')],
 
@@ -62,6 +64,10 @@ var RunnerConfiguration = React.createClass({
 
     onFunctionChange(event, valid) {
         this.setState({ functionInput: event.target.value });
+        if (event.target.value.match(FUNC_WITH_TRAILING_WS_REGEX)) {
+            event.target.value = event.target.value.match(FUNC_WITH_TRAILING_WS_REGEX)[1];
+            this.refs.argumentInput.focus();
+        }
         this.onValueChanged('fun', event, valid);
     },
 
@@ -101,6 +107,7 @@ var RunnerConfiguration = React.createClass({
                     defaultValue={this.props.config.fun}
                     />
                 <ValidatedTextField
+                    ref='argumentInput'
                     hintText='Arguments as list'
                     floatingLabelText='Arguments'
                     multiLine={true}

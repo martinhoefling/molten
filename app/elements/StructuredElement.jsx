@@ -167,6 +167,7 @@ var StructuredElement = React.createClass({
                 <div className={styles.downloadPlacement}>
                     <div className={styles.download}>
                         <RaisedButton
+                            title='download as json'
                             secondary={true}
                             label='json'
                             onClick={this.downloadElement}

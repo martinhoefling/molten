@@ -76,10 +76,12 @@ var TabHeaders = React.createClass({
                 </div>
                 <div className={styles.buttons}>
                     <MaterialButton
+                        title='logout'
                         iconClass='cancel'
                         onClick={this.logout}/>
                     <a href='https://github.com/martinhoefling/molten'>
-                        <img className={styles.github}
+                        <img title='open on github'
+                             className={styles.github}
                              src='assets/github.svg'/>
                     </a>
                 </div>

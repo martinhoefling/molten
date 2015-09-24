@@ -62,7 +62,17 @@ var JobsTab = React.createClass({
             return true;
         });
 
-        return filteredJobs.map(job => <JobSummary key={job.jid} job={job}/>);
+        function compareJIDs(a, b) {
+            if (a.jid < b.jid)
+                return -1;
+            if (a.jid > b.jid)
+                return 1;
+            return 0;
+        }
+
+        var sortedJobs = filteredJobs.sort(compareJIDs);
+
+        return sortedJobs.map(job => <JobSummary key={job.jid} job={job}/>);
     },
 
     renderHeader() {
