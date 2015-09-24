@@ -66,6 +66,7 @@ var RunnerConfiguration = React.createClass({
         this.setState({ functionInput: event.target.value });
         if (event.target.value.match(FUNC_WITH_TRAILING_WS_REGEX)) {
             event.target.value = event.target.value.match(FUNC_WITH_TRAILING_WS_REGEX)[1];
+            this.setState({ functionInput: event.target.value });
             this.refs.argumentInput.focus();
         }
         this.onValueChanged('fun', event, valid);
