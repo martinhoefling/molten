@@ -1,9 +1,9 @@
 var Fluxxor = require('fluxxor');
 var Constants = require('Constants');
 
-var JOB_RET_REGEX=/^salt\/run\/\d{20}\/ret$/;
-var JOB_RET_MINION_REGEX=/^salt\/run\/\d{20}\/ret\/(\w+)$/;
-
+var JOB_RET_REGEX = /^salt\/run\/(\d{20})\/ret$/;
+var JOB_RET_MINION_REGEX = /^salt\/job\/(\d{20})\/ret\/(\w+)$/;
+var JOB_NEW_REGEX = /^salt\/job\/(\d{20})\/new$/;
 
 function processRawJob(info, result, previousJob) {
     var job = previousJob || { internal: { fetching: false, result: {} } };
@@ -13,10 +13,13 @@ function processRawJob(info, result, previousJob) {
     }
 
     // Assigning info and result
+    console.log('assigning info ', info, ' to ', job);
     _.assign(job, info);
     if (result) {
+        console.log('assigning result ', info, ' to ', job);
         _.assign(job.internal.result, result);
     }
+    console.log(job);
     return job;
 }
 
@@ -74,12 +77,21 @@ var JobStore = Fluxxor.createStore({
 
     serverEventReceived(rawEvent) {
         var parsedRawData = JSON.parse(rawEvent.data),
-            data;
+            data = parsedRawData.data,
+            jid, minion;
+        console.log(parsedRawData.tag);
         if (parsedRawData.tag.match(JOB_RET_REGEX)) {
-            data = parsedRawData.data;
-            //this.jobs[data.jid] = data;
-        } else if (parsedRawData.tag.match(JOB_RET_MINION_REGEX)) {
+            jid = parsedRawData.tag.match(JOB_RET_REGEX)[1];
 
+            this.jobs[jid] = processRawJob(_.omit(data, ['return']), data.return, this.jobs[jid]);
+        } else if (parsedRawData.tag.match(JOB_RET_MINION_REGEX)) {
+            [jid, minion] = parsedRawData.tag.match(JOB_RET_MINION_REGEX).splice(1);
+            this.jobs[jid] = processRawJob(_.omit(data, ['return']), { [minion]: data.return }, this.jobs[jid]);
+        } else if (parsedRawData.tag.match(JOB_NEW_REGEX)) {
+            jid = parsedRawData.tag.match(JOB_NEW_REGEX)[1];
+            this.jobs[jid] = processRawJob(data, null, this.jobs[jid]);
+        } else {
+            console.log('not a job event  ', rawEvent);
         }
     },
 
