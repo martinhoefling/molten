@@ -11,7 +11,8 @@ var CommandDisplay = React.createClass({
         command: React.PropTypes.oneOfType([
             React.PropTypes.array,
             React.PropTypes.object,
-            React.PropTypes.string
+            React.PropTypes.string,
+            React.PropTypes.bool
         ]).isRequired,
         downloadEnabled: React.PropTypes.bool
     },

@@ -1,6 +1,25 @@
 var Fluxxor = require('fluxxor');
 var Constants = require('Constants');
 
+var JOB_RET_REGEX=/^salt\/run\/\d{20}\/ret$/;
+var JOB_RET_MINION_REGEX=/^salt\/run\/\d{20}\/ret\/(\w+)$/;
+
+
+function processRawJob(info, result, previousJob) {
+    var job = previousJob || { internal: { fetching: false, result: {} } };
+
+    if (info['Result'] && result) {
+        delete info['Result'];
+    }
+
+    // Assigning info and result
+    _.assign(job, info);
+    if (result) {
+        _.assign(job.internal.result, result);
+    }
+    return job;
+}
+
 var JobStore = Fluxxor.createStore({
     initialize() {
         this.jobs = {};
@@ -20,10 +39,7 @@ var JobStore = Fluxxor.createStore({
     },
 
     fetchingJobStarted(jid) {
-        var job = this.jobs[jid] || {};
-        if (!job.internal) {
-            job.internal = {};
-        }
+        var job = this.jobs[jid] || { internal: { fetching: false, result: {} } };
         job.internal.fetching = true;
         this.jobs[jid] = job;
         this.emit('change');
@@ -34,41 +50,49 @@ var JobStore = Fluxxor.createStore({
     },
 
     fetchingJobInProgress(jid) {
-        return !!(this.jobs[jid] && this.jobs[jid].internal && this.jobs[jid].internal.fetching);
+        return !!(this.jobs[jid] && this.jobs[jid].internal.fetching);
     },
 
     jobsLoaded(rawJobInfo) {
-        _.assign(this.jobs, rawJobInfo.return[0]);
+        var job;
         this.fetchingJobs = false;
+        Object.keys(rawJobInfo.return[0]).forEach(function (key) {
+            job = rawJobInfo.return[0][key];
+            job['jid'] = key;
+            this.jobs[key] = processRawJob(job, null, this.jobs[key]);
+        }.bind(this));
         this.emit('change');
     },
 
     jobLoaded(rawJobInfo) {
         var jobInfo = rawJobInfo.info[0];
-        var result = rawJobInfo.return[0];
-        this.jobs[jobInfo.jid] = _.omit(jobInfo, ['Result']);
-        this.jobs[jobInfo.jid].internal = { result };
+        var result = rawJobInfo.return[0].data;
+        this.jobs[jobInfo.jid] = processRawJob(jobInfo, result, this.jobs[jobInfo.jid]);
+        this.jobs[jobInfo.jid].internal.fetching = false;
         this.emit('change');
     },
 
-    serverEventReceived(event) {
-        console.log('implement event handling' + event);
+    serverEventReceived(rawEvent) {
+        var parsedRawData = JSON.parse(rawEvent.data),
+            data;
+        if (parsedRawData.tag.match(JOB_RET_REGEX)) {
+            data = parsedRawData.data;
+            //this.jobs[data.jid] = data;
+        } else if (parsedRawData.tag.match(JOB_RET_MINION_REGEX)) {
+
+        }
     },
 
     getJobs() {
         return _.keys(this.jobs).map(key => (this.getJob(key)));
     },
 
-    getJobInternals(jid) {
-        return _.defaultsDeep(this.jobs[jid] || {}, { internal: { fetching: false, result: null } }).internal;
-    },
-
     getJobResult(jid) {
-        return this.getJobInternals(jid).result;
+        return this.jobs[jid].internal.result;
     },
 
     getJob(jid) {
-        return _.assign(_.omit(this.jobs[jid], ['internal']), { jid: jid });
+        return _.omit(this.jobs[jid], ['internal']);
     }
 });
 

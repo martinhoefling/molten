@@ -1,4 +1,5 @@
 var React = require('react');
+var _ = require('lodash');
 var Fluxxor = require('fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -30,7 +31,7 @@ var DetailedJobTab = React.createClass({
     },
 
     componentWillMount() {
-        if (!this.state.result) {
+        if (_.isEmpty(this.state.result)) {
             this.getFlux().actions.loadJobResult(this.props.params.jid);
         }
     },
@@ -41,7 +42,7 @@ var DetailedJobTab = React.createClass({
                 <div className={styles.informationHeader}>Job information for {this.state.job.jid}:</div>
                 <StructuredElement downloadEnabled element={this.state.job}/>
                 <div className={styles.resultsHeader}>Results of {this.state.job.jid}:</div>
-                <StructuredElement downloadEnabled element={this.state.result || {} }/>
+                <StructuredElement downloadEnabled element={this.state.result}/>
             </div>
         );
     },

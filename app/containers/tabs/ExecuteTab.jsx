@@ -94,7 +94,7 @@ var ExecuteTab = React.createClass({
 
         return (
             <CommandDisplay
-                command={result || 'no job result yet...'}
+                command={result === null ? 'no job result yet...' : result}
                 downloadEnabled
             />);
     },
