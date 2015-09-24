@@ -79,7 +79,7 @@ var ExecuteTab = React.createClass({
     },
 
     renderResult() {
-        var result = this.state.currentResult ? this.state.currentResult.return[0]: null;
+        var result = this.state.currentResult ? this.state.currentResult.return[0] : null;
         var progress = this.getFlux().stores.CommandStore.inProgress();
 
         if (progress) {
