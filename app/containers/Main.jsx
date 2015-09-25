@@ -7,7 +7,6 @@ var Main = React.createClass({
             <div className={styles.this}>
                 {this.props.children['top']}
                 {this.props.children['main']}
-                {this.props.children['bottom']}
             </div>
         );
     }
