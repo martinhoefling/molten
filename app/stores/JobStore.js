@@ -12,6 +12,7 @@ var EVENT_KEY_MAP = {
     user: 'User',
     _stamp: 'StartTime',
     arg: 'Arguments',
+    fun_args: 'Arguments',
     minions: 'Minions'
 };
 
@@ -102,7 +103,7 @@ var JobStore = Fluxxor.createStore({
             this.jobs[jid] = processRawJob(_.omit(data, ['return']), data.return, this.jobs[jid]);
         } else if (parsedRawData.tag.match(JOB_RET_MINION_REGEX)) {
             [jid, minion] = parsedRawData.tag.match(JOB_RET_MINION_REGEX).splice(1);
-            this.jobs[jid] = processRawJob(_.omit(data, ['return']), { [minion]: data.return }, this.jobs[jid]);
+            this.jobs[jid] = processRawJob(_.omit(data, ['return', 'id']), { [minion]: data.return }, this.jobs[jid]);
         } else if (parsedRawData.tag.match(JOB_NEW_REGEX)) {
             jid = parsedRawData.tag.match(JOB_NEW_REGEX)[1];
             this.jobs[jid] = processRawJob(data, null, this.jobs[jid]);
