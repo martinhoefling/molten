@@ -5,12 +5,29 @@ var JOB_RET_REGEX = /^salt\/run\/(\d{20})\/ret$/;
 var JOB_RET_MINION_REGEX = /^salt\/job\/(\d{20})\/ret\/(\w+)$/;
 var JOB_NEW_REGEX = /^salt\/job\/(\d{20})\/new$/;
 
+var EVENT_KEY_MAP = {
+    tgt_type: 'Target-type',
+    fun: 'Function',
+    tgt: 'Target',
+    user: 'User',
+    _stamp: 'StartTime',
+    arg: 'Arguments',
+    minions: 'Minions'
+};
+
 function processRawJob(info, result, previousJob) {
     var job = previousJob || { internal: { fetching: false, result: {} } };
 
     if (info['Result'] && result) {
         delete info['Result'];
     }
+
+    Object.keys(info).forEach(function (key) {
+        if (EVENT_KEY_MAP[key]) {
+            info[EVENT_KEY_MAP[key]] = info[key];
+            delete info[key];
+        }
+    });
 
     // Assigning info and result
     console.log('assigning info ', info, ' to ', job);
@@ -79,7 +96,6 @@ var JobStore = Fluxxor.createStore({
         var parsedRawData = JSON.parse(rawEvent.data),
             data = parsedRawData.data,
             jid, minion;
-        console.log(parsedRawData.tag);
         if (parsedRawData.tag.match(JOB_RET_REGEX)) {
             jid = parsedRawData.tag.match(JOB_RET_REGEX)[1];
 
@@ -90,8 +106,6 @@ var JobStore = Fluxxor.createStore({
         } else if (parsedRawData.tag.match(JOB_NEW_REGEX)) {
             jid = parsedRawData.tag.match(JOB_NEW_REGEX)[1];
             this.jobs[jid] = processRawJob(data, null, this.jobs[jid]);
-        } else {
-            console.log('not a job event  ', rawEvent);
         }
     },
 
