@@ -28,7 +28,6 @@ var EventsTab = React.createClass({
                 events: this.getEvents().slice(0)
             };
         }
-        console.log('paused');
         return { events: this.state.events };
     },
 

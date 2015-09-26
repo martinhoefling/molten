@@ -35,7 +35,6 @@ function processRawJob(info, result, previousJob) {
     if (result) {
         _.assign(job.internal.result, result);
     }
-    console.log(job);
     return job;
 }
 
