@@ -4,6 +4,7 @@ var Fluxxor = require('fluxxor');
 
 var RaisedButton = require('material-ui/lib/raised-button');
 var TextField = require('material-ui/lib/text-field');
+var Toggle = require('material-ui/lib/toggle');
 
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -16,18 +17,32 @@ var style = require('./EventsTab.less');
 var EventsTab = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin('EventStore')],
 
-    getStateFromFlux() {
+    getEvents() {
         var flux = this.getFlux();
-        var events = flux.stores.EventStore.getEvents();
-        return {
-            events
-        };
+        return flux.stores.EventStore.getEvents().slice(0);
+    },
+
+    getStateFromFlux() {
+        if (!this.state || !this.state.paused) {
+            return {
+                events: this.getEvents().slice(0)
+            };
+        }
+        console.log('paused');
+        return { events: this.state.events };
     },
 
     getInitialState() {
         return {
-            tagRegexStr: ''
+            tagRegexStr: '',
+            paused: false
         };
+    },
+
+    componentWillUpdate(nextProps, nextState) {
+        if (this.state.paused && !nextState.paused) {
+            this.setState({ events: this.getEvents() });
+        }
     },
 
     clearEvents() {
@@ -43,6 +58,12 @@ var EventsTab = React.createClass({
                     primary={true}
                     onClick={this.clearEvents}
                     />
+                <Toggle
+                    name='togglePause'
+                    style={{ width: '120px' }}
+                    value='togglePause'
+                    onToggle={() => this.setState({ paused: !this.state.paused })}
+                    label='pause'/>
                 <TextField
                     hintText='Tag filter regex'
                     floatingLabelText='Tag Filter'

@@ -7,7 +7,7 @@ var tabStyle = require('./Tab.less');
 var SettingsTab = React.createClass({
     mixins: [FluxMixin],
     render() {
-        return (<div className={tabStyle.this}>settings tab</div>);
+        return (<div className={tabStyle.this}>no settings yet</div>);
     }
 });
 
