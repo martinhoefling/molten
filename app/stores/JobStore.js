@@ -31,10 +31,8 @@ function processRawJob(info, result, previousJob) {
     });
 
     // Assigning info and result
-    console.log('assigning info ', info, ' to ', job);
     _.assign(job, info);
     if (result) {
-        console.log('assigning result ', info, ' to ', job);
         _.assign(job.internal.result, result);
     }
     console.log(job);
