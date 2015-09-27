@@ -22,11 +22,12 @@ Vagrant.configure(2) do |config|
     service salt-minion start
     service salt-api start
     sleep 5
-    salt-key -y -a vagrant
+    salt-key -y -a themaster
     sleep 5
     salt-key -L
     salt '*' test.ping
     useradd test
     echo test:molten | chpasswd
+    echo "You can now connect to http://192.168.42.42:8000/molten as user test / molten"
   SHELL
 end

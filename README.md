@@ -3,14 +3,14 @@
 # Molten - Salt Rest-API WebUI
 
 Molten is a WebUI for the REST API exposed by [Salt](http://saltstack.com/).
-Aim is to make the API features accessible and to provide an easily deployable alternative to the salt cli interface.
+Molten aims to make the API features accessible and to provide an easily deployable alternative to the salt commandline cli interfaces.
 No additional service besides `salt-api` is required.
 
 ## Features:
 * Full access to all salt clients supported via Rest API.
-* Simple deployment: no intermediate Python / Node.js application required.
-* Live updates, e.g. for events, jobs, minions...
-* No page reloads, molten is a SPA (single page app).
+* Simple deployment: no additional Python / Node.js application required.
+* Live updates, e.g. for events, jobs, ...
+* As fast as the API itself. No page reloads, molten is a SPA (single page app).
 
 ## Getting Started:
 
@@ -33,7 +33,7 @@ rest_cherrypy:
   static: /dist
   static_path: /assets
   app: /dist/index.html
-  app_path: /dist
+  app_path: /molten
 ```  
 Currently, the user must have access to runner/wheel/and jobs.
 
@@ -66,5 +66,5 @@ or
 ### Setup Dev Environment
 * install vagrant / virtualbox and node or iojs.
 * start webpack bundler `npm run watch`.
-* `vagrant up` then connect to 192.168.42.42:8000 as test / molten.
+* `vagrant up` then connect to 192.168.42.42:8000/molten as user test / molten.
 

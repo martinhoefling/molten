@@ -34,7 +34,7 @@ var JobSummary = React.createClass({
                 <CollapsedStructuredElement
                     downloadEnabled
                     collapseOnly={['return']}
-                    element={this.props.job}/>re
+                    element={this.props.job}/>
             </div>
             );
     },
