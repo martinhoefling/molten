@@ -71,6 +71,12 @@
     "testDirectoryName": "app",
     "testPathDirs": [
       "<rootDir>/tests/"
-    ]
+    ],
+    "globals": {
+      "CONFIG": {
+        "APP_BASE_URL": "/molten",
+        "API_BASE_URL": ""
+      }
+    }
   }
 }
