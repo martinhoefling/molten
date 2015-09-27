@@ -2,6 +2,7 @@ var React = require('react');
 
 var Tab = require('material-ui/lib/tabs/tab');
 var Tabs = require('material-ui/lib/tabs/tabs');
+var Constants = require('Constants');
 var MaterialButton = require('../elements/MaterialButton');
 
 var Fluxxor = require('fluxxor');
@@ -65,7 +66,7 @@ var TabHeaders = React.createClass({
     },
 
     _onActive(tab) {
-        this.getFlux().actions.transition('/' + tab.props.route);
+        this.getFlux().actions.transition(Constants.URL.ROOT + tab.props.route);
     },
 
     render() {
@@ -82,7 +83,7 @@ var TabHeaders = React.createClass({
                     <a href='https://github.com/martinhoefling/molten'>
                         <img title='open on github'
                              className={styles.github}
-                             src='assets/github.svg'/>
+                             src='/assets/github.svg'/>
                     </a>
                 </div>
             </div>

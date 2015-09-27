@@ -32,12 +32,14 @@ var ExecuteTab = React.createClass({
 
     getStateFromFlux: function () {
         var flux = this.getFlux();
-        var clients = flux.stores.CapabilityStore.getClients();
+        var capabilityStore = flux.stores.CapabilityStore;
+        var clients = capabilityStore.getClients();
         var commandResult = flux.stores.CommandStore.getCommandResult();
         return {
             clients: clients,
             currentClient: clients ? clients[0] : null,
-            currentResult: commandResult
+            currentResult: commandResult,
+            clientFetchInProgress: capabilityStore.fetchInProgress()
         };
     },
 
@@ -100,11 +102,19 @@ var ExecuteTab = React.createClass({
     },
 
     render() {
-        if (!this.state.clients) {
+        if (this.state.clientFetchInProgress) {
             return (
                 <LoadingIndicator>
                     loading client configuration
                 </LoadingIndicator>
+            );
+        }
+
+        if (!this.state.clients) {
+            return (
+                <div>
+                    clients not loaded
+                </div>
             );
         }
 

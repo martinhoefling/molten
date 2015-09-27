@@ -1,13 +1,18 @@
 var Constants = require('Constants');
 var REST = require('helpers/rest');
 
-var API_URL = window.location.origin;
-
-function _getCapabilities() {
+function _getCapabilities(isRetry) {
     this.dispatch(Constants.GET_CAPABILITIES);
 
-    REST.getAPI({ basepath: API_URL },
-        capabilities => this.dispatch(Constants.GET_CAPABILITIES_SUCCESS, capabilities),
+    REST.getAPI({ basepath: CONFIG.API_BASE_URL },
+        function (capabilities) {
+            if (capabilities !== null) {
+                this.dispatch(Constants.GET_CAPABILITIES_SUCCESS, capabilities)
+            } else if (!isRetry) {
+                console.log('Capability load retry');
+                _getCapabilities.call(this, true);
+            }
+        }.bind(this),
         error => this.dispatch(Constants.GET_CAPABILITIES_FAIL, error)
     );
 }
@@ -16,7 +21,7 @@ function _getDocumentation() {
     _.values(Constants.DOCUMENTATION_TYPE).forEach(function (type) {
         this.dispatch(Constants.GET_DOCUMENTATION, type);
 
-        REST.obtainDocumentation({ basepath: API_URL, type },
+        REST.obtainDocumentation({ basepath: CONFIG.API_BASE_URL, type },
                 documentation => this.dispatch(Constants.GET_DOCUMENTATION_SUCCESS, { type, documentation }),
                 error => this.dispatch(Constants.GET_DOCUMENTATION_FAIL, error)
         );
@@ -24,7 +29,7 @@ function _getDocumentation() {
 }
 
 function _listenForEvents() {
-    var sourceURL = API_URL + '/events';
+    var sourceURL = CONFIG.API_BASE_URL + '/events';
     var source = new EventSource(sourceURL);
     source.onopen = function() {
         console.debug('server event stream opened: ' + sourceURL);
@@ -37,7 +42,7 @@ function _listenForEvents() {
 
 function _loadMinions() {
     this.dispatch(Constants.GET_MINIONS);
-    REST.getMinions({ basepath: API_URL },
+    REST.getMinions({ basepath: CONFIG.API_BASE_URL },
         minionList => this.dispatch(Constants.GET_MINIONS_SUCCESS, minionList),
         error => this.dispatch(Constants.GET_MINIONS_FAIL, error)
     );
@@ -45,7 +50,7 @@ function _loadMinions() {
 
 function _loadJobs() {
     this.dispatch(Constants.GET_JOBS);
-    REST.getJobs({ basepath: API_URL },
+    REST.getJobs({ basepath: CONFIG.API_BASE_URL },
         jobList => this.dispatch(Constants.GET_JOBS_SUCCESS, jobList),
         error => this.dispatch(Constants.GET_JOBS_FAIL, error)
     );
@@ -64,18 +69,20 @@ module.exports = {
     testSessionStatus() {
         this.dispatch(Constants.SET_SESSION);
         REST.testSession(
-            { basepath: API_URL },
+            { basepath: CONFIG.API_BASE_URL },
             session => _sessionSuccess.call(this, session),
             error => this.dispatch(Constants.SET_SESSION_FAIL, error)
         );
     },
+
+    getCapabilities: _getCapabilities,
 
     createSession(username, password) {
         this.dispatch(Constants.SET_SESSION);
 
         // TODO: Make eauth configurable
         REST.createSession({
-            basepath: API_URL,
+            basepath: CONFIG.API_BASE_URL,
             username: username,
             password: password,
             eauth: 'pam'
@@ -89,7 +96,7 @@ module.exports = {
         this.dispatch(Constants.SUBMIT_COMMAND, commandObj);
 
         REST.postAPI({
-                basepath: API_URL,
+                basepath: CONFIG.API_BASE_URL,
                 lowstate: commandObj
             }, resultObj => this.dispatch(Constants.SUBMIT_COMMAND_SUCCESS, resultObj),
             error => this.dispatch(Constants.SUBMIT_COMMAND_FAIL, error));
@@ -103,7 +110,7 @@ module.exports = {
         this.dispatch(Constants.UNSET_SESSION);
 
         REST.destroySession({
-                basepath: API_URL
+                basepath: CONFIG.API_BASE_URL
             }, session => this.dispatch(Constants.UNSET_SESSION_SUCCESS, session),
             error => this.dispatch(Constants.UNSET_SESSION_FAIL, error)
         );
@@ -112,7 +119,7 @@ module.exports = {
     loadJobResult(jid) {
         this.dispatch(Constants.GET_JOB, jid);
         REST.getJob({
-                basepath: API_URL,
+                basepath: CONFIG.API_BASE_URL,
                 jid
             }, job => this.dispatch(Constants.GET_JOB_SUCCESS, job),
             error => this.dispatch(Constants.GET_JOB_FAIL, error));

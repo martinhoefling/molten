@@ -43,5 +43,10 @@ module.exports = {
         EXECUTE: 'execution',
         RUNNER: 'runner',
         WHEEL: 'wheel'
+    },
+
+    URL: {
+        ROOT: CONFIG.APP_BASE_URL + '/',
+        LOGIN: CONFIG.APP_BASE_URL + '/login'
     }
 };

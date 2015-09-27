@@ -6,6 +6,7 @@ var Clients = require('models/Clients');
 var CapabilityStore = Fluxxor.createStore({
     initialize() {
         this.capabilities = null;
+        this.inProgress = false;
         this.error = null;
 
         this.bindActions(
@@ -18,6 +19,7 @@ var CapabilityStore = Fluxxor.createStore({
     setCapabilities() {
         this.capabilities = null;
         this.error = null;
+        this.inProgress = true;
         this.emit('change');
     },
 
@@ -30,14 +32,20 @@ var CapabilityStore = Fluxxor.createStore({
     },
 
     setCapabilitiesSuccess(capabilities) {
+        this.inProgress = false;
         this.capabilities = capabilities;
         this.emit('change');
     },
 
     setCapabilitiesFail(error) {
+        this.inProgress = false;
         this.capabilities = null;
         this.error = error;
         this.emit('change');
+    },
+
+    fetchInProgress() {
+        return this.inProgress;
     },
 
     getErrorMessage() {

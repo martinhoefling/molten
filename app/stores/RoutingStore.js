@@ -20,7 +20,7 @@ var RouteStore = Fluxxor.createStore({
     },
 
     toLogin() {
-        this.history.pushState(null, '/login');
+        this.history.pushState(null, Constants.URL.LOGIN);
     },
 
     routeTransition: function (path) {

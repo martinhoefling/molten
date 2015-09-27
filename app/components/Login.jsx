@@ -4,6 +4,8 @@ var FlatButton = require('material-ui/lib/flat-button');
 var Link = require('react-router').Link;
 var History = require('react-router').History;
 
+var Constants = require('Constants');
+
 var Fluxxor = require('fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -31,7 +33,7 @@ var Login = React.createClass({
 
     componentWillUpdate(nextProps, nextState) {
         if (nextState.currentSession) {
-            this.history.pushState(null, '/');
+            this.history.pushState(null, Constants.URL.ROOT);
         }
     },
 
