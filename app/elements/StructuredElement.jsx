@@ -2,7 +2,7 @@ var React = require('react');
 var classnames = require('classnames');
 var RaisedButton = require('material-ui/lib/raised-button');
 var Link = require('react-router').Link;
-
+var Constants = require('Constants');
 var styles = require('./StructuredElement.less');
 
 var JID_REGEX = /^\d{20}$/;
@@ -154,7 +154,7 @@ var StructuredElement = React.createClass({
 
     renderString(value) {
         if (value.match(JID_REGEX)) {
-            return <Link to={`/job/${value}`}>{value}</Link>;
+            return <Link to={`${Constants.URL.JOB}/${value}`}>{value}</Link>;
         }
         return (
             <div className='primitive-string'>{value}</div>

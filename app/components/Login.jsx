@@ -95,7 +95,7 @@ var Login = React.createClass({
         if (this.state.currentSession) {
             return (
                 <div className={styles.this}>
-                    already logged in! <Link to='/'>Continue here</Link>
+                    already logged in! <Link to={Constants.URL.ROOT}>Continue here</Link>
                 </div>
             );
         }

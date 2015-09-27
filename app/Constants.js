@@ -47,6 +47,7 @@ module.exports = {
 
     URL: {
         ROOT: CONFIG.APP_BASE_URL + '/',
-        LOGIN: CONFIG.APP_BASE_URL + '/login'
+        LOGIN: CONFIG.APP_BASE_URL + '/login',
+        JOB: CONFIG.APP_BASE_URL + '/job'
     }
 };

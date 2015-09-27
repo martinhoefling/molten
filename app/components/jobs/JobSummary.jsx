@@ -2,7 +2,7 @@ var React = require('react');
 var Paper = require('material-ui/lib/paper');
 var Link = require('react-router').Link;
 var classnames = require('classnames');
-
+var Constants = require('Constants');
 var CollapsedStructuredElement = require('elements/CollapsedStructuredElement');
 
 var rowStyles = require('components/RowLayout.less');
@@ -23,7 +23,7 @@ var JobSummary = React.createClass({
     renderHeader() {
         return (
             <div className={classnames(styles.header)}>
-                <Link to={`/job/${this.props.job.jid}`}>{this.props.job.jid}</Link>
+                <Link to={`${Constants.URL.JOB}/${this.props.job.jid}`}>{this.props.job.jid}</Link>
             </div>
         );
     },
@@ -34,7 +34,7 @@ var JobSummary = React.createClass({
                 <CollapsedStructuredElement
                     downloadEnabled
                     collapseOnly={['return']}
-                    element={this.props.job}/>
+                    element={this.props.job}/>re
             </div>
             );
     },
