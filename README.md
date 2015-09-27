@@ -7,10 +7,10 @@ Molten aims to make the API features accessible and to provide an easily deploya
 No additional service besides `salt-api` is required.
 
 ## Features:
-* Full access to all salt clients supported via Rest API.
-* Simple deployment: no additional Python / Node.js application required.
+* Fast. No page reloads, molten is a SPA (single page app) and keeps state during navigation.
+* Full access to all salt clients supported via Rest API. 
 * Live updates, e.g. for events, jobs, ...
-* As fast as the API itself. No page reloads, molten is a SPA (single page app).
+* Simple deployment: no additional Python / Node.js or Go application required.
 
 ## Getting Started:
 
