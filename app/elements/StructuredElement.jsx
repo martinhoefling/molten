@@ -69,9 +69,9 @@ var StructuredElement = React.createClass({
         }.bind(this));
 
         var collapsed = (
-            <Paper className='array-item collapsed'
-                 onClick={this.toggleArrayCollapse}>
-            </Paper>
+            <Paper
+                className='array-item collapsed'
+                onClick={this.toggleArrayCollapse}/>
         );
 
         return (
