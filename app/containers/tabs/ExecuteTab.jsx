@@ -11,6 +11,8 @@ var FunctionConfiguration = require('components/execute/FunctionConfiguration');
 var CommandDisplay = require('components/execute/CommandDisplay');
 var LoadingIndicator = require('elements/LoadingIndicator');
 
+var localStore = require('helpers/localstore');
+
 var tabStyle = require('./Tab.less');
 var styles = require('./ExecuteTab.less');
 
@@ -18,16 +20,11 @@ var ExecuteTab = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin('CapabilityStore', 'CommandStore')],
 
     getInitialState() {
+        var clientConfig = localStore.get('clientConfig') || { client: 'local' };
+        var targetConfig = localStore.get('targetConfig') || { tgt: '*' };
+        var functionConfig = localStore.get('functionConfig') || { fun: 'grains.items' };
         return {
-            clientConfig: {
-                client: 'local'
-            },
-            targetConfig: {
-                tgt: '*'
-            },
-            functionConfig: {
-                fun: 'grains.items'
-            }
+            clientConfig, targetConfig, functionConfig
         };
     },
 
@@ -79,6 +76,12 @@ var ExecuteTab = React.createClass({
                 onConfigChange={config => this.setState({ targetConfig: config })}
             />
         );
+    },
+
+    componentWillUpdate(nextProps, nextState) {
+        localStore.set('clientConfig', nextState.clientConfig);
+        localStore.set('targetConfig', nextState.targetConfig);
+        localStore.set('functionConfig', nextState.functionConfig);
     },
 
     renderResult() {
