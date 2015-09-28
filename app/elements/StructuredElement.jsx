@@ -1,6 +1,7 @@
 var React = require('react');
 var classnames = require('classnames');
 var RaisedButton = require('material-ui/lib/raised-button');
+var Paper = require('material-ui/lib/paper');
 var Link = require('react-router').Link;
 var Constants = require('Constants');
 var styles = require('./StructuredElement.less');
@@ -68,9 +69,9 @@ var StructuredElement = React.createClass({
         }.bind(this));
 
         var collapsed = (
-            <div className='array-item collapsed'
+            <Paper className='array-item collapsed'
                  onClick={this.toggleArrayCollapse}>
-            </div>
+            </Paper>
         );
 
         return (
@@ -123,9 +124,9 @@ var StructuredElement = React.createClass({
             );
         }.bind(this));
         return (
-            <div className={classnames('object', { empty: !objectProps.length })}>
+            <Paper className={classnames('object', { empty: !objectProps.length })}>
                 {objectProps}
-            </div>
+            </Paper>
         );
     },
 

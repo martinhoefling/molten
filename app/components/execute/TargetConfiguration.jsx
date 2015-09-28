@@ -4,6 +4,7 @@ var classnames = require('classnames');
 
 var ValidatedTextField = require('elements/ValidatedTextField');
 var SelectField = require('material-ui/lib/select-field');
+var Paper = require('material-ui/lib/paper');
 
 var rowStyles = require('components/RowLayout.less');
 var styles = require('./TargetConfiguration.less');
@@ -62,7 +63,7 @@ var RunnerConfiguration = React.createClass({
         var menuItems = EXPRESSION_FORM.map(item => ({ text: item.name, payload: item }));
 
         return (
-            <div className={classnames(rowStyles.this, styles.this)}>
+            <Paper className={classnames(rowStyles.this, styles.this)} Depth={2}>
                 <SelectField
                     floatingLabelText='Matcher'
                     floatingLabelStyle={ { transform: 'perspective(1px) scale(0.75) translate3d(2px, -28px, 0)' } }
@@ -90,7 +91,7 @@ var RunnerConfiguration = React.createClass({
                     validationRegexp={/^\w+(,\w+)*$/}
                     validationErrorMsg='must be comma separated list'
                     />
-            </div>
+            </Paper>
         );
     }
 });

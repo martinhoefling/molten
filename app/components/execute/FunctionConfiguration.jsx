@@ -8,6 +8,7 @@ var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var ValidatedTextField = require('elements/ValidatedTextField');
 var SearchDisplay = require('components/execute/SearchDisplay');
+var Paper = require('material-ui/lib/paper');
 
 var rowStyles = require('components/RowLayout.less');
 var styles = require('./FunctionConfiguration.less');
@@ -106,7 +107,8 @@ var RunnerConfiguration = React.createClass({
                     validationRegexp={/^[\w\.]+\.[\w\.]+$/}
                     validationErrorMsg='invalid function'
                     defaultValue={this.props.config.fun}
-                    />
+                    style={{ 'max-width': '220px' }}
+                />
                 <ValidatedTextField
                     ref='argumentInput'
                     hintText='Arguments as list'
@@ -116,7 +118,8 @@ var RunnerConfiguration = React.createClass({
                     validationRegexp={/^\S+(\s+\S+)*\s*$/}
                     validationErrorMsg='invalid arguments'
                     defaultValue={argstr}
-                    />
+                    style={{ 'max-width': '220px' }}
+                />
                 <ValidatedTextField
                     hintText='e.g. saltenv="stable"'
                     floatingLabelText='Keyword Arguments'
@@ -125,19 +128,20 @@ var RunnerConfiguration = React.createClass({
                     validationRegexp={/^(\S+\s*=\s*\S+)(\s+\S+\s*=\s*\S+)*\s*$/}
                     validationErrorMsg='invalid keyword args'
                     defaultValue={kwargstr}
-                    />
+                    style={{ 'max-width': '220px' }}
+                />
             </div>
         );
     },
 
     render() {
         return (
-            <div className={classnames(rowStyles.this, styles.this)}>
+            <Paper className={classnames(rowStyles.this, styles.this)} Depth={2}>
                 {this.renderInputs()}
                 <div className={styles.documentation}>
                     {this.renderFunctionSearch()}
                 </div>
-            </div>
+            </Paper>
         );
     }
 });

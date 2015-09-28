@@ -19,7 +19,7 @@ var CommandDisplay = React.createClass({
 
     render() {
         return (
-            <Paper className={classnames(rowStyles.this, styles.this)} zDepth={2}>
+            <Paper className={classnames(rowStyles.this, styles.this)} Depth={2}>
                 <div className={styles.content}>
                     <StructuredElement element={this.props.command} downloadEnabled={this.props.downloadEnabled} />
                 </div>

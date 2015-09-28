@@ -14,7 +14,10 @@ var Event = React.createClass({
     renderHeader() {
         return (
             <div className={classnames(styles.header)}>
-                <span>{this.props.minion.id}</span>
+                <div>
+                    <span className={styles.minionlabel}>Minion:</span>
+                    <span>{this.props.minion.id}</span>
+                </div>
             </div>
         );
     },

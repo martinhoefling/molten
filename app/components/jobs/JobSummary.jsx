@@ -23,7 +23,10 @@ var JobSummary = React.createClass({
     renderHeader() {
         return (
             <div className={classnames(styles.header)}>
-                <Link to={`${Constants.URL.JOB}/${this.props.job.jid}`}>{this.props.job.jid}</Link>
+                <div>
+                    <span className={styles.joblabel}>Job ID:</span>
+                    <Link to={`${Constants.URL.JOB}/${this.props.job.jid}`}>{this.props.job.jid}</Link>
+                </div>
             </div>
         );
     },

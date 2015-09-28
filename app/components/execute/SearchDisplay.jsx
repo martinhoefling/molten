@@ -2,7 +2,6 @@ var React = require('react');
 var _ = require('lodash');
 
 var classnames = require('classnames');
-var Paper = require('material-ui/lib/paper');
 
 var rowStyles = require('components/RowLayout.less');
 var styles = require('./SearchDisplay.less');
@@ -44,11 +43,11 @@ var SearchDisplay = React.createClass({
 
     render() {
         return (
-            <Paper className={classnames(rowStyles.this, styles.this)} zDepth={2}>
+            <div className={classnames(rowStyles.this, styles.this)}>
                 <div className={styles.content}>
                     { typeof this.props.search === 'string' ? this.props.search : this.renderList() }
                 </div>
-            </Paper>
+            </div>
         );
     }
 });

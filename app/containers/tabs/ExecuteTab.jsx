@@ -1,5 +1,6 @@
 var React = require('react');
 var _ = require('lodash');
+var classnames = require('classnames');
 var Fluxxor = require('fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -121,7 +122,7 @@ var ExecuteTab = React.createClass({
         var currentClient = this.getCurrentClient();
 
         return (
-            <div className={tabStyle.this}>
+            <div className={classnames(tabStyle.this, styles.this)}>
                 <ClientConfiguration
                     config={this.state.clientConfig}
                     clients={this.state.clients}
@@ -133,9 +134,6 @@ var ExecuteTab = React.createClass({
                     config={this.state.functionConfig}
                     currentClient={currentClient}
                     onConfigChange={config => this.setState({ functionConfig: config })}
-                    />
-                <CommandDisplay
-                    command={this.getCommand()}
                     />
                 <div className={styles.submit}>
                     <RaisedButton

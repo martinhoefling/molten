@@ -2,6 +2,7 @@ var React = require('react');
 var classnames = require('classnames');
 
 var SelectField = require('material-ui/lib/select-field');
+var Paper = require('material-ui/lib/paper');
 var ValidatedTextField = require('elements/ValidatedTextField');
 var Checkbox = require('material-ui/lib/checkbox');
 
@@ -119,6 +120,7 @@ var ClientConfiguration = React.createClass({
                 defaultValue={this.props.config.batch}
                 onChange={this.onBatchChange}
                 onFocus={() => this.refs.batchInput.setValue(this.props.config.batch || '')}
+                style={{ 'max-width': '140px' }}
                 validationRegexp={/^[0-9]+%?$/}
                 validationErrorMsg='must be int or percentage'
                 />
@@ -137,6 +139,7 @@ var ClientConfiguration = React.createClass({
                 defaultValue={this.props.config.timeout}
                 onChange={this.onTimeoutChange}
                 onFocus={() => this.refs.timeoutInput.setValue(this.props.config.timeout || '')}
+                style={{ 'max-width': '140px' }}
                 validationRegexp={/^[0-9]+$/}
                 validationErrorMsg='invalid int'
                 />
@@ -164,14 +167,14 @@ var ClientConfiguration = React.createClass({
 
     render() {
         return (
-            <div className={classnames(rowStyles.this, styles.this)}>
+            <Paper className={classnames(rowStyles.this, styles.this)} Depth={2}>
                 <div className={styles.clientselect}>
                     {this.renderClientSelectDropdown()}
                     {this.renderAsync()}
                 </div>
                 {this.renderBatch()}
                 {this.renderTimeout()}
-            </div>
+            </Paper>
         );
     }
 });

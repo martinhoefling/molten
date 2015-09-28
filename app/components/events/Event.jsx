@@ -58,7 +58,10 @@ var Event = React.createClass({
     renderHeader() {
         return (
             <div className={classnames(styles.header)}>
-                <span>{this.props.event.tag}</span>
+                <span>
+                    <span className={styles.taglabel}>Tag:</span>
+                    <span>{this.props.event.tag}</span>
+                </span>
                 <span>{this.state.time}</span>
             </div>
         );
