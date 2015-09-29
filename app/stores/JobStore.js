@@ -1,8 +1,9 @@
 var Fluxxor = require('fluxxor');
 var Constants = require('Constants');
+var _ = require('lodash');
 
 var JOB_RET_REGEX = /^salt\/run\/(\d{20})\/ret$/;
-var JOB_RET_MINION_REGEX = /^salt\/job\/(\d{20})\/ret\/(\w+)$/;
+var JOB_RET_MINION_REGEX = /^salt\/job\/(\d{20})\/ret\/(.+)$/;
 var JOB_NEW_REGEX = /^salt\/job\/(\d{20})\/new$/;
 
 var EVENT_KEY_MAP = {
@@ -36,6 +37,14 @@ function processRawJob(info, result, previousJob) {
         _.assign(job.internal.result, result);
     }
     return job;
+}
+
+function compareJIDs(a, b) {
+    if (a.jid < b.jid)
+        return -1;
+    if (a.jid > b.jid)
+        return 1;
+    return 0;
 }
 
 var JobStore = Fluxxor.createStore({
@@ -96,19 +105,21 @@ var JobStore = Fluxxor.createStore({
             jid, minion;
         if (parsedRawData.tag.match(JOB_RET_REGEX)) {
             jid = parsedRawData.tag.match(JOB_RET_REGEX)[1];
-
             this.jobs[jid] = processRawJob(_.omit(data, ['return']), data.return, this.jobs[jid]);
+            this.emit('change');
         } else if (parsedRawData.tag.match(JOB_RET_MINION_REGEX)) {
             [jid, minion] = parsedRawData.tag.match(JOB_RET_MINION_REGEX).splice(1);
             this.jobs[jid] = processRawJob(_.omit(data, ['return', 'id']), { [minion]: data.return }, this.jobs[jid]);
+            this.emit('change');
         } else if (parsedRawData.tag.match(JOB_NEW_REGEX)) {
             jid = parsedRawData.tag.match(JOB_NEW_REGEX)[1];
             this.jobs[jid] = processRawJob(data, null, this.jobs[jid]);
+            this.emit('change');
         }
     },
 
     getJobs() {
-        return _.keys(this.jobs).map(key => (this.getJob(key)));
+        return _.keys(this.jobs).map(key => (this.getJob(key))).sort(compareJIDs);
     },
 
     getJobResult(jid) {
@@ -117,6 +128,19 @@ var JobStore = Fluxxor.createStore({
 
     getJob(jid) {
         return _.omit(this.jobs[jid], ['internal']);
+    },
+
+    getMinionJobs(minionId) {
+        return this.getJobs().filter(function (job) {
+            if (!job.Minions) {
+                return false;
+            }
+            return _.contains(job.Minions, minionId);
+        });
+    },
+
+    getMinionJobResult(jid, minionId) {
+        return this.jobs[jid].internal.result[minionId];
     }
 });
 
