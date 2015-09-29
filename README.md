@@ -14,6 +14,11 @@ No additional service besides `salt-api` is required.
 
 ## Getting Started:
 
+### Quick Demo
+
+Make sure that [vagrant](https://www.vagrantup.com/) is installed. 
+Check out this repository and run `vagrant up demo`. Connect to http://192.168.42.43:8000/molten as user test with password molten.
+
 ### Configure salt-api
 For details, see [salt documentation](https://docs.saltstack.com/en/latest/ref/netapi/all/index.html#all-netapi-modules). Example master config snippet:
 ```
@@ -66,5 +71,5 @@ or
 ### Setup Dev Environment
 * install vagrant / virtualbox and node or iojs.
 * start webpack bundler `npm run watch`.
-* `vagrant up` then connect to 192.168.42.42:8000/molten as user test / molten.
+* `vagrant up dev` then connect to 192.168.42.42:8000/molten as user test with password molten.
 
