@@ -40,7 +40,8 @@ rest_cherrypy:
   app: /dist/index.html
   app_path: /molten
 ```  
-Currently, the user must have access to runner/wheel/and jobs.
+Currently, the user must have access to runner/wheel/and jobs. 
+Note: It is strongly recommended to either enable SSL encryption for the REST API or to bind the REST API to the loopback interface.
 
 ### Install molten
 - Extract [release tarball](https://github.com/martinhoefling/molten/releases/download/v0.1.0pre1/molten-0.1.0pre1.tar.gz) to `/dist`.
