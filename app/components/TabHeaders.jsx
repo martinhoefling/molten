@@ -56,7 +56,7 @@ var TabHeaders = React.createClass({
         }, this);
 
         var path = this.props.location.pathname.substring(CONFIG.APP_BASE_URL.length + 1),
-            index = Math.max(0, _.findIndex(TABS, tab => tab.toLowerCase().indexOf(path) === 0));
+            index = Math.max(0, _.findIndex(TABS, tab => path.indexOf(tab.toLowerCase()) === 0));
 
         return (
             <Tabs initialSelectedIndex={index}>
