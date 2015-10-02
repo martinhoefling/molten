@@ -16,13 +16,17 @@ var ValidatedTextField = React.createClass({
         };
     },
 
+    getInitialState() {
+        return { errorText: '' };
+    },
+
     setValue(value) {
         this.validate(value);
         return this.refs.textfield.setValue(value);
     },
 
     setErrorText(value) {
-        return this.refs.textfield.setErrorText(value);
+        return this.setState({ errorText: value });
     },
 
     onChange(event) {
@@ -36,9 +40,9 @@ var ValidatedTextField = React.createClass({
     validate(value) {
         var valid = value.search(this.props.validationRegexp) > -1;
         if (value) {
-            this.refs.textfield.setErrorText(valid ? '' : this.props.validationErrorMsg);
+            this.setErrorText(valid ? '' : this.props.validationErrorMsg);
         } else {
-            this.refs.textfield.setErrorText('');
+            this.setErrorText('');
         }
         return valid;
     },
@@ -48,6 +52,7 @@ var ValidatedTextField = React.createClass({
         return (
             <TextField
                 ref='textfield'
+                errorText={this.state.errorText}
                 onChange={(event) => this.props.onChange(event, this.onChange(event))}
                 {...props}
                 />

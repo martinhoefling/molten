@@ -41,6 +41,9 @@ var RunnerConfiguration = React.createClass({
     getConfig(options) {
         var returnObj = this.props.config,
             newOptions = {};
+        if ('fun' in options) {
+            newOptions.fun = options.fun;
+        }
         if ('arg' in options) {
             newOptions.arg = options.arg && options.arg.match(/\S+/g);
         }
@@ -50,7 +53,7 @@ var RunnerConfiguration = React.createClass({
                         .match(/\S+/g).map(value => value.split('='))
                 );
         }
-        return _.omit(_.assign(returnObj, options),
+        return _.omit(_.assign(returnObj, newOptions),
                 value => value === '' || value === {} || value === [] || value === undefined);
     },
 
@@ -93,7 +96,7 @@ var RunnerConfiguration = React.createClass({
 
     renderInputs() {
         var arg = this.props.config.arg;
-        var argstr = (arg && arg.join) ? arg.join(',') : '';
+        var argstr = (arg || []).join(' ');
         var kwarg =  this.props.config.kwarg;
         var kwargstr = _.map(kwarg, (value, key) => key + ' = ' + value).join('\n');
 

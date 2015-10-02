@@ -47,8 +47,8 @@ flux.on('dispatch', function (type, payload) {
 window.React = React;
 
 var routes = require('Routes');
-var ThemeManager = require('material-ui/lib/styles/theme-manager')();
-ThemeManager.setPalette(require('Palette'));
+var ThemeManager = require('material-ui/lib/styles/theme-manager');
+var Theme = require('Theme');
 
 function createElement(Component, props) {
     var WrapperComponent = React.createClass({
@@ -58,7 +58,7 @@ function createElement(Component, props) {
 
         getChildContext: function () {
             return {
-                muiTheme: ThemeManager.getCurrentTheme()
+                muiTheme: ThemeManager.getMuiTheme(Theme)
             };
         },
 
