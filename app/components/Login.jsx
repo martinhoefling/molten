@@ -26,8 +26,7 @@ var Login = React.createClass({
     getInitialState() {
         return {
             username: '',
-            password: '',
-            firstLogin: true
+            password: ''
         };
     },
 
@@ -52,7 +51,6 @@ var Login = React.createClass({
     login() {
         if (this.inputValid()) {
             this.getFlux().actions.createSession(this.state.username, this.state.password);
-            this.setState({ firstLogin: false });
         }
     },
 
@@ -61,6 +59,9 @@ var Login = React.createClass({
     },
 
     renderLogin() {
+        var errorMessage = this.state.sessionErrorMessage;
+        console.log(errorMessage);
+
         return (
             <div className={styles.this}>
                 <TextField
@@ -81,7 +82,7 @@ var Login = React.createClass({
                     />
                 <span
                     className={styles.errorMessage}>
-                    {this.state.firstLogin ? '' : this.state.sessionErrorMessage}
+                    {errorMessage}
                 </span>
                 <FlatButton label='Login'
                     onClick={this.login}
