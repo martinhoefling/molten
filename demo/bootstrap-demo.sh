@@ -20,6 +20,6 @@ salt '*' test.ping
 useradd test
 echo test:molten | chpasswd
 cd /
-curl -s -L https://github.com/martinhoefling/molten/releases/download/v0.1.0pre1/molten-0.1.0pre1.tar.gz | tar -xz
+curl -s -L https://github.com/martinhoefling/molten/releases/download/v0.1.0/molten-0.1.0.tar.gz | tar -xz
 mv dist molten
 echo "You can now connect to http://192.168.42.43:8000/molten as user test / molten"
