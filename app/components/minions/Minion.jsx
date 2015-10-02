@@ -71,6 +71,7 @@ var Event = React.createClass({
         if (pillar) {
             return (
                 <CollapsedStructuredElement
+                    downloadEnabled
                     arraysCollapsed={true}
                     element={{ pillar }}
                 />
@@ -84,6 +85,7 @@ var Event = React.createClass({
         if (recentJobs) {
             return (
                 <CollapsedStructuredElement
+                    downloadEnabled
                     arraysCollapsed={true}
                     element={{ 'recent jobs': recentJobs }}
                 />
@@ -97,6 +99,7 @@ var Event = React.createClass({
         if (highstate) {
             return (
                 <CollapsedStructuredElement
+                    downloadEnabled
                     arraysCollapsed={true}
                     element={{ highstate }}
                 />
@@ -120,6 +123,7 @@ var Event = React.createClass({
     renderGrainsElement() {
         return (
             <CollapsedStructuredElement
+                downloadEnabled
                 arraysCollapsed={true}
                 element={{ grains: this.props.minion.grains }}/>
         );
