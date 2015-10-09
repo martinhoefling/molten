@@ -11,6 +11,7 @@ var SESSION_TEST = {
 function postRequest(url, success, fail, data) {
     request.post(url)
         .set('Accept', 'application/json')
+        .withCredentials()
         .type('json')
         .send(data)
         .end(function (err, res) {
@@ -24,6 +25,7 @@ function postRequest(url, success, fail, data) {
 function getRequest(url, success, fail) {
     request.get(url)
         .set('Accept', 'application/json')
+        .withCredentials()
         .end(function (err, res) {
             if (err) return fail(err);
             if (res.status !== 200)

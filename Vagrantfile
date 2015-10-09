@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
     hostconfig.vm.provision "shell", inline: <<-SHELL
         set -ux  end
         /vagrant/vagrant/bootstrap-dev.sh
-        echo "You can now connect to http://192.168.42.42:8000/molten as user test / molten"
+        echo "You can now connect to http://192.168.42.42:8000/molten/ as user test / molten"
         SHELL
   end
 
@@ -23,7 +23,7 @@ Vagrant.configure(2) do |config|
         curl -s -L https://github.com/martinhoefling/molten/releases/download/v0.1.0/molten-0.1.0.tar.gz | tar -xz
         mv molten-* molten
         /vagrant/vagrant/bootstrap-dev.sh
-        echo "You can now connect to http://192.168.42.43:8000/molten as user test / molten"
+        echo "You can now connect to http://192.168.42.43:8000/molten/ as user test / molten"
         SHELL
   end
 
@@ -35,7 +35,7 @@ Vagrant.configure(2) do |config|
         /vagrant/vagrant/bootstrap-dev.sh
         apt-get install -y salt-cloud
         salt-call state.sls lxc
-        echo "You can now connect to http://192.168.42.44:8000/molten as user test / molten"
+        echo "You can now connect to http://192.168.42.44:8000/molten/ as user test / molten"
         SHELL
   end
 end

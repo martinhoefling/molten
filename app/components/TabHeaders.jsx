@@ -83,7 +83,7 @@ var TabHeaders = React.createClass({
                     <a href='https://github.com/martinhoefling/molten'>
                         <img title='open on github'
                              className={styles.github}
-                             src='/assets/github.svg'/>
+                             src={CONFIG.ASSET_BASE_URL + '/github.svg'}/>
                     </a>
                 </div>
             </div>

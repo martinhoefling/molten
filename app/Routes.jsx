@@ -15,7 +15,7 @@ var SettingsTab = require('containers/tabs/SettingsTab');
 var TabHeaders = require('components/TabHeaders');
 
 module.exports = (
-    <Route component={Main} path={CONFIG.APP_BASE_URL}>
+    <Route component={Main} path={CONFIG.APP_BASE_URL + '/'}>
         <Route components={{ main: Login }} path='login' />
         <Route components={{ main: ExecuteTab, top: TabHeaders }} path='execute' />
         <Route components={{ main: JobsTab, top: TabHeaders }} path='job' />
