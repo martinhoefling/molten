@@ -50,6 +50,17 @@ or
 
 - Build Application ([see below](#build))
 
+### Alternate Installation
+
+Molten can also be served from an alternate host using [CORS](vagrant/example/salt-states/demo.sls). Make sure that config.js points to the correct API location. 
+Due to a salt bug, this is only possible from 2015.8.1 onwards.
+
+### Compatibility
+
+Molten should in principle be compatible with all versions that include the netapi. 
+- Function documentation is working if master *and* client versions are at least 2015.8.0
+- Serving molten from a different location *without proxy* requires salt master version to be at least 2015.8.1 
+
 ## Contribute:
 
 - Report bugs and feature requests to the issue tracker.
