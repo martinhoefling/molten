@@ -58,8 +58,8 @@ Due to a salt bug, this is only possible from 2015.8.1 onwards.
 ### Compatibility
 
 Molten should in principle be compatible with all versions that include the netapi. 
-- Function documentation is working if master *and* client versions are at least 2015.8.0
-- Serving molten from a different location *without proxy* requires salt master version to be at least 2015.8.1 
+- Function documentation is working if master *and* client [versions are at least 2015.8.0](https://github.com/saltstack/salt/pull/25020)
+- Serving molten from a different location *without proxy* requires salt master [version to be at least 2015.8.1](https://github.com/saltstack/salt/pull/27826) 
 
 ## Contribute:
 
