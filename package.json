@@ -33,6 +33,8 @@
     "react-router": "^1.0.0-rc3",
     "react-tap-event-plugin": "^0.2.1",
     "redux": "^3.0.3",
+    "redux-logger": "^2.0.4",
+    "reselect": "^2.0.0",
     "superagent": "^1.4.0"
   },
   "devDependencies": {

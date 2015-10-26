@@ -1,26 +1,21 @@
 var React = require('react');
+var connect = require('react-redux');
 var TextField = require('material-ui/lib/text-field');
 var FlatButton = require('material-ui/lib/flat-button');
 var Link = require('react-router').Link;
 var History = require('react-router').History;
+var actions = require('Actions');
 
 var Constants = require('Constants');
-
-var Fluxxor = require('fluxxor');
-var FluxMixin = Fluxxor.FluxMixin(React);
-var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var styles = require('./Login.less');
 
 var Login = React.createClass({
-    mixins: [FluxMixin, History, StoreWatchMixin('SessionStore')],
+    mixins: [History],
 
-    getStateFromFlux: function () {
-        var flux = this.getFlux();
-        return {
-            currentSession: flux.store('SessionStore').getSession(),
-            sessionErrorMessage: flux.store('SessionStore').getErrorMessage()
-        };
+    propTypes: {
+        currentSession: React.PropTypes.object,
+        sessionErrorMessage: React.PropTypes.string
     },
 
     getInitialState() {
@@ -30,8 +25,8 @@ var Login = React.createClass({
         };
     },
 
-    componentWillUpdate(nextProps, nextState) {
-        if (nextState.currentSession) {
+    componentWillUpdate(nextProps) {
+        if (nextProps.currentSession) {
             this.history.pushState(null, Constants.URL.ROOT);
         }
     },
@@ -50,7 +45,7 @@ var Login = React.createClass({
 
     login() {
         if (this.inputValid()) {
-            this.getFlux().actions.createSession(this.state.username, this.state.password);
+            actions.createSession(this.state.username, this.state.password);
         }
     },
 
@@ -59,8 +54,7 @@ var Login = React.createClass({
     },
 
     renderLogin() {
-        var errorMessage = this.state.sessionErrorMessage;
-        console.log(errorMessage);
+        var errorMessage = this.props.sessionErrorMessage;
 
         return (
             <div className={styles.this}>
@@ -104,4 +98,11 @@ var Login = React.createClass({
     }
 });
 
-module.exports = Login;
+function select(state) {
+    return {
+        currentSession: state.Session.session,
+        sessionErrorMessage: state.Session.error
+    };
+}
+
+module.exports = connect(select)(Login);
