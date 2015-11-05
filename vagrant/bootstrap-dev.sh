@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-echo "deb http://repo.saltstack.com/apt/debian jessie contrib" > /etc/apt/sources.list.d/salt.list
-wget -q -O- "https://repo.saltstack.com/apt/debian/SALTSTACK-GPG-KEY.pub" | apt-key add -
+echo "deb http://repo.saltstack.com/apt/debian/latest jessie main" > /etc/apt/sources.list.d/salt.list
+wget -q -O- "https://repo.saltstack.com/apt/debian/latest/SALTSTACK-GPG-KEY.pub" | apt-key add -
 sudo apt-get update
 sudo apt-get install -y salt-master salt-api salt-minion
 rsync -av /vagrant/vagrant/salt/ /etc/salt/
