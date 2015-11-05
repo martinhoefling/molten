@@ -1,10 +1,10 @@
 var React = require('react');
-var connect = require('react-redux');
+var connect = require('react-redux').connect;
 var TextField = require('material-ui/lib/text-field');
 var FlatButton = require('material-ui/lib/flat-button');
 var Link = require('react-router').Link;
 var History = require('react-router').History;
-var actions = require('Actions');
+var actionCreators = require('ActionCreators');
 
 var Constants = require('Constants');
 
@@ -15,7 +15,8 @@ var Login = React.createClass({
 
     propTypes: {
         currentSession: React.PropTypes.object,
-        sessionErrorMessage: React.PropTypes.string
+        sessionErrorMessage: React.PropTypes.string,
+        createSession: React.PropTypes.func.isRequired
     },
 
     getInitialState() {
@@ -45,7 +46,7 @@ var Login = React.createClass({
 
     login() {
         if (this.inputValid()) {
-            actions.createSession(this.state.username, this.state.password);
+            this.props.createSession(this.state.username, this.state.password);
         }
     },
 
@@ -101,8 +102,8 @@ var Login = React.createClass({
 function select(state) {
     return {
         currentSession: state.Session.session,
-        sessionErrorMessage: state.Session.error
+        sessionErrorMessage: state.Session.error ? state.Session.error.message : null
     };
 }
 
-module.exports = connect(select)(Login);
+module.exports = connect(select, { createSession: actionCreators.createSession })(Login);

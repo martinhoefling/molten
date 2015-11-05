@@ -1,21 +1,20 @@
 var React = require('react');
+var connect = require('react-redux').connect;
+var actionCreators = require('ActionCreators');
 
 var Tab = require('material-ui/lib/tabs/tab');
 var Tabs = require('material-ui/lib/tabs/tabs');
 var Constants = require('Constants');
 var MaterialButton = require('../elements/MaterialButton');
 
-var Fluxxor = require('fluxxor');
-var FluxMixin = Fluxxor.FluxMixin(React);
-var StoreWatchMixin = Fluxxor.StoreWatchMixin;
-
 var styles = require('./TabHeaders.less');
 
 var TABS = ['Execute', 'Job', 'Minion', 'Event', 'Settings'];
 
 var TabHeaders = React.createClass({
-
-    mixins: [FluxMixin, StoreWatchMixin('SessionStore')],
+    propTypes: {
+        currentSession: React.PropTypes.object
+    },
 
     getInitialState() {
         return {
@@ -23,16 +22,9 @@ var TabHeaders = React.createClass({
         };
     },
 
-    getStateFromFlux: function () {
-        var flux = this.getFlux();
-        return {
-            currentSession: flux.store('SessionStore').getSession()
-        };
-    },
-
     componentWillMount() {
         if (!this.state.currentSession) {
-            this.getFlux().actions.testSessionStatus();
+            dispatch(actionCreators.testSessionStatus());
         }
     },
 
@@ -41,7 +33,7 @@ var TabHeaders = React.createClass({
     },
 
     logout() {
-        this.getFlux().actions.logout();
+        dispatch(actionCreators.logout());
     },
 
     renderTabs() {
@@ -66,7 +58,7 @@ var TabHeaders = React.createClass({
     },
 
     _onActive(tab) {
-        this.getFlux().actions.transition(Constants.URL.ROOT + tab.props.route);
+        dispatch(actionCreators.transition(Constants.URL.ROOT + tab.props.route));
     },
 
     render() {
@@ -91,4 +83,10 @@ var TabHeaders = React.createClass({
     }
 });
 
-module.exports = TabHeaders;
+function select(state) {
+    return {
+        currentSession: state.Session.session
+    };
+}
+
+module.exports = connect(select)(TabHeaders);
