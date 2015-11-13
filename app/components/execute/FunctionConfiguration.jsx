@@ -1,35 +1,24 @@
 var React = require('react');
 var _ = require('lodash');
 var classnames = require('classnames');
-
-var Fluxxor = require('fluxxor');
-var FluxMixin = Fluxxor.FluxMixin(React);
-var StoreWatchMixin = Fluxxor.StoreWatchMixin;
+var connect = require('react-redux').connect;
 
 var ValidatedTextField = require('elements/ValidatedTextField');
 var SearchDisplay = require('components/execute/SearchDisplay');
 var Paper = require('material-ui/lib/paper');
+var docparse = require('helpers/docparse');
 
 var rowStyles = require('components/RowLayout.less');
 var styles = require('./FunctionConfiguration.less');
 
 var FUNC_WITH_TRAILING_WS_REGEX = /([\w\.]+)(\s+)/;
 
-var RunnerConfiguration = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin('DocumentationStore')],
-
+var FunctionConfiguration = React.createClass({
     propTypes: {
         config: React.PropTypes.object.isRequired,
         currentClient: React.PropTypes.object.isRequired,
-        onConfigChange: React.PropTypes.func.isRequired
-    },
-
-    getStateFromFlux() {
-        var flux = this.getFlux();
-        var doc = flux.stores.DocumentationStore.getAvailableDocumentation();
-        return {
-            availableDocumentation: doc
-        };
+        onConfigChange: React.PropTypes.func.isRequired,
+        documentation: React.PropTypes.object
     },
 
     getInitialState() {
@@ -83,9 +72,9 @@ var RunnerConfiguration = React.createClass({
     },
 
     renderFunctionSearch() {
-        var store = this.getFlux().stores.DocumentationStore;
         var docType = this.props.currentClient.getDocType();
-        var documentation = store.searchFunctionDocumentation(docType, this.state.functionInput);
+        var documentation = docparse.searchFunctionDocumentation(
+            this.props.documentation, docType, this.state.functionInput);
         return (
             <SearchDisplay
                 search={documentation}
@@ -149,4 +138,10 @@ var RunnerConfiguration = React.createClass({
     }
 });
 
-module.exports = RunnerConfiguration;
+function select(state) {
+    return {
+        documentation: state.Documentation.documentation
+    };
+}
+
+module.exports = connect(select)(FunctionConfiguration);

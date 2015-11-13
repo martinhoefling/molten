@@ -11,7 +11,7 @@ var unsetSessionSuccess = session => ({ type: Constants.UNSET_SESSION_SUCCESS, s
 
 var submitCommand = commandObj => ({ type: Constants.SUBMIT_COMMAND, commandObj });
 var submitCommandFail = (commandObj, error) => ({ type: Constants.SUBMIT_COMMAND_FAIL, commandObj, error });
-var submitCommandSuccess = (commandObj, session) => ({ type: Constants.SUBMIT_COMMAND_SUCCESS, commandObj, session });
+var submitCommandSuccess = (commandObj, result) => ({ type: Constants.SUBMIT_COMMAND_SUCCESS, commandObj, result });
 
 var getCapabilities = () => ({ type: Constants.GET_CAPABILITIES });
 var getCapabilitiesFail = error => ({ type: Constants.GET_CAPABILITIES_FAIL, error });

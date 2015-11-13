@@ -1,47 +1,23 @@
-var Fluxxor = require('fluxxor');
 var Constants = require('Constants');
 
-var CommandStore = Fluxxor.createStore({
-    initialize() {
-        this._lowstate = null;
-        this._commandResult = null;
-        this._commandResultError = null;
-        this._inProgress = false;
+const initialState = {
+    lowstate: null,
+    result: null,
+    error: null,
+    inProgress: false
+};
 
-        this.bindActions(
-            Constants.SUBMIT_COMMAND, this.submitCommand,
-            Constants.SUBMIT_COMMAND_SUCCESS, this.submitCommandSuccess,
-            Constants.SUBMIT_COMMAND_FAIL, this.submitCommandFail
-        );
-    },
-
-    getCommandResult() {
-        return this._commandResult;
-    },
-
-    submitCommand(lowstate) {
-        this._lowstate = lowstate;
-        this._commandResult = null;
-        this._commandResultError = null;
-        this._inProgress = true;
-        this.emit('change');
-    },
-
-    submitCommandSuccess(resultObj) {
-        this._commandResult = resultObj;
-        this._inProgress = false;
-        this.emit('change');
-    },
-
-    submitCommandFail(error) {
-        this._commandResultError = error;
-        this._inProgress = false;
-        this.emit('change');
-    },
-
-    inProgress() {
-        return this._inProgress;
+function commandReducer(state = initialState, action) {
+    switch (action.type) {
+        case Constants.SUBMIT_COMMAND:
+            return { lowstate: action.commandObj, result: null, error: null, inProgress: true };
+        case Constants.SUBMIT_COMMAND_SUCCESS:
+            return { lowstate: action.commandObj, result: action.result, error: null, inProgress: false };
+        case Constants.SUBMIT_COMMAND_FAIL:
+            return { lowstate: action.commandObj, result: null, error: action.error, inProgress: false };
+        default:
+            return state;
     }
-});
+}
 
-module.exports = CommandStore;
+module.exports = commandReducer;

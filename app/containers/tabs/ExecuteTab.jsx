@@ -1,15 +1,18 @@
 var React = require('react');
+var connect = require('react-redux').connect;
+
 var _ = require('lodash');
+var Clients = require('models/Clients');
+
 var classnames = require('classnames');
-var Fluxxor = require('fluxxor');
-var FluxMixin = Fluxxor.FluxMixin(React);
-var StoreWatchMixin = Fluxxor.StoreWatchMixin;
+
 var RaisedButton = require('material-ui/lib/raised-button');
 var ClientConfiguration = require('components/execute/ClientConfiguration');
 var TargetConfiguration = require('components/execute/TargetConfiguration');
 var FunctionConfiguration = require('components/execute/FunctionConfiguration');
 var CommandDisplay = require('components/execute/CommandDisplay');
 var LoadingIndicator = require('elements/LoadingIndicator');
+var actionCreators = require('ActionCreators');
 
 var localStore = require('helpers/localstore');
 
@@ -17,7 +20,14 @@ var tabStyle = require('./Tab.less');
 var styles = require('./ExecuteTab.less');
 
 var ExecuteTab = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin('CapabilityStore', 'CommandStore')],
+    propTypes: {
+        submitCommand: React.PropTypes.func,
+        clients: React.PropTypes.array,
+        currentClient: React.PropTypes.object,
+        clientFetchInProgress: React.PropTypes.bool,
+        currentResult: React.PropTypes.object,
+        commandInProgress: React.PropTypes.bool
+    },
 
     getInitialState() {
         var clientConfig = localStore.get('clientConfig') || { client: 'local' };
@@ -25,19 +35,6 @@ var ExecuteTab = React.createClass({
         var functionConfig = localStore.get('functionConfig') || { fun: 'grains.items' };
         return {
             clientConfig, targetConfig, functionConfig
-        };
-    },
-
-    getStateFromFlux: function () {
-        var flux = this.getFlux();
-        var capabilityStore = flux.stores.CapabilityStore;
-        var clients = capabilityStore.getClients();
-        var commandResult = flux.stores.CommandStore.getCommandResult();
-        return {
-            clients: clients,
-            currentClient: clients ? clients[0] : null,
-            currentResult: commandResult,
-            clientFetchInProgress: capabilityStore.fetchInProgress()
         };
     },
 
@@ -50,20 +47,19 @@ var ExecuteTab = React.createClass({
     },
 
     onSubmit() {
-        var lowstate = this.getCommand();
-        this.getFlux().actions.submitCommand(lowstate);
+        this.props.submitCommand(this.getCommand());
     },
 
     getCurrentClient() {
         if (this.state.clientConfig.client) {
             var spl = this.state.clientConfig.client.split('_');
             var name = spl[0];
-            var client = _.find(this.state.clients, client => client.getName() === name);
+            var client = _.find(this.props.clients, client => client.getName() === name);
             var mode = spl[1] || null;
             client.setMode(mode);
             return client;
         }
-        return this.state.clients[0];
+        return this.props.clients[0];
     },
 
     renderTargetConfiguration() {
@@ -85,8 +81,8 @@ var ExecuteTab = React.createClass({
     },
 
     renderResult() {
-        var result = this.state.currentResult ? this.state.currentResult.return[0] : null;
-        var progress = this.getFlux().stores.CommandStore.inProgress();
+        var result = this.props.currentResult ? this.props.currentResult.return[0] : null;
+        var progress = this.props.commandInProgress();
 
         if (progress) {
             return (
@@ -106,7 +102,7 @@ var ExecuteTab = React.createClass({
     },
 
     render() {
-        if (this.state.clientFetchInProgress) {
+        if (this.props.clientFetchInProgress) {
             return (
                 <LoadingIndicator>
                     loading client configuration
@@ -114,7 +110,7 @@ var ExecuteTab = React.createClass({
             );
         }
 
-        if (!this.state.clients) {
+        if (!this.props.clients) {
             return (
                 <div>
                     clients not loaded
@@ -128,7 +124,7 @@ var ExecuteTab = React.createClass({
             <div className={classnames(tabStyle.this, styles.this)}>
                 <ClientConfiguration
                     config={this.state.clientConfig}
-                    clients={this.state.clients}
+                    clients={this.props.clients}
                     currentClient={currentClient}
                     onConfigChange={config => this.setState({ clientConfig: config })}
                     />
@@ -152,4 +148,15 @@ var ExecuteTab = React.createClass({
     }
 });
 
-module.exports = ExecuteTab;
+function select(state) {
+    var clients = state.Capabilities.capabilities ? Clients.getClients(state.Capabilities.capabilities.clients) : null;
+    return {
+        clients,
+        currentClient: clients ? clients[0] : null,
+        clientFetchInProgress: state.Capabilities.inProgress,
+        currentResult: state.Commands.result,
+        commandInProgress: state.Commands.inProgress
+    };
+}
+
+module.exports = connect(select, { submitCommand: actionCreators.submitCommand })(ExecuteTab);
