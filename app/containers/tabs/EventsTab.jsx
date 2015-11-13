@@ -1,38 +1,26 @@
 var React = require('react');
 var _ = require('lodash');
-var Fluxxor = require('fluxxor');
+var connect = require('react-redux').connect;
 
 var RaisedButton = require('material-ui/lib/raised-button');
 var TextField = require('material-ui/lib/text-field');
 var Toggle = require('material-ui/lib/toggle');
 
-var FluxMixin = Fluxxor.FluxMixin(React);
-var StoreWatchMixin = Fluxxor.StoreWatchMixin;
-
 var Event = require('components/events/Event');
 
 var tabStyle = require('./Tab.less');
 var style = require('./EventsTab.less');
+var actionCreators = require('ActionCreators');
 
 var EventsTab = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin('EventStore')],
-
-    getEvents() {
-        var flux = this.getFlux();
-        return flux.stores.EventStore.getEvents().slice(0);
-    },
-
-    getStateFromFlux() {
-        if (!this.state || !this.state.paused) {
-            return {
-                events: this.getEvents().slice(0)
-            };
-        }
-        return { events: this.state.events };
+    propTypes: {
+        events: React.PropTypes.array.isRequired,
+        clearEvents: React.PropTypes.func.isRequired
     },
 
     getInitialState() {
         return {
+            events: this.props.events,
             tagRegexStr: '',
             paused: false
         };
@@ -40,12 +28,12 @@ var EventsTab = React.createClass({
 
     componentWillUpdate(nextProps, nextState) {
         if (this.state.paused && !nextState.paused) {
-            this.setState({ events: this.getEvents() });
+            this.setState({ events: nextProps.events.slice() });
+        } else {
+            if (this.props.events !== nextProps.events) {
+                this.setState({ events: nextProps.events.slice() });
+            }
         }
-    },
-
-    clearEvents() {
-        this.getFlux().actions.clearEvents();
     },
 
     renderHeader(events) {
@@ -55,7 +43,7 @@ var EventsTab = React.createClass({
                     disabled={!this.state.events.length}
                     label='Clear Events'
                     primary={true}
-                    onClick={this.clearEvents}
+                    onClick={this.props.clearEvents}
                     />
                 <Toggle
                     name='togglePause'
@@ -99,4 +87,10 @@ var EventsTab = React.createClass({
     }
 });
 
-module.exports = EventsTab;
+function select(state) {
+    return {
+        events: state.Events.events
+    };
+}
+
+module.exports = connect(select, { clearEvents: actionCreators.clearEvents })(EventsTab);

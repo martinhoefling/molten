@@ -1,35 +1,29 @@
-var Fluxxor = require('fluxxor');
 var Constants = require('Constants');
 
-var EventStore = Fluxxor.createStore({
-    initialize() {
-        this.events = [];
+const initialState = {
+    events: []
+};
 
-        this.bindActions(
-            Constants.SERVER_EVENT_RECEIVED, this.newEventReceived,
-            Constants.CLEAR_EVENTS, this.clearEvents
-        );
-    },
+function _parseRaw(rawEvent) {
+    var parsedRawData = JSON.parse(rawEvent.data);
+    var event = {};
+    event.timestamp = new Date(rawEvent.timeStamp);
+    event.data = parsedRawData.data;
+    event.tag = parsedRawData.tag;
+    return event;
+}
 
-    newEventReceived(rawEvent) {
-        var parsedRawData = JSON.parse(rawEvent.data);
-        var event = {};
-        event.timestamp = new Date(rawEvent.timeStamp);
-        event.data = parsedRawData.data;
-        event.tag = parsedRawData.tag;
-        this.events.push(event);
-        this.emit('change');
-    },
-
-    getEvents() {
-        return this.events;
-    },
-
-    clearEvents() {
-        this.events = [];
-        this.emit('change');
+function capabilityReducer(state = initialState, action) {
+    switch (action.type) {
+        case Constants.SERVER_EVENT_RECEIVED:
+            return { events: [...state.events.slice(), _parseRaw(action.event)] };
+        case Constants.CLEAR_EVENTS:
+            return { events: [] };
+        default:
+            return state;
     }
-});
+}
 
-module.exports = EventStore;
+module.exports = capabilityReducer;
+
 

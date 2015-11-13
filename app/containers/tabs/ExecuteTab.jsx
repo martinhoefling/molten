@@ -82,7 +82,7 @@ var ExecuteTab = React.createClass({
 
     renderResult() {
         var result = this.props.currentResult ? this.props.currentResult.return[0] : null;
-        var progress = this.props.commandInProgress();
+        var progress = this.props.commandInProgress;
 
         if (progress) {
             return (
@@ -136,7 +136,7 @@ var ExecuteTab = React.createClass({
                     />
                 <div className={styles.submit}>
                     <RaisedButton
-                        disabled={this.getFlux().stores.CommandStore.inProgress()}
+                        disabled={this.props.commandInProgress}
                         label='Submit'
                         primary={true}
                         onClick={this.onSubmit}
