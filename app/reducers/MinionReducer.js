@@ -1,58 +1,36 @@
-var Fluxxor = require('fluxxor');
 var Constants = require('Constants');
 var _ = require('lodash');
 
-var MinionStore = Fluxxor.createStore({
-    initialize() {
-        this.minions = {};
-        this.fetchingMinions = false;
-        this.minionsBeingFetched = [];
+const initialState = {
+    minions: {},
+    fetchingMinionsInProgress: false,
+    minionsBeingFetched: {}
+};
 
-        this.bindActions(
-            Constants.GET_MINIONS, this.fetchingMinionsStarted,
-            Constants.GET_MINIONS_SUCCESS, this.minionsReceived,
-            Constants.GET_MINION, this.fetchingMinionStarted,
-            Constants.GET_MINION_SUCCESS, this.minionReceived
-        );
-    },
-
-    fetchingMinionsStarted() {
-        this.fetchingMinions = true;
-        this.emit('change');
-    },
-
-    fetchingMinionsInProgress() {
-        return this.fetchingMinions;
-    },
-
-    fetchingMinionInProgress(minion) {
-        return _.contains(this.minionsBeingFetched, minion);
-    },
-
-    minionsReceived(rawMinionData) {
-        this.minions = rawMinionData.return[0];
-        this.fetchingMinions = false;
-        this.emit('change');
-    },
-
-    fetchingMinionStarted(minion) {
-        this.minionsBeingFetched.push(minion);
-        delete this.minions[minion];
-        this.emit('change');
-    },
-
-    minionReceived(minion, rawMinionData) {
-        this.minionBeingFetched = this.minionBeingFetched.filter(fetch => minion !== fetch);
-        _.assign(this.minions, rawMinionData.return[0]);
-        this.emit('change');
-    },
-
-    getMinions() {
-        return _.keys(this.minions).map(key => ({
-                id: key,
-                grains: this.minions[key]
-            }));
+function minionReducer(state = initialState, action) {
+    switch (action.type) {
+        case Constants.GET_MINIONS:
+            return Object.assign({}, state, { fetchingMinionsInProgress: false });
+        case Constants.GET_MINIONS_SUCCESS:
+            return Object.assign({}, state, { minions: action.minions.return[0], fetchingMinionInProgress: false });
+        case Constants.GET_MINION:
+            return Object.assign(
+                {},
+                state,
+                { minionsBeingFetched: Object.assign({}, state.minionsBeingFetched, { [action.minionId]: true }) }
+            );
+        case Constants.GET_MINION_SUCCESS:
+            return Object.assign(
+                {},
+                state,
+                {
+                    minionsBeingFetched: Object.assign({}, state.minionsBeingFetched, { [action.minionId]: false }),
+                    minions: Object.assign({}, state.minions, { [action.minionId]: action.minion })
+                }
+            );
+        default:
+            return state;
     }
-});
+}
 
-module.exports = MinionStore;
+module.exports = minionReducer;
