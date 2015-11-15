@@ -11,7 +11,7 @@ function minionReducer(state = initialState, action) {
         case Constants.GET_MINIONS:
             return Object.assign({}, state, { fetchingMinionsInProgress: false });
         case Constants.GET_MINIONS_SUCCESS:
-            return Object.assign({}, state, { minions: action.minions.return[0], fetchingMinionInProgress: false });
+            return Object.assign({}, state, { minions: action.minionList.return[0], fetchingMinionInProgress: false });
         case Constants.GET_MINION:
             return Object.assign(
                 {},

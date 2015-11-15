@@ -69,7 +69,7 @@ function _getCapabilities(isRetry=false) {
         REST.getAPI({ basepath: CONFIG.API_BASE_URL },
             function (capabilities) {
                 if (capabilities !== null) {
-                    dispatch(getCapabilitiesSuccess());
+                    dispatch(getCapabilitiesSuccess(capabilities));
                 } else if (!isRetry) {
                     console.log('Capability load retry');
                     dispatch(_getCapabilities(true));

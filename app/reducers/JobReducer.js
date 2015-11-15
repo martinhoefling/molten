@@ -75,7 +75,7 @@ function jobReducer(state = initialState, action) {
                 });
             } else if (parsedRawData.tag.match(JOB_NEW_REGEX)) {
                 jid = parsedRawData.tag.match(JOB_NEW_REGEX)[1];
-                jobInfo = processRawJob(data, null, this.jobs[jid]);
+                jobInfo = processRawJob(data, null, state.jobs[jid]);
                 return Object.assign({}, state, {
                     jobs: Object.assign({}, state.jobs, { [jid]: jobInfo })
                 });

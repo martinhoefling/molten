@@ -1,7 +1,7 @@
 var React = require('react');
 var connect = require('react-redux').connect;
 var actionCreators = require('ActionCreators');
-
+var pushState = require('redux-router').pushState;
 var Tab = require('material-ui/lib/tabs/tab');
 var Tabs = require('material-ui/lib/tabs/tabs');
 var Constants = require('Constants');
@@ -13,7 +13,11 @@ var TABS = ['Execute', 'Job', 'Minion', 'Event', 'Settings'];
 
 var TabHeaders = React.createClass({
     propTypes: {
-        currentSession: React.PropTypes.object
+        currentSession: React.PropTypes.object,
+        testSessionStatus: React.PropTypes.func.isRequired,
+        logout: React.PropTypes.func.isRequired,
+        pushState: React.PropTypes.func.isRequired,
+        location: React.PropTypes.object.isRequired
     },
 
     getInitialState() {
@@ -23,17 +27,13 @@ var TabHeaders = React.createClass({
     },
 
     componentWillMount() {
-        if (!this.state.currentSession) {
-            dispatch(actionCreators.testSessionStatus());
+        if (!this.props.currentSession) {
+            this.props.testSessionStatus();
         }
     },
 
-    toggleMenu() {
-        this.setState({ menuOpen: !this.state.menuOpen });
-    },
-
     logout() {
-        dispatch(actionCreators.logout());
+        this.props.logout();
     },
 
     renderTabs() {
@@ -58,7 +58,7 @@ var TabHeaders = React.createClass({
     },
 
     _onActive(tab) {
-        dispatch(actionCreators.transition(Constants.URL.ROOT + tab.props.route));
+        this.props.pushState(null, Constants.URL.ROOT + tab.props.route);
     },
 
     render() {
@@ -85,8 +85,14 @@ var TabHeaders = React.createClass({
 
 function select(state) {
     return {
-        currentSession: state.Session.session
+        currentSession: state.Session.session,
+        location: state.router.location,
+        pushState
     };
 }
 
-module.exports = connect(select)(TabHeaders);
+module.exports = connect(select, {
+    testSessionStatus: actionCreators.testSessionStatus,
+    logout: actionCreators.logout,
+    transition: actionCreators.transition
+})(TabHeaders);

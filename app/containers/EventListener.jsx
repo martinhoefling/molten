@@ -1,10 +1,11 @@
 var React = require('react');
 var connect = require('react-redux').connect;
-var ActionCreators = require('ActionCreators');
+var actionCreators = require('ActionCreators');
 
 var Events = React.createClass({
     propTypes: {
-        error: React.PropTypes.string
+        error: React.PropTypes.string,
+        serverEventReceived: React.PropTypes.func.isRequired
     },
 
     componentDidMount() {
@@ -16,7 +17,7 @@ var Events = React.createClass({
         source.onerror = function(event) {
             console.debug('server event error!', event);
         };
-        source.onmessage = event => dispatch(ActionCreators.serverEventReceived(event));
+        source.onmessage = event => this.props.serverEventReceived(event);
     },
 
     render() {
@@ -25,4 +26,4 @@ var Events = React.createClass({
 
 });
 
-module.exports = connect()(Events);
+module.exports = connect(null, { serverEventReceived: actionCreators.serverEventReceived })(Events);

@@ -1,13 +1,14 @@
 var React = require('react');
 var styles = require('./Main.less');
 var EventListener = require('containers/EventListener');
+var TabHeaders = require('components/TabHeaders');
 
 var Main = React.createClass({
     render() {
         return (
             <div className={styles.this}>
-                {this.props.children['top']}
-                {this.props.children['main']}
+                <TabHeaders/>
+                {this.props.children}
                 <EventListener/>
             </div>
         );

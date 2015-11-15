@@ -1,7 +1,7 @@
-var React = require('react'),
-    ReactRouter = require('react-router'),
-    Route = ReactRouter.Route,
-    IndexRoute = ReactRouter.IndexRoute;
+var React = require('react');
+var ReactRouter = require('react-router');
+var Route = ReactRouter.Route;
+var IndexRoute = ReactRouter.IndexRoute;
 
 var Main = require('containers/Main');
 var Login = require('components/Login');
@@ -12,18 +12,16 @@ var MinionsTab = require('containers/tabs/MinionsTab');
 var EventsTab = require('containers/tabs/EventsTab');
 var SettingsTab = require('containers/tabs/SettingsTab');
 
-var TabHeaders = require('components/TabHeaders');
-
 module.exports = (
     <Route component={Main} path={CONFIG.APP_BASE_URL + '/'}>
-        <Route components={{ main: Login }} path='login' />
-        <Route components={{ main: ExecuteTab, top: TabHeaders }} path='execute' />
-        <Route components={{ main: JobsTab, top: TabHeaders }} path='job' />
-        <Route components={{ main: DetailedJobTab, top: TabHeaders }} path='job/:jid' />
-        <Route components={{ main: MinionsTab, top: TabHeaders }} path='minion' />
-        <Route components={{ main: EventsTab, top: TabHeaders }} path='event' />
-        <Route components={{ main: SettingsTab, top: TabHeaders }} path='settings' />
-        <IndexRoute components={{ main: ExecuteTab, top: TabHeaders }} />
+        <Route component={Login} path='login' />
+        <Route component={ExecuteTab} path='execute' />
+        <Route component={JobsTab} path='job' />
+        <Route component={DetailedJobTab} path='job/:jid' />
+        <Route component={MinionsTab} path='minion' />
+        <Route component={EventsTab} path='event' />
+        <Route component={SettingsTab} path='settings' />
+        <IndexRoute component={ExecuteTab} />
     </Route>
 );
 

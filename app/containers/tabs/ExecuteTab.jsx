@@ -21,7 +21,7 @@ var styles = require('./ExecuteTab.less');
 
 var ExecuteTab = React.createClass({
     propTypes: {
-        submitCommand: React.PropTypes.func,
+        executeCommand: React.PropTypes.func,
         clients: React.PropTypes.array,
         currentClient: React.PropTypes.object,
         clientFetchInProgress: React.PropTypes.bool,
@@ -47,7 +47,7 @@ var ExecuteTab = React.createClass({
     },
 
     onSubmit() {
-        this.props.submitCommand(this.getCommand());
+        this.props.executeCommand(this.getCommand());
     },
 
     getCurrentClient() {
@@ -159,4 +159,4 @@ function select(state) {
     };
 }
 
-module.exports = connect(select, { submitCommand: actionCreators.submitCommand })(ExecuteTab);
+module.exports = connect(select, { executeCommand: actionCreators.executeCommand })(ExecuteTab);
