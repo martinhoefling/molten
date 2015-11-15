@@ -1,4 +1,3 @@
-var Fluxxor = require('fluxxor');
 var Constants = require('Constants');
 var _ = require('lodash');
 
@@ -18,8 +17,6 @@ var EVENT_KEY_MAP = {
 };
 
 function processRawJob(info, result, previousJob) {
-    var job = previousJob || { internal: { fetching: false, result: {} } };
-
     if (info['Result'] && result) {
         delete info['Result'];
     }
@@ -31,118 +28,79 @@ function processRawJob(info, result, previousJob) {
         }
     });
 
-    // Assigning info and result
-    _.assign(job, info);
-    if (result) {
-        _.assign(job.internal.result, result);
-    }
-    return job;
+    return Object.assign({}, previousJob, info);
 }
 
-function compareJIDs(a, b) {
-    if (a.jid < b.jid)
-        return -1;
-    if (a.jid > b.jid)
-        return 1;
-    return 0;
-}
+const initialState = {
+    jobs: {},
+    fetchingJobsInProgress: false,
+    jobsBeingFetched: {},
+    jobResults: {}
+};
 
-var JobStore = Fluxxor.createStore({
-    initialize() {
-        this.jobs = {};
-        this.fetchingJobs = false;
-        this.bindActions(
-            Constants.GET_JOBS, this.fetchingJobsStarted,
-            Constants.GET_JOBS_SUCCESS, this.jobsLoaded,
-            Constants.SERVER_EVENT_RECEIVED, this.serverEventReceived,
-            Constants.GET_JOB, this.fetchingJobStarted,
-            Constants.GET_JOB_SUCCESS, this.jobLoaded
-        );
-    },
-
-    fetchingJobsStarted() {
-        this.fetchingJobs = true;
-        this.emit('change');
-    },
-
-    fetchingJobStarted(jid) {
-        var job = this.jobs[jid] || { internal: { fetching: false, result: {} } };
-        job.internal.fetching = true;
-        this.jobs[jid] = job;
-        this.emit('change');
-    },
-
-    fetchingJobsInProgress() {
-        return this.fetchingJobs;
-    },
-
-    fetchingJobInProgress(jid) {
-        return !!(this.jobs[jid] && this.jobs[jid].internal.fetching);
-    },
-
-    jobsLoaded(rawJobInfo) {
-        var job;
-        this.fetchingJobs = false;
-        Object.keys(rawJobInfo.return[0]).forEach(function (key) {
-            job = rawJobInfo.return[0][key];
-            job['jid'] = key;
-            this.jobs[key] = processRawJob(job, null, this.jobs[key]);
-        }.bind(this));
-        this.emit('change');
-    },
-
-    jobLoaded(rawJobInfo) {
-        var jobInfo = rawJobInfo.info[0];
-        var result = rawJobInfo.return[0].data;
-        this.jobs[jobInfo.jid] = processRawJob(jobInfo, result, this.jobs[jobInfo.jid]);
-        this.jobs[jobInfo.jid].internal.fetching = false;
-        this.emit('change');
-    },
-
-    serverEventReceived(rawEvent) {
-        var parsedRawData = JSON.parse(rawEvent.data),
-            data = parsedRawData.data,
-            jid, minion;
-        if (parsedRawData.tag.match(JOB_RET_REGEX)) {
-            jid = parsedRawData.tag.match(JOB_RET_REGEX)[1];
-            this.jobs[jid] = processRawJob(_.omit(data, ['return']), data.return, this.jobs[jid]);
-            this.emit('change');
-        } else if (parsedRawData.tag.match(JOB_RET_MINION_REGEX)) {
-            [jid, minion] = parsedRawData.tag.match(JOB_RET_MINION_REGEX).splice(1);
-            this.jobs[jid] = processRawJob(_.omit(data, ['return', 'id']), { [minion]: data.return }, this.jobs[jid]);
-            this.emit('change');
-        } else if (parsedRawData.tag.match(JOB_NEW_REGEX)) {
-            jid = parsedRawData.tag.match(JOB_NEW_REGEX)[1];
-            this.jobs[jid] = processRawJob(data, null, this.jobs[jid]);
-            this.emit('change');
-        }
-    },
-
-    getJobs() {
-        return _.keys(this.jobs).map(key => (this.getJob(key))).sort(compareJIDs);
-    },
-
-    getJobResult(jid) {
-        return this.jobs[jid].internal.result;
-    },
-
-    getJob(jid) {
-        return _.omit(this.jobs[jid], ['internal']);
-    },
-
-    getMinionJobs(minionId) {
-        return this.getJobs().filter(function (job) {
-            if (!job.Minions) {
-                return false;
+function jobReducer(state = initialState, action) {
+    var jobs, jobInfo, parsedRawData, data, jid, minion;
+    switch (action.type) {
+        case Constants.GET_JOBS:
+            return Object.assign({}, state, { fetchingJobsInProgress: true});
+        case Constants.GET_JOBS_SUCCESS:
+            jobs = Object.assign({}, state.jobs);
+            Object.keys(action.jobList.return[0]).forEach(function (key) {
+                jobInfo = action.jobList.return[0][key];
+                jobInfo['jid'] = key;
+                jobs[key] = processRawJob(jobInfo, null, state.jobs[key]);
+            });
+            return Object.assign({}, state, {
+                fetchingJobsInProgress: false,
+                jobs
+            });
+        case Constants.SERVER_EVENT_RECEIVED:
+            parsedRawData = JSON.parse(action.event.data);
+            data = parsedRawData.data;
+            if (parsedRawData.tag.match(JOB_RET_REGEX)) {
+                jid = parsedRawData.tag.match(JOB_RET_REGEX)[1];
+                jobInfo = processRawJob(_.omit(data, ['return']), true, state.jobs[jid]);
+                return Object.assign({}, state, {
+                    jobs: Object.assign({}, state.jobs, { [jid]: jobInfo }),
+                    jobResults: Object.assign({}, state.jobResults, { [jid]: data.return })
+                });
+            } else if (parsedRawData.tag.match(JOB_RET_MINION_REGEX)) {
+                [jid, minion] = parsedRawData.tag.match(JOB_RET_MINION_REGEX).splice(1);
+                jobInfo = processRawJob(_.omit(data, ['return', 'id']), true, state.jobs[jid]);
+                return Object.assign({}, state, {
+                    jobs: Object.assign({}, state.jobs, { [jid]: jobInfo }),
+                    jobResults: Object.assign({}, state.jobResults, {
+                        [jid]: Object.assign({}, state.jobResults[jid], { [minion]: data.return })
+                    })
+                });
+            } else if (parsedRawData.tag.match(JOB_NEW_REGEX)) {
+                jid = parsedRawData.tag.match(JOB_NEW_REGEX)[1];
+                jobInfo = processRawJob(data, null, this.jobs[jid]);
+                return Object.assign({}, state, {
+                    jobs: Object.assign({}, state.jobs, { [jid]: jobInfo })
+                });
+            } else {
+                return state;
             }
-            return _.contains(job.Minions, minionId);
-        });
-    },
-
-    getMinionJobResult(jid, minionId) {
-        return this.jobs[jid].internal.result[minionId];
+        case Constants.GET_JOB:
+            return Object.assign({}, state, {
+                jobsBeingFetched: Object.assign({}, state.jobsBeingFetched, { [action.jid]: true })
+            });
+        case Constants.GET_JOB_SUCCESS:
+            jobInfo = action.job.info[0];
+            var result = action.job.return[0].data;
+            return Object.assign({}, state, {
+                jobsBeingFetched: Object.assign({}, state.jobsBeingFetched, { [action.jid]: false }),
+                jobs: Object.assign(
+                    {},
+                    state.jobs,
+                    { [action.jid]: processRawJob(jobInfo, result, this.state.jobs[jobInfo]) }
+                ),
+                jobResults: Object.assign({}, state.jobResults, { [action.jid]: result })
+            });
+        default:
+            return state;
     }
-});
+}
 
-module.exports = JobStore;
-
+module.exports = jobReducer;

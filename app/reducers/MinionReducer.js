@@ -1,5 +1,4 @@
 var Constants = require('Constants');
-var _ = require('lodash');
 
 const initialState = {
     minions: {},

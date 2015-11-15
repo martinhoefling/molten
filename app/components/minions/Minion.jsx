@@ -1,21 +1,21 @@
 var React = require('react');
-var Fluxxor = require('fluxxor');
-var FluxMixin = Fluxxor.FluxMixin(React);
-var StoreWatchMixin = Fluxxor.StoreWatchMixin;
+var connect = require('react-redux').connect;
 
 var Paper = require('material-ui/lib/paper');
 var RaisedButton = require('material-ui/lib/raised-button');
 var classnames = require('classnames');
 var CollapsedStructuredElement = require('elements/CollapsedStructuredElement');
+var actionCreators = require('ActionCreators');
 
 var rowStyles = require('components/RowLayout.less');
 var styles = require('./Minion.less');
 
 var Event = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin('JobStore')],
-
     propTypes: {
-        minion: React.PropTypes.object.isRequired
+        minion: React.PropTypes.object.isRequired,
+        minionJobs: React.PropTypes.array.isRequired,
+        jobResults: React.PropTypes.object.isRequired,
+        submitCommand: React.PropTypes.func.isRequired
     },
 
     getInitialState() {
@@ -25,32 +25,23 @@ var Event = React.createClass({
         };
     },
 
-    getStateFromFlux() {
-        var flux = this.getFlux();
-        var jobStore = flux.stores.JobStore;
-        var jobs = jobStore.getMinionJobs(this.props.minion.id);
-        return {
-            jobs
-        };
-    },
-
     onLoadPillar() {
         var lowstate = { client: 'local', tgt: this.props.minion.id, fun: 'pillar.items' };
-        this.getFlux().actions.submitCommand(lowstate);
+        this.props.submitCommand(lowstate);
         this.setState({ pillarLoadRequested: true });
     },
 
     onRequestHighstate() {
         var lowstate = { client: 'local', tgt: this.props.minion.id, fun: 'state.highstate', kwarg: 'queue=true' };
-        this.getFlux().actions.submitCommand(lowstate);
+        this.props.submitCommand(lowstate);
         this.setState({ highstateRequested: true });
     },
 
     getLatestJob(funcName) {
-        var pillarJobs = this.state.jobs.filter(job => job.Function === funcName);
-        if (pillarJobs.length) {
-            var jid = _.last(pillarJobs).jid;
-            return this.getFlux().stores.JobStore.getMinionJobResult(jid, this.props.minion.id);
+        var filteredJobs = this.props.minionJobs.filter(job => job.Function === funcName);
+        if (filteredJobs.length) {
+            var jid = _.last(filteredJobs).jid;
+            return this.props.jobResults[jid] || {};
         }
         return null;
     },
@@ -81,7 +72,7 @@ var Event = React.createClass({
     },
 
     renderRecentJobs() {
-        var recentJobs = this.state.jobs;
+        var recentJobs = this.props.minionJobs;
         if (recentJobs) {
             return (
                 <CollapsedStructuredElement
@@ -162,4 +153,29 @@ var Event = React.createClass({
     }
 });
 
-module.exports = Event;
+function compareJIDs(a, b) {
+    if (a.jid < b.jid) {
+        return -1;
+    }
+    if (a.jid > b.jid) {
+        return 1;
+    }
+    return 0;
+}
+
+function select(state, ownProps) {
+    var sortedJobs = Object.keys(state.Jobs.jobs).map(key => (state.Jobs.jobs[key])).sort(compareJIDs);
+    var minionJobs = sortedJobs.filter(function (job) {
+        if (!job.Minions) {
+            return false;
+        }
+        return _.contains(job.Minions, ownProps.minion.id);
+    });
+
+    return {
+        minionJobs,
+        jobResults: state.Jobs.jobResults
+    };
+}
+
+module.exports = connect(select, { submitCommand: actionCreators.submitCommand })(Event);

@@ -1,8 +1,7 @@
 var React = require('react');
-var Fluxxor = require('fluxxor');
 var moment = require('moment');
-var FluxMixin = Fluxxor.FluxMixin(React);
-var StoreWatchMixin = Fluxxor.StoreWatchMixin;
+var connect = require('react-redux').connect;
+
 var LoadingIndicator = require('elements/LoadingIndicator');
 
 var JobSummary = require('components/jobs/JobSummary');
@@ -19,22 +18,15 @@ function UTCNow() {
 }
 
 var JobsTab = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin('JobStore')],
+    propTypes: {
+        jobs: React.PropTypes.array.isRequired,
+        fetchInProgress: React.PropTypes.bool.isRequired
+    },
 
     getInitialState() {
         return {
             fromDate: new Date(UTCNow().valueOf() - DEFAULT_TIME_RANGE),
             toDate: undefined
-        };
-    },
-
-    getStateFromFlux() {
-        var flux = this.getFlux();
-        var jobStore = flux.stores.JobStore;
-        var jobs = jobStore.getJobs();
-        return {
-            jobs,
-            fetchInProgress: jobStore.fetchingJobsInProgress()
         };
     },
 
@@ -48,7 +40,7 @@ var JobsTab = React.createClass({
             toStr = moment(this.state.toDate).format('YYYYMMDDHHmmss') + '000000';
         }
 
-        var filteredJobs = this.state.jobs.filter(function (job) {
+        var filteredJobs = this.props.jobs.filter(function (job) {
             if (fromStr) {
                 if (job.jid < fromStr) {
                     return false;
@@ -83,7 +75,7 @@ var JobsTab = React.createClass({
     },
 
     render() {
-        if (this.state.fetchInProgress) {
+        if (this.props.fetchInProgress) {
             return (
                 <LoadingIndicator>
                     Loading Jobs
@@ -99,4 +91,21 @@ var JobsTab = React.createClass({
     }
 });
 
-module.exports = JobsTab;
+function compareJIDs(a, b) {
+    if (a.jid < b.jid) {
+        return -1;
+    }
+    if (a.jid > b.jid) {
+        return 1;
+    }
+    return 0;
+}
+
+function select(state) {
+    return {
+        jobs: Object.keys(state.Jobs.jobs).map(key => (state.Jobs.jobs[key])).sort(compareJIDs),
+        fetchInProgress: state.Jobs.fetchingJobsInProgress
+    };
+}
+
+module.exports = connect(select)(JobsTab);
