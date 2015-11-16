@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactRouter = require('react-router');
+var Redirect = ReactRouter.Redirect;
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 
@@ -13,15 +14,18 @@ var EventsTab = require('containers/tabs/EventsTab');
 var SettingsTab = require('containers/tabs/SettingsTab');
 
 module.exports = (
-    <Route component={Main} path={CONFIG.APP_BASE_URL + '/'}>
-        <Route component={Login} path='login' />
-        <Route component={ExecuteTab} path='execute' />
-        <Route component={JobsTab} path='job' />
-        <Route component={DetailedJobTab} path='job/:jid' />
-        <Route component={MinionsTab} path='minion' />
-        <Route component={EventsTab} path='event' />
-        <Route component={SettingsTab} path='settings' />
-        <IndexRoute component={ExecuteTab} />
+    <Route path=''>
+        <Route component={Main} path={CONFIG.APP_BASE_URL + '/'}>
+            <Route component={Login} path='login' />
+            <Route component={ExecuteTab} path='execute' />
+            <Route component={JobsTab} path='job' />
+            <Route component={DetailedJobTab} path='job/:jid' />
+            <Route component={MinionsTab} path='minion' />
+            <Route component={EventsTab} path='event' />
+            <Route component={SettingsTab} path='settings' />
+            <IndexRoute component={ExecuteTab} />
+        </Route>
+        <Redirect from='*' to={CONFIG.APP_BASE_URL + '/'} />
     </Route>
 );
 

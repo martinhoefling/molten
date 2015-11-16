@@ -9,13 +9,13 @@ const initialState = {
 
 function documentationReducer(state = initialState, action) {
     switch (action.type) {
-        case Constants.SUBMIT_COMMAND:
+        case Constants.GET_DOCUMENTATION:
             return {
                 documentation: Object.assign({}, state.documentation, { [action.docType]: null }),
                 error: null,
                 inProgress: Object.assign({}, state.inProgress, { [action.docType]: true })
             };
-        case Constants.SUBMIT_COMMAND_SUCCESS:
+        case Constants.GET_DOCUMENTATION_SUCCESS:
             return {
                 documentation: Object.assign(
                     {}, state.documentation,
@@ -23,7 +23,7 @@ function documentationReducer(state = initialState, action) {
                 error: null,
                 inProgress: Object.assign({}, state.inProgress, { [action.docType]: false })
             };
-        case Constants.SUBMIT_COMMAND_FAIL:
+        case Constants.GET_DOCUMENTATION_FAIL:
             return {
                 documentation: Object.assign({}, state.documentation, { [action.docType]: null }),
                 error,

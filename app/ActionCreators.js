@@ -1,5 +1,6 @@
 var Constants = require('Constants');
 var REST = require('helpers/rest');
+var pushState = require('redux-router').pushState;
 
 var setSession = () => ({ type: Constants.SET_SESSION });
 var setSessionFail = error => ({ type: Constants.SET_SESSION_FAIL, error });
@@ -36,6 +37,16 @@ var getDocumentationSuccess = (docType, documentation) =>
 
 var serverEventReceived = event => ({ type: Constants.SERVER_EVENT_RECEIVED, event });
 var clearEvents = () => ({ type: Constants.CLEAR_EVENTS });
+
+function _dispatchAndRedirect(dispatch, action) {
+    dispatch(action);
+    if (action.error.status === 401) {
+        console.log('clearing session');
+        dispatch(setSession());
+        console.log('redirecting');
+        dispatch(pushState(null, CONFIG.APP_BASE_URL + '/login'));
+    }
+}
 
 function createSession(username, password) {
     return function(dispatch) {
@@ -77,7 +88,7 @@ function _getCapabilities(isRetry=false) {
                     dispatch(getCapabilitiesFail(new Error('Capability load retry failed')));
                 }
             },
-            error => dispatch(getCapabilitiesFail(error))
+            error => _dispatchAndRedirect(dispatch, getCapabilitiesFail(error))
         );
     };
 }
@@ -89,7 +100,7 @@ function _getDocumentation() {
 
             REST.obtainDocumentation({ basepath: CONFIG.API_BASE_URL, docType },
                 documentation => dispatch(getDocumentationSuccess(docType, documentation)),
-                error => dispatch(getDocumentationFail(error))
+                error => _dispatchAndRedirect(dispatch, getDocumentationFail(error))
             );
         });
     };
@@ -100,7 +111,7 @@ function _loadMinions() {
         dispatch(getMinions());
         REST.getMinions({ basepath: CONFIG.API_BASE_URL },
             minionList => dispatch(getMinionsSuccess(minionList)),
-            error => dispatch(getMinionsFail(error))
+            error => _dispatchAndRedirect(dispatch, getMinionsFail(error))
         );
     };
 }
@@ -110,7 +121,7 @@ function _loadJobs() {
         dispatch(getJobs());
         REST.getJobs({ basepath: CONFIG.API_BASE_URL },
             jobList => dispatch(getJobsSuccess(jobList)),
-            error => dispatch(getJobsFail(error))
+            error => _dispatchAndRedirect(dispatch, getJobsFail(error))
         );
     };
 }
@@ -121,7 +132,7 @@ function testSessionStatus() {
         REST.testSession(
             { basepath: CONFIG.API_BASE_URL },
             session => dispatch(_sessionSuccess(session)),
-            error => dispatch(setSessionFail(error))
+            error => _dispatchAndRedirect(dispatch, setSessionFail(error))
         );
     };
 }
@@ -132,7 +143,7 @@ function executeCommand(commandObj) {
 
         REST.postAPI({ basepath: CONFIG.API_BASE_URL, lowstate: commandObj }, 
             resultObj => dispatch(submitCommandSuccess(commandObj, resultObj)),
-            error => dispatch(submitCommandFail(commandObj, error))
+            error => _dispatchAndRedirect(dispatch, submitCommandFail(commandObj, error))
         );
     };
 }
@@ -153,7 +164,7 @@ function loadJobResult(jid) {
         dispatch(getJob(jid));
         REST.getJob({ basepath: CONFIG.API_BASE_URL, jid },
             job => dispatch(getJobSuccess(jid, job)),
-            error => dispatch(getJobFail(jid, error))
+            error => _dispatchAndRedirect(dispatch, getJobFail(jid, error))
         );
     };
 }
