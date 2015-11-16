@@ -40,7 +40,7 @@ var clearEvents = () => ({ type: Constants.CLEAR_EVENTS });
 
 function _dispatchAndRedirect(dispatch, action) {
     dispatch(action);
-    if (action.error.status === 401) {
+    if (!action.error || action.error.status === 401) {
         console.log('clearing session');
         dispatch(setSession());
         console.log('redirecting');
@@ -153,8 +153,8 @@ function logout() {
         dispatch(unsetSession());
 
         REST.destroySession({ basepath: CONFIG.API_BASE_URL },
-            () => dispatch(unsetSessionSuccess()),
-            error => dispatch(unsetSessionFail(error))
+            () => _dispatchAndRedirect(dispatch, unsetSessionSuccess()),
+            error => _dispatchAndRedirect(dispatch, unsetSessionFail(error))
         );
     };
 }

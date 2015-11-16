@@ -15,7 +15,7 @@ var Event = React.createClass({
         minion: React.PropTypes.object.isRequired,
         minionJobs: React.PropTypes.array.isRequired,
         jobResults: React.PropTypes.object.isRequired,
-        submitCommand: React.PropTypes.func.isRequired
+        executeCommand: React.PropTypes.func.isRequired
     },
 
     getInitialState() {
@@ -27,13 +27,13 @@ var Event = React.createClass({
 
     onLoadPillar() {
         var lowstate = { client: 'local', tgt: this.props.minion.id, fun: 'pillar.items' };
-        this.props.submitCommand(lowstate);
+        this.props.executeCommand(lowstate);
         this.setState({ pillarLoadRequested: true });
     },
 
     onRequestHighstate() {
         var lowstate = { client: 'local', tgt: this.props.minion.id, fun: 'state.highstate', kwarg: 'queue=true' };
-        this.props.submitCommand(lowstate);
+        this.props.executeCommand(lowstate);
         this.setState({ highstateRequested: true });
     },
 
@@ -178,4 +178,4 @@ function select(state, ownProps) {
     };
 }
 
-module.exports = connect(select, { submitCommand: actionCreators.submitCommand })(Event);
+module.exports = connect(select, { executeCommand: actionCreators.executeCommand })(Event);

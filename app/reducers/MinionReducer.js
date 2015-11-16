@@ -9,9 +9,9 @@ const initialState = {
 function minionReducer(state = initialState, action) {
     switch (action.type) {
         case Constants.GET_MINIONS:
-            return Object.assign({}, state, { fetchingMinionsInProgress: false });
+            return Object.assign({}, state, { fetchingMinionsInProgress: true });
         case Constants.GET_MINIONS_SUCCESS:
-            return Object.assign({}, state, { minions: action.minionList.return[0], fetchingMinionInProgress: false });
+            return Object.assign({}, state, { minions: action.minionList.return[0], fetchingMinionsInProgress: false });
         case Constants.GET_MINION:
             return Object.assign(
                 {},

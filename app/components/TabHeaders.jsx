@@ -58,7 +58,11 @@ var TabHeaders = React.createClass({
     },
 
     _onActive(tab) {
-        this.props.pushState(null, Constants.URL.ROOT + tab.props.route);
+        if (this.props.currentSession) {
+            this.props.pushState(null, Constants.URL.ROOT + tab.props.route);
+        } else {
+            this.props.pushState(null, Constants.URL.LOGIN);
+        }
     },
 
     render() {

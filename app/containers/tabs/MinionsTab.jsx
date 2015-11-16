@@ -13,7 +13,7 @@ var MinionsTab = React.createClass({
     },
 
     renderMinions() {
-        return this.state.minions.map(minion => <Minion key={minion.id} minion={minion}/>);
+        return this.props.minions.map(minion => <Minion key={minion.id} minion={minion}/>);
     },
 
     render() {
@@ -33,13 +33,13 @@ var MinionsTab = React.createClass({
 });
 
 function select(state) {
-    var minions = _.keys(state.minions).map(key => ({
+    var minions = _.keys(state.Minions.minions).map(key => ({
         id: key,
-        grains: state.minions[key]
+        grains: state.Minions.minions[key]
     }));
     return {
         minions,
-        fetchingMinionsInProgress: state.fetchingMinionsInProgress
+        fetchingMinionsInProgress: state.Minions.fetchingMinionsInProgress
     };
 }
 
