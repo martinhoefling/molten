@@ -98,7 +98,7 @@ function _getDocumentation() {
         _.values(Constants.DOCUMENTATION_TYPE).forEach(function (docType) {
             dispatch(getDocumentation(docType));
 
-            REST.obtainDocumentation({ basepath: CONFIG.API_BASE_URL, docType },
+            REST.obtainDocumentation({ basepath: CONFIG.API_BASE_URL, type: docType },
                 documentation => dispatch(getDocumentationSuccess(docType, documentation)),
                 error => _dispatchAndRedirect(dispatch, getDocumentationFail(error))
             );

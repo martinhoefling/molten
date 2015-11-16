@@ -29,10 +29,10 @@ var DetailedJobTab = React.createClass({
     renderJob() {
         return (
             <div className={styles.jobSummary}>
-                <div className={styles.informationHeader}>Job information for {this.props.job.jid}:</div>
-                <StructuredElement downloadEnabled element={this.props.job}/>
-                <div className={styles.resultsHeader}>Results of {this.props.job.jid}:</div>
-                <StructuredElement downloadEnabled element={this.props.result}/>
+                <div className={styles.informationHeader}>Job information for {this.props.params.jid}:</div>
+                <StructuredElement downloadEnabled element={this.props.job || 'job not found'}/>
+                <div className={styles.resultsHeader}>Results of {this.props.params.jid}:</div>
+                <StructuredElement downloadEnabled element={this.props.result || 'no result yet'}/>
             </div>
         );
     },
@@ -56,9 +56,9 @@ var DetailedJobTab = React.createClass({
 function select(state, ownProps) {
     var jid = ownProps.params.jid;
     return {
-        job: state.Job.jobs[jid],
-        result: state.Job.jobResults[jid],
-        fetchInProgress: state.Job.jobsBeingFetched[jid]
+        job: state.Jobs.jobs[jid],
+        result: state.Jobs.jobResults[jid],
+        fetchInProgress: !!state.Jobs.jobsBeingFetched[jid]
     };
 }
 

@@ -94,7 +94,7 @@ function jobReducer(state = initialState, action) {
                 jobs: Object.assign(
                     {},
                     state.jobs,
-                    { [action.jid]: processRawJob(jobInfo, result, this.state.jobs[jobInfo]) }
+                    { [action.jid]: processRawJob(jobInfo, result, state.jobs[jobInfo]) }
                 ),
                 jobResults: Object.assign({}, state.jobResults, { [action.jid]: result })
             });

@@ -86,13 +86,12 @@ var TabHeaders = React.createClass({
 function select(state) {
     return {
         currentSession: state.Session.session,
-        location: state.router.location,
-        pushState
+        location: state.router.location
     };
 }
 
 module.exports = connect(select, {
     testSessionStatus: actionCreators.testSessionStatus,
     logout: actionCreators.logout,
-    transition: actionCreators.transition
+    pushState
 })(TabHeaders);
