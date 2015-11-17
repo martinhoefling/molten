@@ -156,9 +156,9 @@ var ClientConfiguration = React.createClass({
             <div className={styles.client}>
                 <SelectField
                     floatingLabelText='Client'
-                    floatingLabelStyle={ { transform: 'perspective(1px) scale(0.75) translate3d(2px, -28px, 0)' } }
                     style={{ width: '100px' }}
                     menuItems={clientMenuItems}
+                    value={this.props.currentClient}
                     selectedIndex={this.props.clients.indexOf(this.props.currentClient)}
                     onChange={this.onClientChange}/>
            </div>

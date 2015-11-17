@@ -66,8 +66,8 @@ var RunnerConfiguration = React.createClass({
             <Paper className={classnames(rowStyles.this, styles.this)} Depth={2}>
                 <SelectField
                     floatingLabelText='Matcher'
-                    floatingLabelStyle={ { transform: 'perspective(1px) scale(0.75) translate3d(2px, -28px, 0)' } }
                     style={{ width: '130px' }}
+                    value={this.getCurrentExprForm()}
                     disabled={this.props.disabled}
                     menuItems={menuItems}
                     selectedIndex={EXPRESSION_FORM.indexOf(this.getCurrentExprForm())}

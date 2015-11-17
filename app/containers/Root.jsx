@@ -2,7 +2,6 @@ var React = require('react');
 var ReduxRouter = require('redux-router').ReduxRouter;
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 
-var ThemeManager = require('material-ui/lib/styles/theme-manager');
 var Theme = require('Theme');
 var routes = require('Routes');
 
@@ -16,7 +15,7 @@ var Root = React.createClass({
 
     getChildContext: function () {
         return {
-            muiTheme: ThemeManager.getMuiTheme(Theme)
+            muiTheme: Theme
         };
     },
 
