@@ -1,19 +1,16 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Redirect = ReactRouter.Redirect;
-var Route = ReactRouter.Route;
-var IndexRoute = ReactRouter.IndexRoute;
+import React from 'react';
+import { Redirect, Route, IndexRoute } from 'react-router';
 
-var Main = require('containers/Main');
-var Login = require('components/Login');
-var ExecuteTab = require('containers/tabs/ExecuteTab');
-var JobsTab = require('containers/tabs/JobsTab');
-var DetailedJobTab = require('containers/tabs/DetailedJobTab');
-var MinionsTab = require('containers/tabs/MinionsTab');
-var EventsTab = require('containers/tabs/EventsTab');
-var SettingsTab = require('containers/tabs/SettingsTab');
+import Main from 'containers/Main';
+import Login from 'components/Login';
+import ExecuteTab from 'containers/tabs/ExecuteTab';
+import JobsTab from 'containers/tabs/JobsTab';
+import DetailedJobTab from 'containers/tabs/DetailedJobTab';
+import MinionsTab from 'containers/tabs/MinionsTab';
+import EventsTab from 'containers/tabs/EventsTab';
+import SettingsTab from 'containers/tabs/SettingsTab';
 
-module.exports = (
+const Routes = (
     <Route path=''>
         <Route component={Main} path={CONFIG.APP_BASE_URL + '/'}>
             <Route component={Login} path='login' />
@@ -29,3 +26,4 @@ module.exports = (
     </Route>
 );
 
+export default Routes;

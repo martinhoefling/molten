@@ -1,11 +1,11 @@
-var Constants = require('Constants');
-var _ = require('lodash');
+import Constants from 'Constants';
+import _ from 'lodash';
 
-var JOB_RET_REGEX = /^salt\/run\/(\d{20})\/ret$/;
-var JOB_RET_MINION_REGEX = /^salt\/job\/(\d{20})\/ret\/(.+)$/;
-var JOB_NEW_REGEX = /^salt\/job\/(\d{20})\/new$/;
+const JOB_RET_REGEX = /^salt\/run\/(\d{20})\/ret$/;
+const JOB_RET_MINION_REGEX = /^salt\/job\/(\d{20})\/ret\/(.+)$/;
+const JOB_NEW_REGEX = /^salt\/job\/(\d{20})\/new$/;
 
-var EVENT_KEY_MAP = {
+const EVENT_KEY_MAP = {
     tgt_type: 'Target-type',
     fun: 'Function',
     tgt: 'Target',
@@ -16,7 +16,7 @@ var EVENT_KEY_MAP = {
     minions: 'Minions'
 };
 
-function processRawJob(info, result, previousJob) {
+function _processRawJob(info, result, previousJob) {
     if (info['Result'] && result) {
         delete info['Result'];
     }
@@ -38,7 +38,7 @@ const initialState = {
     jobResults: {}
 };
 
-function jobReducer(state = initialState, action) {
+export default function jobReducer(state = initialState, action) {
     var jobs, jobInfo, parsedRawData, data, jid, minion;
     switch (action.type) {
         case Constants.GET_JOBS:
@@ -48,7 +48,7 @@ function jobReducer(state = initialState, action) {
             Object.keys(action.jobList.return[0]).forEach(function (key) {
                 jobInfo = action.jobList.return[0][key];
                 jobInfo['jid'] = key;
-                jobs[key] = processRawJob(jobInfo, null, state.jobs[key]);
+                jobs[key] = _processRawJob(jobInfo, null, state.jobs[key]);
             });
             return Object.assign({}, state, {
                 fetchingJobsInProgress: false,
@@ -59,14 +59,14 @@ function jobReducer(state = initialState, action) {
             data = parsedRawData.data;
             if (parsedRawData.tag.match(JOB_RET_REGEX)) {
                 jid = parsedRawData.tag.match(JOB_RET_REGEX)[1];
-                jobInfo = processRawJob(_.omit(data, ['return']), true, state.jobs[jid]);
+                jobInfo = _processRawJob(_.omit(data, ['return']), true, state.jobs[jid]);
                 return Object.assign({}, state, {
                     jobs: Object.assign({}, state.jobs, { [jid]: jobInfo }),
                     jobResults: Object.assign({}, state.jobResults, { [jid]: data.return })
                 });
             } else if (parsedRawData.tag.match(JOB_RET_MINION_REGEX)) {
                 [jid, minion] = parsedRawData.tag.match(JOB_RET_MINION_REGEX).splice(1);
-                jobInfo = processRawJob(_.omit(data, ['return', 'id']), true, state.jobs[jid]);
+                jobInfo = _processRawJob(_.omit(data, ['return', 'id']), true, state.jobs[jid]);
                 return Object.assign({}, state, {
                     jobs: Object.assign({}, state.jobs, { [jid]: jobInfo }),
                     jobResults: Object.assign({}, state.jobResults, {
@@ -75,7 +75,7 @@ function jobReducer(state = initialState, action) {
                 });
             } else if (parsedRawData.tag.match(JOB_NEW_REGEX)) {
                 jid = parsedRawData.tag.match(JOB_NEW_REGEX)[1];
-                jobInfo = processRawJob(data, null, state.jobs[jid]);
+                jobInfo = _processRawJob(data, null, state.jobs[jid]);
                 return Object.assign({}, state, {
                     jobs: Object.assign({}, state.jobs, { [jid]: jobInfo })
                 });
@@ -94,7 +94,7 @@ function jobReducer(state = initialState, action) {
                 jobs: Object.assign(
                     {},
                     state.jobs,
-                    { [action.jid]: processRawJob(jobInfo, result, state.jobs[jobInfo]) }
+                    { [action.jid]: _processRawJob(jobInfo, result, state.jobs[jobInfo]) }
                 ),
                 jobResults: Object.assign({}, state.jobResults, { [action.jid]: result })
             });
@@ -102,5 +102,3 @@ function jobReducer(state = initialState, action) {
             return state;
     }
 }
-
-module.exports = jobReducer;

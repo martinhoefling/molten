@@ -1,12 +1,11 @@
-var React = require('react');
-var _ = require('lodash');
+import React from 'react';
+import _ from 'lodash';
+import classnames from 'classnames';
 
-var classnames = require('classnames');
+import rowStyles from 'components/RowLayout.less';
+import styles from './SearchDisplay.less';
 
-var rowStyles = require('components/RowLayout.less');
-var styles = require('./SearchDisplay.less');
-
-var SearchDisplay = React.createClass({
+const SearchDisplay = React.createClass({
     propTypes: {
         search: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object]).isRequired,
         onFunctionSelect: React.PropTypes.func
@@ -52,4 +51,4 @@ var SearchDisplay = React.createClass({
     }
 });
 
-module.exports = SearchDisplay;
+export default SearchDisplay;

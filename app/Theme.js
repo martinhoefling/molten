@@ -1,9 +1,8 @@
-let Colors = require('material-ui/lib/styles/colors');
-let Spacing = require('material-ui/lib/styles/spacing');
+import Colors from 'material-ui/lib/styles/colors';
+import Spacing from 'material-ui/lib/styles/spacing';
+import ThemeManager from 'material-ui/lib/styles/theme-manager';
 
-var ThemeManager = require('material-ui/lib/styles/theme-manager');
-
-var Theme = ThemeManager.getMuiTheme({
+export default ThemeManager.getMuiTheme({
     spacing: Spacing,
     fontFamily: 'Roboto, sans-serif',
     palette: {
@@ -20,5 +19,3 @@ var Theme = ThemeManager.getMuiTheme({
         canvasColor: Colors.white
     }
 });
-
-module.exports = Theme;

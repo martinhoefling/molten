@@ -1,6 +1,6 @@
 import request from 'superagent';
 
-var SESSION_TEST = {
+const SESSION_TEST = {
     client: 'runner',
     fun: 'test.sleep',
     kwargs: {
@@ -34,53 +34,51 @@ function getRequest(url, success, fail) {
         });
 }
 
-module.exports = {
-    createSession(options, success, fail) {
-        postRequest(options.basepath + '/login', success, fail, {
-            username: options.username,
-            password: options.password,
-            eauth: options.eauth
-        });
-    },
+export function createSession(options, success, fail) {
+    postRequest(options.basepath + '/login', success, fail, {
+        username: options.username,
+        password: options.password,
+        eauth: options.eauth
+    });
+}
 
-    destroySession(options, success, fail) {
-        postRequest(options.basepath + '/logout', success, fail, '');
-    },
+export function destroySession(options, success, fail) {
+    postRequest(options.basepath + '/logout', success, fail, '');
+}
 
-    getAPI(options, success, fail) {
-        getRequest(options.basepath + '/', success, fail);
-    },
+export function getAPI(options, success, fail) {
+    getRequest(options.basepath + '/', success, fail);
+}
 
-    postAPI(options, success, fail) {
-        postRequest(options.basepath + '/', success, fail, options.lowstate);
-    },
+export function postAPI(options, success, fail) {
+    postRequest(options.basepath + '/', success, fail, options.lowstate);
+}
 
-    testSession(options, success, fail) {
-        options.lowstate = SESSION_TEST;
-        return this.postAPI(options, success, fail);
-    },
+export function testSession(options, success, fail) {
+    options.lowstate = SESSION_TEST;
+    return this.postAPI(options, success, fail);
+}
 
-    obtainDocumentation(options, success, fail) {
-        options.lowstate = {
-            client: 'runner',
-            fun: 'doc.' + options.type
-        };
-        return this.postAPI(options, success, fail);
-    },
+export function obtainDocumentation(options, success, fail) {
+    options.lowstate = {
+        client: 'runner',
+        fun: 'doc.' + options.type
+    };
+    return this.postAPI(options, success, fail);
+}
 
-    getMinions(options, success, fail) {
-        getRequest(options.basepath + '/minions/', success, fail);
-    },
+export function getMinions(options, success, fail) {
+    getRequest(options.basepath + '/minions/', success, fail);
+}
 
-    getMinion(options, success, fail) {
-        getRequest(options.basepath + '/minions/' + options.minion, success, fail);
-    },
+export function getMinion(options, success, fail) {
+    getRequest(options.basepath + '/minions/' + options.minion, success, fail);
+}
 
-    getJobs(options, success, fail) {
-        getRequest(options.basepath + '/jobs/', success, fail);
-    },
+export function getJobs(options, success, fail) {
+    getRequest(options.basepath + '/jobs/', success, fail);
+}
 
-    getJob(options, success, fail) {
-        getRequest(options.basepath + '/jobs/' + options.jid, success, fail);
-    }
-};
+export function getJob(options, success, fail) {
+    getRequest(options.basepath + '/jobs/' + options.jid, success, fail);
+}

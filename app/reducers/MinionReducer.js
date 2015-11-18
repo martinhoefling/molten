@@ -1,4 +1,4 @@
-var Constants = require('Constants');
+import Constants from 'Constants';
 
 const initialState = {
     minions: {},
@@ -6,7 +6,7 @@ const initialState = {
     minionsBeingFetched: {}
 };
 
-function minionReducer(state = initialState, action) {
+export default function minionReducer(state = initialState, action) {
     switch (action.type) {
         case Constants.GET_MINIONS:
             return Object.assign({}, state, { fetchingMinionsInProgress: true });
@@ -31,5 +31,3 @@ function minionReducer(state = initialState, action) {
             return state;
     }
 }
-
-module.exports = minionReducer;

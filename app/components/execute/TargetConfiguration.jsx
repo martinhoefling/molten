@@ -1,13 +1,13 @@
-var React = require('react');
-var _ = require('lodash');
-var classnames = require('classnames');
+import React from 'react';
+import _ from 'lodash';
+import classnames from 'classnames';
 
-var ValidatedTextField = require('elements/ValidatedTextField');
-var SelectField = require('material-ui/lib/select-field');
-var Paper = require('material-ui/lib/paper');
+import ValidatedTextField from 'elements/ValidatedTextField';
+import SelectField from 'material-ui/lib/select-field';
+import Paper from 'material-ui/lib/paper';
 
-var rowStyles = require('components/RowLayout.less');
-var styles = require('./TargetConfiguration.less');
+import rowStyles from 'components/RowLayout.less';
+import styles from './TargetConfiguration.less';
 
 const EXPRESSION_FORM = [
     { name: 'glob', description: 'Bash glob completion' },
@@ -22,7 +22,7 @@ const EXPRESSION_FORM = [
     { name: 'compound', description: 'Pass a compound match string' }
 ];
 
-var RunnerConfiguration = React.createClass({
+const RunnerConfiguration = React.createClass({
     propTypes: {
         config: React.PropTypes.object.isRequired,
         onConfigChange: React.PropTypes.func.isRequired,
@@ -96,4 +96,4 @@ var RunnerConfiguration = React.createClass({
     }
 });
 
-module.exports = RunnerConfiguration;
+export default RunnerConfiguration;

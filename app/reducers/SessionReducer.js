@@ -1,4 +1,4 @@
-var Constants = require('Constants');
+import Constants from 'Constants';
 
 const initialState = {
     session: null,
@@ -6,7 +6,7 @@ const initialState = {
     inProgress: false
 };
 
-function sessionReducer(state = initialState, action) {
+export default function sessionReducer(state = initialState, action) {
     switch (action.type) {
         case Constants.SET_SESSION:
             return { session: null, error: null, inProgress: true };
@@ -24,6 +24,4 @@ function sessionReducer(state = initialState, action) {
             return state;
     }
 }
-
-module.exports = sessionReducer;
 

@@ -1,7 +1,7 @@
 {
     "fileExtensions": [".js", ".jsx"],
-    "esprima": "./node_modules/esprima-fb",
-    
+    "esnext": true,
+
     "requireCurlyBraces": [
         "else",
         "for",

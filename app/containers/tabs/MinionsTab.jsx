@@ -1,12 +1,12 @@
-var React = require('react');
-var connect = require('react-redux').connect;
-var LoadingIndicator = require('elements/LoadingIndicator');
+import React from 'react';
+import { connect } from 'react-redux';
 
-var Minion = require('components/minions/Minion');
+import LoadingIndicator from 'elements/LoadingIndicator';
+import Minion from 'components/minions/Minion';
 
-var tabStyle = require('./Tab.less');
+import tabStyle from './Tab.less';
 
-var MinionsTab = React.createClass({
+const MinionsTab = React.createClass({
     propTypes: {
         fetchingMinionsInProgress: React.PropTypes.bool.isRequired,
         minions: React.PropTypes.array.isRequired
@@ -43,4 +43,4 @@ function select(state) {
     };
 }
 
-module.exports = connect(select)(MinionsTab);
+export default connect(select)(MinionsTab);

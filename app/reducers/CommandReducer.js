@@ -1,4 +1,4 @@
-var Constants = require('Constants');
+import Constants from 'Constants';
 
 const initialState = {
     lowstate: null,
@@ -7,7 +7,7 @@ const initialState = {
     inProgress: false
 };
 
-function commandReducer(state = initialState, action) {
+export default function commandReducer(state = initialState, action) {
     switch (action.type) {
         case Constants.SUBMIT_COMMAND:
             return { lowstate: action.commandObj, result: null, error: null, inProgress: true };
@@ -19,5 +19,3 @@ function commandReducer(state = initialState, action) {
             return state;
     }
 }
-
-module.exports = commandReducer;

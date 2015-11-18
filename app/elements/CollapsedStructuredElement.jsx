@@ -1,8 +1,8 @@
-var React = require('react');
+import React from 'react';
 
-var StructuredElement = require('elements/StructuredElement');
+import StructuredElement from 'elements/StructuredElement';
 
-var CollapsedStructuredElement = React.createClass({
+const CollapsedStructuredElement = React.createClass({
     propTypes: {
         element: React.PropTypes.any.isRequired,
         downloadEnabled: React.PropTypes.bool,
@@ -41,4 +41,4 @@ var CollapsedStructuredElement = React.createClass({
     }
 });
 
-module.exports = CollapsedStructuredElement;
+export default CollapsedStructuredElement;

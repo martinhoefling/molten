@@ -1,36 +1,28 @@
-var Session = require('reducers/SessionReducer');
-var Capabilities = require('reducers/CapabilityReducer');
-var Commands = require('reducers/CommandReducer');
-var Events = require('reducers/EventReducer');
-var Jobs = require('reducers/JobReducer');
-var Documentation = require('reducers/DocumentationReducer');
-var Minions = require('reducers/MinionReducer');
+import { combineReducers, compose, createStore, applyMiddleware } from 'redux';
+import { routerStateReducer, reduxReactRouter } from 'redux-router';
+import Thunk from 'redux-thunk';
+import createHistory from 'history/lib/createBrowserHistory';
+import createLogger from 'redux-logger';
+import { devTools } from 'redux-devtools';
 
-var routerStateReducer = require('redux-router').routerStateReducer;
-var reduxReactRouter = require('redux-router').reduxReactRouter;
-var createHistory = require('history/lib/createBrowserHistory');
+import Session from 'reducers/SessionReducer';
+import Capabilities from 'reducers/CapabilityReducer';
+import Commands from 'reducers/CommandReducer';
+import Events from 'reducers/EventReducer';
+import Jobs from 'reducers/JobReducer';
+import Documentation from 'reducers/DocumentationReducer';
+import Minions from 'reducers/MinionReducer';
+import routes from 'Routes';
 
-var combineReducers = require('redux').combineReducers;
-var reducers = combineReducers({
+const reducers = combineReducers({
     Session, Capabilities, Commands, Events, Jobs, Documentation, Minions,
     router: routerStateReducer
 });
 
-var routes = require('Routes');
-var compose = require('redux').compose;
-
-var createStore = require('redux').createStore;
-var applyMiddleware = require('redux').applyMiddleware;
-
-var Thunk = require('redux-thunk');
-
-var createLogger = require('redux-logger');
-var logger = createLogger();
-
-var devTools = require('redux-devtools').devTools;
+const logger = createLogger();
 
 // Compose reduxReactRouter with other store enhancers
-var store = compose(
+export default compose(
     applyMiddleware(Thunk, logger),
     reduxReactRouter({
         routes,
@@ -38,5 +30,3 @@ var store = compose(
     }),
     devTools()
 )(createStore)(reducers);
-
-module.exports = store;

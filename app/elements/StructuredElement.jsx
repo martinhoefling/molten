@@ -1,14 +1,17 @@
-var React = require('react');
-var classnames = require('classnames');
-var RaisedButton = require('material-ui/lib/raised-button');
-var Paper = require('material-ui/lib/paper');
-var Link = require('react-router').Link;
-var Constants = require('Constants');
-var styles = require('./StructuredElement.less');
+import React from 'react';
+import { Link } from 'react-router';
+import classnames from 'classnames';
 
-var JID_REGEX = /^\d{20}$/;
+import RaisedButton from 'material-ui/lib/raised-button';
+import Paper from 'material-ui/lib/paper';
 
-var StructuredElement = React.createClass({
+import Constants from 'Constants';
+
+import styles from './StructuredElement.less';
+
+const JID_REGEX = /^\d{20}$/;
+
+const StructuredElement = React.createClass({
     propTypes: {
         element: React.PropTypes.any.isRequired,
         downloadEnabled: React.PropTypes.bool,
@@ -196,4 +199,4 @@ var StructuredElement = React.createClass({
     }
 });
 
-module.exports = StructuredElement;
+export default StructuredElement;

@@ -1,9 +1,8 @@
-var React = require('react');
-var _ = require('lodash');
-var TextField = require('material-ui/lib/text-field');
+import React from 'react';
+import _ from 'lodash';
+import TextField from 'material-ui/lib/text-field';
 
-var ValidatedTextField = React.createClass({
-
+const ValidatedTextField = React.createClass({
     propTypes: {
         validationRegexp: React.PropTypes.instanceOf(RegExp).isRequired,
         validationErrorMsg: React.PropTypes.string.isRequired,
@@ -60,4 +59,4 @@ var ValidatedTextField = React.createClass({
     }
 });
 
-module.exports = ValidatedTextField;
+export default ValidatedTextField;

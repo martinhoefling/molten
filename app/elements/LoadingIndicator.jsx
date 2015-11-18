@@ -1,9 +1,9 @@
-var React = require('react');
-var CircularProgress = require('material-ui/lib/circular-progress');
+import React from 'react';
+import CircularProgress from 'material-ui/lib/circular-progress';
 
-var style = require('./LoadingIndicator.less');
+import style from './LoadingIndicator.less';
 
-var LoadingIndicator = React.createClass({
+const LoadingIndicator = React.createClass({
     propTypes: {
         children: React.PropTypes.node
 
@@ -19,4 +19,4 @@ var LoadingIndicator = React.createClass({
     }
 });
 
-module.exports = LoadingIndicator;
+export default LoadingIndicator;

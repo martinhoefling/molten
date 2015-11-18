@@ -1,14 +1,13 @@
-var React = require('react');
-var ReduxRouter = require('redux-router').ReduxRouter;
+import React from 'react';
+import { Provider } from 'react-redux';
+import { ReduxRouter } from 'redux-router';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 
-var Theme = require('Theme');
-var routes = require('Routes');
+import Theme from 'Theme';
+import routes from 'Routes';
+import store from 'store';
 
-var Provider = require('react-redux').Provider;
-var store = require('store');
-
-var Root = React.createClass({
+const Root = React.createClass({
     childContextTypes: {
         muiTheme: React.PropTypes.object.isRequired
     },
@@ -33,4 +32,4 @@ var Root = React.createClass({
     }
 });
 
-module.exports = Root;
+export default Root;

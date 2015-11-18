@@ -1,12 +1,12 @@
-var React = require('react');
-var Paper = require('material-ui/lib/paper');
-var classnames = require('classnames');
-var StructuredElement = require('elements/StructuredElement');
+import React from 'react';
+import classnames from 'classnames';
+import Paper from 'material-ui/lib/paper';
 
-var rowStyles = require('components/RowLayout.less');
-var styles = require('./CommandDisplay.less');
+import StructuredElement from 'elements/StructuredElement';
+import rowStyles from 'components/RowLayout.less';
+import styles from './CommandDisplay.less';
 
-var CommandDisplay = React.createClass({
+const CommandDisplay = React.createClass({
     propTypes: {
         command: React.PropTypes.oneOfType([
             React.PropTypes.array,
@@ -28,4 +28,4 @@ var CommandDisplay = React.createClass({
     }
 });
 
-module.exports = CommandDisplay;
+export default CommandDisplay;

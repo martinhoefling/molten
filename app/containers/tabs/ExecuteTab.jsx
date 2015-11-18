@@ -1,25 +1,24 @@
-var React = require('react');
-var connect = require('react-redux').connect;
+import React from 'react';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import classnames from 'classnames';
 
-var _ = require('lodash');
-var Clients = require('models/Clients');
+import RaisedButton from 'material-ui/lib/raised-button';
 
-var classnames = require('classnames');
+import { getClients } from 'models/Clients';
+import ClientConfiguration from 'components/execute/ClientConfiguration';
+import TargetConfiguration from 'components/execute/TargetConfiguration';
+import FunctionConfiguration from 'components/execute/FunctionConfiguration';
+import CommandDisplay from 'components/execute/CommandDisplay';
+import LoadingIndicator from 'elements/LoadingIndicator';
+import { executeCommand } from 'ActionCreators';
 
-var RaisedButton = require('material-ui/lib/raised-button');
-var ClientConfiguration = require('components/execute/ClientConfiguration');
-var TargetConfiguration = require('components/execute/TargetConfiguration');
-var FunctionConfiguration = require('components/execute/FunctionConfiguration');
-var CommandDisplay = require('components/execute/CommandDisplay');
-var LoadingIndicator = require('elements/LoadingIndicator');
-var actionCreators = require('ActionCreators');
+import localStore from 'helpers/localstore';
 
-var localStore = require('helpers/localstore');
+import tabStyle from './Tab.less';
+import styles from './ExecuteTab.less';
 
-var tabStyle = require('./Tab.less');
-var styles = require('./ExecuteTab.less');
-
-var ExecuteTab = React.createClass({
+const ExecuteTab = React.createClass({
     propTypes: {
         executeCommand: React.PropTypes.func,
         clients: React.PropTypes.array,
@@ -149,7 +148,7 @@ var ExecuteTab = React.createClass({
 });
 
 function select(state) {
-    var clients = state.Capabilities.capabilities ? Clients.getClients(state.Capabilities.capabilities.clients) : null;
+    var clients = state.Capabilities.capabilities ? getClients(state.Capabilities.capabilities.clients) : null;
     return {
         clients,
         currentClient: clients ? clients[0] : null,
@@ -159,4 +158,4 @@ function select(state) {
     };
 }
 
-module.exports = connect(select, { executeCommand: actionCreators.executeCommand })(ExecuteTab);
+export default connect(select, { executeCommand })(ExecuteTab);

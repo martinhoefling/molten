@@ -9,11 +9,23 @@ module.exports = {
         publicPath: 'assets'
     },
     module: {
-        loaders: [
+        preLoaders: [
             {
-                test: /\.jsx?$/,
+                test: /\.jsx$|\.js$/,
+                loader: 'eslint-loader',
+                include: __dirname + '/app'
+            }
+        ],
+        loaders: [
+
+            {
+                test: /\.jsx$|\.js$/,
                 exclude: /(node_modules|bower_components)/,
-                loader: 'babel'
+                loader: 'babel',
+                query: {
+                    cacheDirectory: true,
+                    presets: ['es2015', 'react']
+                }
             },
             {
                 test: /\.less$/,

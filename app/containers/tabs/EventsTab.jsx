@@ -1,18 +1,18 @@
-var React = require('react');
-var _ = require('lodash');
-var connect = require('react-redux').connect;
+import React from 'react';
+import _ from 'lodash';
+import { connect } from 'react-redux';
 
-var RaisedButton = require('material-ui/lib/raised-button');
-var TextField = require('material-ui/lib/text-field');
-var Toggle = require('material-ui/lib/toggle');
+import RaisedButton from 'material-ui/lib/raised-button';
+import TextField from 'material-ui/lib/text-field';
+import Toggle from 'material-ui/lib/toggle';
 
-var Event = require('components/events/Event');
+import Event from 'components/events/Event';
+import { clearEvents } from 'ActionCreators';
 
-var tabStyle = require('./Tab.less');
-var style = require('./EventsTab.less');
-var actionCreators = require('ActionCreators');
+import tabStyle from './Tab.less';
+import style from './EventsTab.less';
 
-var EventsTab = React.createClass({
+const EventsTab = React.createClass({
     propTypes: {
         events: React.PropTypes.array.isRequired,
         clearEvents: React.PropTypes.func.isRequired
@@ -93,4 +93,4 @@ function select(state) {
     };
 }
 
-module.exports = connect(select, { clearEvents: actionCreators.clearEvents })(EventsTab);
+export default connect(select, { clearEvents })(EventsTab);

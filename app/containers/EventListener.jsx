@@ -1,8 +1,9 @@
-var React = require('react');
-var connect = require('react-redux').connect;
-var actionCreators = require('ActionCreators');
+import React from 'react';
+import { connect } from 'react-redux';
 
-var Events = React.createClass({
+import { serverEventReceived } from 'ActionCreators';
+
+const Events = React.createClass({
     propTypes: {
         error: React.PropTypes.string,
         serverEventReceived: React.PropTypes.func.isRequired
@@ -26,4 +27,4 @@ var Events = React.createClass({
 
 });
 
-module.exports = connect(null, { serverEventReceived: actionCreators.serverEventReceived })(Events);
+export default connect(null, { serverEventReceived })(Events);

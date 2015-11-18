@@ -1,6 +1,6 @@
-var Constants = require('Constants');
-var REST = require('helpers/rest');
-var pushState = require('redux-router').pushState;
+import Constants from 'Constants';
+import * as REST from 'helpers/rest';
+import { pushState } from 'redux-router';
 
 var setSession = () => ({ type: Constants.SET_SESSION });
 var setSessionFail = error => ({ type: Constants.SET_SESSION_FAIL, error });
@@ -35,8 +35,8 @@ var getDocumentationFail = error => ({ type: Constants.GET_DOCUMENTATION_FAIL, e
 var getDocumentationSuccess = (docType, documentation) =>
     ({ type: Constants.GET_DOCUMENTATION_SUCCESS, docType, documentation });
 
-var serverEventReceived = event => ({ type: Constants.SERVER_EVENT_RECEIVED, event });
-var clearEvents = () => ({ type: Constants.CLEAR_EVENTS });
+export const serverEventReceived = event => ({ type: Constants.SERVER_EVENT_RECEIVED, event });
+export const clearEvents = () => ({ type: Constants.CLEAR_EVENTS });
 
 function _dispatchAndRedirect(dispatch, action) {
     dispatch(action);
@@ -48,7 +48,7 @@ function _dispatchAndRedirect(dispatch, action) {
     }
 }
 
-function createSession(username, password) {
+export function createSession(username, password) {
     return function(dispatch) {
         dispatch(setSession());
         // TODO: Make eauth configurable
@@ -126,7 +126,7 @@ function _loadJobs() {
     };
 }
 
-function testSessionStatus() {
+export function testSessionStatus() {
     return function(dispatch) {
         dispatch(setSession());
         REST.testSession(
@@ -137,7 +137,7 @@ function testSessionStatus() {
     };
 }
 
-function executeCommand(commandObj) {
+export function executeCommand(commandObj) {
     return function(dispatch) {
         dispatch(submitCommand(commandObj));
 
@@ -148,7 +148,7 @@ function executeCommand(commandObj) {
     };
 }
 
-function logout() {
+export function logout() {
     return function(dispatch) {
         dispatch(unsetSession());
 
@@ -159,7 +159,7 @@ function logout() {
     };
 }
 
-function loadJobResult(jid) {
+export function loadJobResult(jid) {
     return function (dispatch) {
         dispatch(getJob(jid));
         REST.getJob({ basepath: CONFIG.API_BASE_URL, jid },
@@ -168,13 +168,3 @@ function loadJobResult(jid) {
         );
     };
 }
-
-module.exports = {
-    createSession,
-    serverEventReceived,
-    testSessionStatus,
-    executeCommand,
-    logout,
-    loadJobResult,
-    clearEvents
-};

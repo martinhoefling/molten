@@ -1,10 +1,11 @@
-var React = require('react');
-var RaisedButton = require('material-ui/lib/raised-button');
-var localStore = require('helpers/localstore');
+import React from 'react';
+import RaisedButton from 'material-ui/lib/raised-button';
 
-var tabStyle = require('./Tab.less');
+import localStore from 'helpers/localstore';
 
-var SettingsTab = React.createClass({
+import tabStyle from './Tab.less';
+
+const SettingsTab = React.createClass({
     render() {
         return (
             <div className={tabStyle.this}>
@@ -18,4 +19,4 @@ var SettingsTab = React.createClass({
     }
 });
 
-module.exports = SettingsTab;
+export default SettingsTab;

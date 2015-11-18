@@ -1,16 +1,17 @@
-var React = require('react');
-var connect = require('react-redux').connect;
+import React from 'react';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
 
-var Paper = require('material-ui/lib/paper');
-var RaisedButton = require('material-ui/lib/raised-button');
-var classnames = require('classnames');
-var CollapsedStructuredElement = require('elements/CollapsedStructuredElement');
-var actionCreators = require('ActionCreators');
+import Paper from 'material-ui/lib/paper';
+import RaisedButton from 'material-ui/lib/raised-button';
 
-var rowStyles = require('components/RowLayout.less');
-var styles = require('./Minion.less');
+import CollapsedStructuredElement from 'elements/CollapsedStructuredElement';
+import { executeCommand } from 'ActionCreators';
 
-var Event = React.createClass({
+import rowStyles from 'components/RowLayout.less';
+import styles from './Minion.less';
+
+const Event = React.createClass({
     propTypes: {
         minion: React.PropTypes.object.isRequired,
         minionJobs: React.PropTypes.array.isRequired,
@@ -178,4 +179,4 @@ function select(state, ownProps) {
     };
 }
 
-module.exports = connect(select, { executeCommand: actionCreators.executeCommand })(Event);
+export default connect(select, { executeCommand })(Event);

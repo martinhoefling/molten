@@ -1,9 +1,11 @@
-var React = require('react');
-var styles = require('./Main.less');
-var EventListener = require('containers/EventListener');
-var TabHeaders = require('components/TabHeaders');
+import React from 'react';
 
-var Main = React.createClass({
+import EventListener from 'containers/EventListener';
+import TabHeaders from 'components/TabHeaders';
+
+import styles from './Main.less';
+
+const Main = React.createClass({
     render() {
         return (
             <div className={styles.this}>
@@ -15,4 +17,4 @@ var Main = React.createClass({
     }
 });
 
-module.exports = Main;
+export default Main;

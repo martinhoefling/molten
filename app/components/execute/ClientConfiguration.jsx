@@ -1,17 +1,17 @@
-var React = require('react');
-var classnames = require('classnames');
+import React from 'react';
+import classnames from 'classnames';
 
-var SelectField = require('material-ui/lib/select-field');
-var Paper = require('material-ui/lib/paper');
-var ValidatedTextField = require('elements/ValidatedTextField');
-var Checkbox = require('material-ui/lib/checkbox');
+import SelectField from 'material-ui/lib/select-field';
+import Paper from 'material-ui/lib/paper';
+import ValidatedTextField from 'elements/ValidatedTextField';
+import Checkbox from 'material-ui/lib/checkbox';
 
-var MODE = require('models/Clients').MODE;
+import { MODE }  from 'models/Clients';
 
-var rowStyles = require('components/RowLayout.less');
-var styles = require('./ClientConfiguration.less');
+import rowStyles from 'components/RowLayout.less';
+import styles from './ClientConfiguration.less';
 
-var ClientConfiguration = React.createClass({
+const ClientConfiguration = React.createClass({
     propTypes: {
         clients: React.PropTypes.array.isRequired,
         currentClient: React.PropTypes.object.isRequired,
@@ -179,4 +179,4 @@ var ClientConfiguration = React.createClass({
     }
 });
 
-module.exports = ClientConfiguration;
+export default ClientConfiguration;

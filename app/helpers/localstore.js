@@ -1,4 +1,4 @@
-var LocalStorage = {
+const LocalStorage = {
     set(key, value) {
         localStorage.setItem(key, JSON.stringify(value));
     },
@@ -17,4 +17,4 @@ var LocalStorage = {
     }
 };
 
-module.exports = LocalStorage;
+export default LocalStorage;

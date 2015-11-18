@@ -1,23 +1,22 @@
-var React = require('react');
-var moment = require('moment');
-var connect = require('react-redux').connect;
+import React from 'react';
+import { connect } from 'react-redux';
+import moment from 'moment';
 
-var LoadingIndicator = require('elements/LoadingIndicator');
+import LoadingIndicator from 'elements/LoadingIndicator';
+import JobSummary from 'components/jobs/JobSummary';
+import DateTimePicker from 'elements/DateTimePicker';
 
-var JobSummary = require('components/jobs/JobSummary');
-var DateTimePicker = require('elements/DateTimePicker');
+import tabStyle from './Tab.less';
+import styles from './JobsTab.less';
 
-var tabStyle = require('./Tab.less');
-var styles = require('./JobsTab.less');
-
-var DEFAULT_TIME_RANGE = 60 * 10 * 1000; // 10 Minutes
+const DEFAULT_TIME_RANGE = 60 * 10 * 1000; // 10 Minutes
 
 function UTCNow() {
     var loc = new Date();
     return new Date(loc.valueOf() + 60000 * loc.getTimezoneOffset());
 }
 
-var JobsTab = React.createClass({
+const JobsTab = React.createClass({
     propTypes: {
         jobs: React.PropTypes.array.isRequired,
         fetchInProgress: React.PropTypes.bool.isRequired
@@ -108,4 +107,4 @@ function select(state) {
     };
 }
 
-module.exports = connect(select)(JobsTab);
+export default connect(select)(JobsTab);

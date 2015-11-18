@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     SET_SESSION: 'SET_SESSION',
     SET_SESSION_SUCCESS: 'SET_SESSION_SUCCESS',
     SET_SESSION_FAIL: 'SET_SESSION_FAIL',

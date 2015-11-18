@@ -1,15 +1,15 @@
-var React = require('react');
-var Paper = require('material-ui/lib/paper');
-var classnames = require('classnames');
-var moment = require('moment');
-var CollapsedStructuredElement = require('elements/CollapsedStructuredElement');
+import React from 'react';
+import Paper from 'material-ui/lib/paper';
+import classnames from 'classnames';
+import moment from 'moment';
+import CollapsedStructuredElement from 'elements/CollapsedStructuredElement';
 
-var rowStyles = require('components/RowLayout.less');
-var styles = require('./Event.less');
+import rowStyles from 'components/RowLayout.less';
+import styles from './Event.less';
 
-var UPDATE_INTERVAL = 10000;
+const UPDATE_INTERVAL = 10000;
 
-var Event = React.createClass({
+const Event = React.createClass({
     propTypes: {
         event: React.PropTypes.object.isRequired,
         filtered: React.PropTypes.bool
@@ -88,4 +88,4 @@ var Event = React.createClass({
     }
 });
 
-module.exports = Event;
+export default Event;

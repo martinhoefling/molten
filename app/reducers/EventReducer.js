@@ -1,4 +1,4 @@
-var Constants = require('Constants');
+import Constants from 'Constants';
 
 const initialState = {
     events: []
@@ -13,7 +13,7 @@ function _parseRaw(rawEvent) {
     return event;
 }
 
-function capabilityReducer(state = initialState, action) {
+export default function capabilityReducer(state = initialState, action) {
     switch (action.type) {
         case Constants.SERVER_EVENT_RECEIVED:
             return { events: [...state.events.slice(), _parseRaw(action.event)] };
@@ -23,7 +23,5 @@ function capabilityReducer(state = initialState, action) {
             return state;
     }
 }
-
-module.exports = capabilityReducer;
 
 

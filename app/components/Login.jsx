@@ -1,16 +1,16 @@
-var React = require('react');
-var connect = require('react-redux').connect;
-var TextField = require('material-ui/lib/text-field');
-var FlatButton = require('material-ui/lib/flat-button');
-var Link = require('react-router').Link;
-var History = require('react-router').History;
-var actionCreators = require('ActionCreators');
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link, History } from 'react-router';
 
-var Constants = require('Constants');
+import TextField from 'material-ui/lib/text-field';
+import FlatButton from 'material-ui/lib/flat-button';
 
-var styles = require('./Login.less');
+import { createSession } from 'ActionCreators';
+import Constants from 'Constants';
 
-var Login = React.createClass({
+import styles from './Login.less';
+
+const Login = React.createClass({
     mixins: [History],
 
     propTypes: {
@@ -106,4 +106,4 @@ function select(state) {
     };
 }
 
-module.exports = connect(select, { createSession: actionCreators.createSession })(Login);
+export default connect(select, { createSession })(Login);

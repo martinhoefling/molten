@@ -1,5 +1,5 @@
-var _ = require('lodash');
-var _s = require('underscore.string');
+import _ from 'lodash';
+import _s from 'underscore.string';
 
 function _getFunctionDocumentation(documentation, type, funcstr) {
     if (!funcstr) {
@@ -41,26 +41,24 @@ function _oneline(doc) {
     return lines[0];
 }
 
-module.exports = {
-    searchFunctionDocumentation(documentation, type, funcstr) {
-        if (!documentation[type]) {
-            return 'documentation not loaded';
-        }
-        var doc = documentation[type];
-
-        var funcs = _.keys(doc).filter(function (modfunc) {
-            return _s.startsWith(modfunc, funcstr);
-        });
-
-        if (_.contains(funcs, funcstr)) {
-            return _getFunctionDocumentation(documentation, type, funcstr);
-        }
-
-        if (funcs.length) {
-            var docs = funcs.map(func => _oneline(doc[func]));
-            return _.zipObject(funcs, docs);
-        }
-
-        return 'no documentation found for ' + funcstr;
+export function searchFunctionDocumentation(documentation, type, funcstr) {
+    if (!documentation[type]) {
+        return 'documentation not loaded';
     }
-};
+    var doc = documentation[type];
+
+    var funcs = _.keys(doc).filter(function (modfunc) {
+        return _s.startsWith(modfunc, funcstr);
+    });
+
+    if (_.contains(funcs, funcstr)) {
+        return _getFunctionDocumentation(documentation, type, funcstr);
+    }
+
+    if (funcs.length) {
+        var docs = funcs.map(func => _oneline(doc[func]));
+        return _.zipObject(funcs, docs);
+    }
+
+    return 'no documentation found for ' + funcstr;
+}

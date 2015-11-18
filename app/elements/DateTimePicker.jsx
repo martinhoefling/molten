@@ -1,11 +1,11 @@
-var React = require('react');
-var _ = require('lodash');
-var DatePicker = require('material-ui/lib/date-picker/date-picker');
-var TimePicker = require('material-ui/lib/time-picker');
+import React from 'react';
+import _ from 'lodash';
+import DatePicker from 'material-ui/lib/date-picker/date-picker';
+import TimePicker from 'material-ui/lib/time-picker';
 
-var styles = require('./DateTimePicker.less');
+import styles from './DateTimePicker.less';
 
-var DateTimePicker = React.createClass({
+const DateTimePicker = React.createClass({
     propTypes: {
         labelText: React.PropTypes.string,
         datetime: React.PropTypes.instanceOf(Date),
@@ -53,4 +53,4 @@ var DateTimePicker = React.createClass({
     }
 });
 
-module.exports = DateTimePicker;
+export default DateTimePicker;

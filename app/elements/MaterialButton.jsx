@@ -1,7 +1,7 @@
-var React = require('react');
-var IconButton = require('material-ui/lib/icon-button');
+import React from 'react';
+import IconButton from 'material-ui/lib/icon-button';
 
-var MaterialButton = React.createClass({
+const MaterialButton = React.createClass({
 
     propTypes: {
         iconClass: React.PropTypes.string.isRequired,
@@ -22,4 +22,4 @@ var MaterialButton = React.createClass({
     }
 });
 
-module.exports = MaterialButton;
+export default MaterialButton;

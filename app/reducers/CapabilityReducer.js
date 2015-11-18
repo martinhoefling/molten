@@ -1,4 +1,4 @@
-var Constants = require('Constants');
+import Constants from 'Constants';
 
 const initialState = {
     capabilities: null,
@@ -6,7 +6,7 @@ const initialState = {
     inProgress: false
 };
 
-function capabilityReducer(state = initialState, action) {
+export default function capabilityReducer(state = initialState, action) {
     switch (action.type) {
         case Constants.GET_CAPABILITIES:
             return { capabilities: null, error: null, inProgress: true };
@@ -18,5 +18,3 @@ function capabilityReducer(state = initialState, action) {
             return state;
     }
 }
-
-module.exports = capabilityReducer;

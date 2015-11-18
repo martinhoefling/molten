@@ -1,16 +1,15 @@
-var React = require('react');
-var _ = require('lodash');
-var connect = require('react-redux').connect;
+import React from 'react';
+import _ from 'lodash';
+import { connect } from 'react-redux';
 
-var LoadingIndicator = require('elements/LoadingIndicator');
-var StructuredElement = require('elements/StructuredElement');
+import LoadingIndicator from 'elements/LoadingIndicator';
+import StructuredElement from 'elements/StructuredElement';
+import { loadJobResult } from 'ActionCreators';
 
-var actionCreators = require('ActionCreators');
+import tabStyle from './Tab.less';
+import styles from './DetailedJobTab.less';
 
-var tabStyle = require('./Tab.less');
-var styles = require('./DetailedJobTab.less');
-
-var DetailedJobTab = React.createClass({
+const DetailedJobTab = React.createClass({
 
     propTypes: {
         params: React.PropTypes.object,
@@ -62,4 +61,4 @@ function select(state, ownProps) {
     };
 }
 
-module.exports = connect(select, { loadJobResult: actionCreators.loadJobResult })(DetailedJobTab);
+export default connect(select, { loadJobResult })(DetailedJobTab);

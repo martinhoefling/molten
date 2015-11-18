@@ -1,14 +1,16 @@
-var React = require('react');
-var Paper = require('material-ui/lib/paper');
-var Link = require('react-router').Link;
-var classnames = require('classnames');
-var Constants = require('Constants');
-var CollapsedStructuredElement = require('elements/CollapsedStructuredElement');
+import React from 'react';
+import { Link } from 'react-router';
+import classnames from 'classnames';
 
-var rowStyles = require('components/RowLayout.less');
-var styles = require('./JobSummary.less');
+import Paper from 'material-ui/lib/paper';
 
-var JobSummary = React.createClass({
+import CollapsedStructuredElement from 'elements/CollapsedStructuredElement';
+import Constants from 'Constants';
+
+import rowStyles from 'components/RowLayout.less';
+import styles from './JobSummary.less';
+
+const JobSummary = React.createClass({
     propTypes: {
         job: React.PropTypes.object.isRequired,
         filtered: React.PropTypes.bool
@@ -52,4 +54,4 @@ var JobSummary = React.createClass({
     }
 });
 
-module.exports = JobSummary;
+export default JobSummary;

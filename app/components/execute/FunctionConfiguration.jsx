@@ -1,19 +1,19 @@
-var React = require('react');
-var _ = require('lodash');
-var classnames = require('classnames');
-var connect = require('react-redux').connect;
+import React from 'react';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import classnames from 'classnames';
+import Paper from 'material-ui/lib/paper';
 
-var ValidatedTextField = require('elements/ValidatedTextField');
-var SearchDisplay = require('components/execute/SearchDisplay');
-var Paper = require('material-ui/lib/paper');
-var docparse = require('helpers/docparse');
+import ValidatedTextField from 'elements/ValidatedTextField';
+import SearchDisplay from 'components/execute/SearchDisplay';
+import { searchFunctionDocumentation } from 'helpers/docparse';
 
-var rowStyles = require('components/RowLayout.less');
-var styles = require('./FunctionConfiguration.less');
+import rowStyles from 'components/RowLayout.less';
+import styles from './FunctionConfiguration.less';
 
-var FUNC_WITH_TRAILING_WS_REGEX = /([\w\.]+)(\s+)/;
+const FUNC_WITH_TRAILING_WS_REGEX = /([\w\.]+)(\s+)/;
 
-var FunctionConfiguration = React.createClass({
+const FunctionConfiguration = React.createClass({
     propTypes: {
         config: React.PropTypes.object.isRequired,
         currentClient: React.PropTypes.object.isRequired,
@@ -73,7 +73,7 @@ var FunctionConfiguration = React.createClass({
 
     renderFunctionSearch() {
         var docType = this.props.currentClient.getDocType();
-        var documentation = docparse.searchFunctionDocumentation(
+        var documentation = searchFunctionDocumentation(
             this.props.documentation, docType, this.state.functionInput);
         return (
             <SearchDisplay
@@ -144,4 +144,4 @@ function select(state) {
     };
 }
 
-module.exports = connect(select)(FunctionConfiguration);
+export default connect(select)(FunctionConfiguration);

@@ -1,5 +1,5 @@
-var Constants = require('Constants');
-var _s = require('underscore.string');
+import Constants from 'Constants';
+import _s from 'underscore.string';
 
 const initialState = {
     documentation: {},
@@ -7,7 +7,7 @@ const initialState = {
     inProgress: false
 };
 
-function documentationReducer(state = initialState, action) {
+export default function documentationReducer(state = initialState, action) {
     switch (action.type) {
         case Constants.GET_DOCUMENTATION:
             return {
@@ -42,6 +42,4 @@ function _parseDocumentation(raw) {
     }
     return parsed;
 }
-
-module.exports = documentationReducer;
 

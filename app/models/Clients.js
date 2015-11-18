@@ -1,17 +1,18 @@
-var _ = require('lodash');
-var Constants = require('Constants');
+import _ from 'lodash';
 
-var MODE = {
+import Constants from 'Constants';
+
+export const MODE = {
     ASYNC: 'async',
     BATCH: 'batch',
     NONE: null
 };
 
-var Client = function (name) {
+function Client(name) {
     this.name = name;
     this.modes = [];
     this.mode = null;
-};
+}
 
 _.assign(Client.prototype, {
     addMode(mode) {
@@ -60,7 +61,7 @@ _.assign(Client.prototype, {
     }
 });
 
-var getClients = function (clientStringList) {
+export function getClients(clientStringList) {
     var clients = {};
     clientStringList.forEach(function (clientString) {
         if (clientString[0] === '_') {
@@ -76,9 +77,4 @@ var getClients = function (clientStringList) {
         }
     });
     return _.values(clients);
-};
-
-module.exports = {
-    getClients,
-    MODE
-};
+}

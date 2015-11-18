@@ -1,17 +1,19 @@
-var React = require('react');
-var connect = require('react-redux').connect;
-var actionCreators = require('ActionCreators');
-var pushState = require('redux-router').pushState;
-var Tab = require('material-ui/lib/tabs/tab');
-var Tabs = require('material-ui/lib/tabs/tabs');
-var Constants = require('Constants');
-var MaterialButton = require('../elements/MaterialButton');
+import React from 'react';
+import { connect } from 'react-redux';
+import { pushState } from 'redux-router';
 
-var styles = require('./TabHeaders.less');
+import Tab from 'material-ui/lib/tabs/tab';
+import Tabs from 'material-ui/lib/tabs/tabs';
 
-var TABS = ['Execute', 'Job', 'Minion', 'Event', 'Settings'];
+import { testSessionStatus, logout } from 'ActionCreators';
+import MaterialButton from 'elements/MaterialButton';
+import Constants from 'Constants';
 
-var TabHeaders = React.createClass({
+import styles from './TabHeaders.less';
+
+const TABS = ['Execute', 'Job', 'Minion', 'Event', 'Settings'];
+
+const TabHeaders = React.createClass({
     propTypes: {
         currentSession: React.PropTypes.object,
         testSessionStatus: React.PropTypes.func.isRequired,
@@ -94,8 +96,4 @@ function select(state) {
     };
 }
 
-module.exports = connect(select, {
-    testSessionStatus: actionCreators.testSessionStatus,
-    logout: actionCreators.logout,
-    pushState
-})(TabHeaders);
+export default connect(select, { testSessionStatus, logout, pushState })(TabHeaders);
