@@ -70,7 +70,7 @@ Molten should in principle be compatible with all versions that include the neta
 
 ### On the shoulders of ...
 - React.js
-- Fluxxor
+- Redux
 - Material-ui
 - Webpack
 - ... and many others
