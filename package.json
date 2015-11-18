@@ -8,7 +8,7 @@
     "url": "https://github.com/martinhoefling/molten.git"
   },
   "scripts": {
-    "test": "NODE_PATH='./app' jest --verbose",
+    "test": "echo 'not implemented yet'",
     "build-dev": "webpack --progress --profile --colors",
     "watch": "webpack --progress --profile --colors --watch",
     "build": "webpack --optimize-minimize --optimize-occurence-order --optimize-dedupe --progress --profile --colors",
