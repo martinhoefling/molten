@@ -23,5 +23,3 @@ export default function capabilityReducer(state = initialState, action) {
             return state;
     }
 }
-
-

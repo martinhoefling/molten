@@ -42,7 +42,7 @@ export default function jobReducer(state = initialState, action) {
     var jobs, jobInfo, parsedRawData, data, jid, minion;
     switch (action.type) {
         case Constants.GET_JOBS:
-            return Object.assign({}, state, { fetchingJobsInProgress: true});
+            return Object.assign({}, state, { fetchingJobsInProgress: true });
         case Constants.GET_JOBS_SUCCESS:
             jobs = Object.assign({}, state.jobs);
             Object.keys(action.jobList.return[0]).forEach(function (key) {
