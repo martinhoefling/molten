@@ -1,8 +1,8 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    context: __dirname + '/app',
-    entry: ['./app.jsx'],
+    context: __dirname,
+    entry: ['./app/app.jsx'],
     output: {
         filename: 'molten.js',
         path: './dist',
@@ -17,7 +17,6 @@ module.exports = {
             }
         ],
         loaders: [
-
             {
                 test: /\.jsx$|\.js$/,
                 exclude: /(node_modules|bower_components)/,

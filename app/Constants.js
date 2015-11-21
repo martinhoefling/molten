@@ -1,3 +1,5 @@
+import config from 'config';
+
 export default {
     SET_SESSION: 'SET_SESSION',
     SET_SESSION_SUCCESS: 'SET_SESSION_SUCCESS',
@@ -46,8 +48,8 @@ export default {
     },
 
     URL: {
-        ROOT: CONFIG.APP_BASE_URL + '/',
-        LOGIN: CONFIG.APP_BASE_URL + '/login',
-        JOB: CONFIG.APP_BASE_URL + '/job'
+        ROOT: config.APP_BASE_URL + '/',
+        LOGIN: config.APP_BASE_URL + '/login',
+        JOB: config.APP_BASE_URL + '/job'
     }
 };

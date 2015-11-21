@@ -1,5 +1,5 @@
 /* eslint-disable */
-var CONFIG = {
+window.CONFIG = {
     APP_BASE_URL: '/molten',
     API_BASE_URL: '',
     ASSET_BASE_URL: '/assets'

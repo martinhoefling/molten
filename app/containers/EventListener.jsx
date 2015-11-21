@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import config from 'config';
 import { serverEventReceived } from 'ActionCreators';
 
 const Events = React.createClass({
@@ -10,7 +11,7 @@ const Events = React.createClass({
     },
 
     componentDidMount() {
-        var sourceURL = CONFIG.API_BASE_URL + '/events';
+        var sourceURL = config.API_BASE_URL + '/events';
         var source = new EventSource(sourceURL);
         source.onopen = function() {
             console.debug('server event stream opened: ' + sourceURL);

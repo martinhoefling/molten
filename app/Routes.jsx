@@ -9,10 +9,11 @@ import DetailedJobTab from 'containers/tabs/DetailedJobTab';
 import MinionsTab from 'containers/tabs/MinionsTab';
 import EventsTab from 'containers/tabs/EventsTab';
 import SettingsTab from 'containers/tabs/SettingsTab';
+import Constants from 'Constants';
 
 const Routes = (
     <Route path=''>
-        <Route component={Main} path={CONFIG.APP_BASE_URL + '/'}>
+        <Route component={Main} path={Constants.URL.ROOT}>
             <Route component={Login} path='login' />
             <Route component={ExecuteTab} path='execute' />
             <Route component={JobsTab} path='job' />
@@ -22,7 +23,7 @@ const Routes = (
             <Route component={SettingsTab} path='settings' />
             <IndexRoute component={ExecuteTab} />
         </Route>
-        <Redirect from='*' to={CONFIG.APP_BASE_URL + '/'} />
+        <Redirect from='*' to={Constants.URL.ROOT} />
     </Route>
 );
 

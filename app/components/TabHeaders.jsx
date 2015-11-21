@@ -8,6 +8,7 @@ import Tabs from 'material-ui/lib/tabs/tabs';
 import { testSessionStatus, logout } from 'ActionCreators';
 import MaterialButton from 'elements/MaterialButton';
 import Constants from 'Constants';
+import config from 'config';
 
 import styles from './TabHeaders.less';
 
@@ -49,7 +50,7 @@ const TabHeaders = React.createClass({
             );
         }, this);
 
-        var path = this.props.location.pathname.substring(CONFIG.APP_BASE_URL.length + 1),
+        var path = this.props.location.pathname.substring(config.APP_BASE_URL.length + 1),
             index = Math.max(0, _.findIndex(TABS, tab => path.indexOf(tab.toLowerCase()) === 0));
 
         return (
@@ -81,7 +82,7 @@ const TabHeaders = React.createClass({
                     <a href='https://github.com/martinhoefling/molten'>
                         <img title='open on github'
                              className={styles.github}
-                             src={CONFIG.ASSET_BASE_URL + '/github.svg'}/>
+                             src={config.ASSET_BASE_URL + '/github.svg'}/>
                     </a>
                 </div>
             </div>
