@@ -13,7 +13,7 @@ describe('ActionCreators', function () {
             });
 
             it('dispatches SET_SESSION first', function () {
-                expect(dispatchMock.calls.argsFor(0)).toEqual([{type: Constants.SET_SESSION}]);
+                expect(dispatchMock.calls.argsFor(0)).toEqual([{ type: Constants.SET_SESSION }]);
             });
 
             describe('on fail', function () {
@@ -64,7 +64,7 @@ describe('ActionCreators', function () {
                 it('dispatches SET_SESSION_SUCCESS', function () {
                     expect(dispatchSuccessMock.calls.argsFor(0)).toEqual([{
                         type: Constants.SET_SESSION_SUCCESS,
-                        session: {Hello: 42}
+                        session: { Hello: 42 }
                     }]);
                 });
 
@@ -86,7 +86,7 @@ describe('ActionCreators', function () {
                         it('dispatches GET_CAPABILITIES_SUCCESS', function () {
                             expect(dispatchCapabilitiesMock.calls.argsFor(1)).toEqual([{
                                 type: Constants.GET_CAPABILITIES_SUCCESS,
-                                capabilities: {Hello: 42}
+                                capabilities: { Hello: 42 }
                             }]);
                         });
                     });
@@ -155,7 +155,7 @@ describe('ActionCreators', function () {
                         it('dispatches GET_MINIONS_SUCCESS', function () {
                             expect(dispatchMinionsMock.calls.argsFor(1)).toEqual([{
                                 type: Constants.GET_MINIONS_SUCCESS,
-                                minionList: {Hello: 42}
+                                minionList: { Hello: 42 }
                             }]);
                         });
                     });
@@ -193,7 +193,7 @@ describe('ActionCreators', function () {
                         it('dispatches GET_JOBS_SUCCESS', function () {
                             expect(dispatchJobsMock.calls.argsFor(1)).toEqual([{
                                 type: Constants.GET_JOBS_SUCCESS,
-                                jobList: {Hello: 42}
+                                jobList: { Hello: 42 }
                             }]);
                         });
                     });
@@ -240,7 +240,7 @@ describe('ActionCreators', function () {
                             expect(dispatchDocumentationMock.calls.argsFor(3)).toEqual([{
                                 type: Constants.GET_DOCUMENTATION_SUCCESS,
                                 docType: 'wheel',
-                                documentation: {Hello: 42}
+                                documentation: { Hello: 42 }
                             }]);
                         });
                     });
