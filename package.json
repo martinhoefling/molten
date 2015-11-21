@@ -8,7 +8,7 @@
     "url": "https://github.com/martinhoefling/molten.git"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start --browsers Firefox --single-run",
+    "test": "./node_modules/.bin/karma start --browsers Chrome --single-run",
     "build-dev": "webpack --progress --profile --colors",
     "watch": "webpack --progress --profile --colors --watch",
     "build": "webpack --optimize-minimize --optimize-occurence-order --optimize-dedupe --progress --profile --colors",
