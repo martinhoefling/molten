@@ -23,6 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.0",
+    "fbjs": "^0.3.2",
     "history": "^1.13.1",
     "lodash": "^3.10.1",
     "material-ui": "^0.13.3",
@@ -31,10 +32,11 @@
     "react-redux": "^4.0.0",
     "react-router": "^1.0.0",
     "react-tap-event-plugin": "^0.2.1",
+    "react-toastr": "^2.2.2",
     "redux": "^3.0.4",
+    "redux-devtools": "^2.1.5",
     "redux-logger": "^2.0.4",
     "redux-router": "^1.0.0-beta4",
-    "redux-devtools": "^2.1.5",
     "redux-thunk": "^1.0.0",
     "reselect": "^2.0.1",
     "superagent": "^1.4.0"

@@ -5,7 +5,7 @@ module.exports = {
     entry: ['./app/app.jsx'],
     output: {
         filename: 'molten.js',
-        path: './dist',
+        path: './dist/molten',
         publicPath: 'assets'
     },
     module: {
