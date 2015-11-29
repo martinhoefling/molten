@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import classnames from 'classnames';
-
+import Shortcuts from 'react-shortcuts/component';
 import RaisedButton from 'material-ui/lib/raised-button';
 
 import { getClients } from 'models/Clients';
@@ -100,6 +100,14 @@ const ExecuteTab = React.createClass({
             />);
     },
 
+    handleShortcuts(action) {
+        switch (action){
+            case 'SUBMIT':
+                this.onSubmit();
+                return;
+        }
+    },
+
     render() {
         if (this.props.clientFetchInProgress) {
             return (
@@ -120,29 +128,34 @@ const ExecuteTab = React.createClass({
         var currentClient = this.getCurrentClient();
 
         return (
-            <div className={classnames(tabStyle.this, styles.this)}>
-                <ClientConfiguration
-                    config={this.state.clientConfig}
-                    clients={this.props.clients}
-                    currentClient={currentClient}
-                    onConfigChange={config => this.setState({ clientConfig: config })}
-                    />
-                {this.renderTargetConfiguration()}
-                <FunctionConfiguration
-                    config={this.state.functionConfig}
-                    currentClient={currentClient}
-                    onConfigChange={config => this.setState({ functionConfig: config })}
-                    />
-                <div className={styles.submit}>
-                    <RaisedButton
-                        disabled={this.props.commandInProgress}
-                        label='Submit'
-                        primary={true}
-                        onClick={this.onSubmit}
+            <Shortcuts
+                name='ExecuteTab'
+                handler={this.handleShortcuts}>
+
+                <div className={classnames(tabStyle.this, styles.this)}>
+                    <ClientConfiguration
+                        config={this.state.clientConfig}
+                        clients={this.props.clients}
+                        currentClient={currentClient}
+                        onConfigChange={config => this.setState({ clientConfig: config })}
                         />
+                    {this.renderTargetConfiguration()}
+                    <FunctionConfiguration
+                        config={this.state.functionConfig}
+                        currentClient={currentClient}
+                        onConfigChange={config => this.setState({ functionConfig: config })}
+                        />
+                    <div className={styles.submit}>
+                        <RaisedButton
+                            disabled={this.props.commandInProgress}
+                            label='Submit'
+                            primary={true}
+                            onClick={this.onSubmit}
+                            />
+                    </div>
+                    {this.renderResult()}
                 </div>
-                {this.renderResult()}
-            </div>
+            </Shortcuts>
         );
     }
 });

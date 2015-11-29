@@ -7,14 +7,21 @@ import Theme from 'Theme';
 import routes from 'Routes';
 import store from 'store';
 
+import keymap from 'keymap';
+import ShortcutsManager from 'react-shortcuts';
+
+const shortcutManager = new ShortcutsManager(keymap);
+
 const Root = React.createClass({
     childContextTypes: {
-        muiTheme: React.PropTypes.object.isRequired
+        muiTheme: React.PropTypes.object.isRequired,
+        shortcuts: React.PropTypes.object.isRequired
     },
 
     getChildContext: function () {
         return {
-            muiTheme: Theme
+            muiTheme: Theme,
+            shortcuts: shortcutManager
         };
     },
 
