@@ -22,13 +22,13 @@
   "author": "Martin Hoefling",
   "license": "MIT",
   "dependencies": {
-    "classnames": "^2.2.0",
+    "classnames": "^2.2.1",
     "fbjs": "^0.3.2",
     "history": "^1.13.1",
     "lodash": "^3.10.1",
-    "material-ui": "^0.13.3",
+    "material-ui": "^0.13.4",
     "moment": "^2.10.6",
-    "react": "^0.14.2",
+    "react": "^0.14.3",
     "react-redux": "^4.0.0",
     "react-router": "^1.0.0",
     "react-tap-event-plugin": "^0.2.1",
@@ -36,21 +36,21 @@
     "redux": "^3.0.4",
     "redux-devtools": "^2.1.5",
     "redux-logger": "^2.0.4",
-    "redux-router": "^1.0.0-beta4",
+    "redux-router": "^1.0.0-beta5",
     "redux-thunk": "^1.0.0",
     "reselect": "^2.0.1",
     "superagent": "^1.4.0"
   },
   "devDependencies": {
-    "babel-core": "^6.1.21",
-    "babel-eslint": "^4.1.5",
+    "babel-core": "^6.2.4",
+    "babel-eslint": "^4.1.6",
     "babel-loader": "^6.2.0",
-    "babel-preset-es2015": "^6.1.18",
-    "babel-preset-react": "^6.1.18",
+    "babel-preset-es2015": "^6.2.4",
+    "babel-preset-react": "^6.2.4",
     "css-loader": "^0.23.0",
     "eslint": "^1.9.0",
     "eslint-loader": "^1.1.1",
-    "eslint-plugin-react": "^3.9.0",
+    "eslint-plugin-react": "^3.11.1",
     "esprima-fb": "^15001.1001.0-dev-harmony-fb",
     "extract-text-webpack-plugin": "^0.9.1",
     "http-server": "^0.8.5",
@@ -70,6 +70,6 @@
     "style-loader": "^0.13.0",
     "underscore.string": "^3.2.2",
     "webpack": "^1.12.6",
-    "webpack-dev-server": "^1.12.1"
+    "webpack-dev-server": "^1.14.1"
   }
 }
