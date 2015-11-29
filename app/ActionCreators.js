@@ -38,6 +38,9 @@ var getDocumentationFail = error => ({ type: Constants.GET_DOCUMENTATION_FAIL, e
 var getDocumentationSuccess = (docType, documentation) =>
     ({ type: Constants.GET_DOCUMENTATION_SUCCESS, docType, documentation });
 
+export const setSetting = (setting, value) => ({ type: Constants.SET_SETTING, setting, value });
+export const clearSetting = setting => ({ type: Constants.CLEAR_SETTING, setting });
+
 export const serverEventReceived = event => ({ type: Constants.SERVER_EVENT_RECEIVED, event });
 export const clearEvents = () => ({ type: Constants.CLEAR_EVENTS });
 

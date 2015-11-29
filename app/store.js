@@ -12,10 +12,11 @@ import Events from 'reducers/EventReducer';
 import Jobs from 'reducers/JobReducer';
 import Documentation from 'reducers/DocumentationReducer';
 import Minions from 'reducers/MinionReducer';
+import Settings from 'reducers/SettingsReducer';
 import routes from 'Routes';
 
 const reducers = combineReducers({
-    Session, Capabilities, Commands, Events, Jobs, Documentation, Minions,
+    Session, Capabilities, Commands, Events, Jobs, Documentation, Minions, Settings,
     router: routerStateReducer
 });
 

@@ -85,7 +85,8 @@ const EVENT_LIST = [
 
 const Toast = React.createClass({
     propTypes: {
-        events: React.PropTypes.array
+        enabled: React.PropTypes.bool.isRequired,
+        events: React.PropTypes.array.isRequired
     },
 
     publishEvent(event) {
@@ -113,12 +114,16 @@ const Toast = React.createClass({
 
     componentWillReceiveProps(nextProps) {
         var newEvents = nextProps.events.splice(this.props.events.length);
-        if (newEvents.length) {
+        if (newEvents.length && nextProps.enabled) {
             newEvents.forEach(this.publishEvent);
         }
     },
 
     render() {
+        if (!this.props.enabled) {
+            return null;
+        }
+
         return (
             <div>
                 <ToastContainer
@@ -132,6 +137,7 @@ const Toast = React.createClass({
 
 function select(state) {
     return {
+        enabled: !!state.Settings.eventsAsToasts,
         events: state.Events.events
     };
 }
