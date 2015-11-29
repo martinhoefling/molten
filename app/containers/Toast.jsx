@@ -113,9 +113,11 @@ const Toast = React.createClass({
     },
 
     componentWillReceiveProps(nextProps) {
-        var newEvents = nextProps.events.splice(this.props.events.length);
-        if (newEvents.length && nextProps.enabled) {
-            newEvents.forEach(this.publishEvent);
+        if (nextProps.enabled) {
+            var newEvents = nextProps.events.slice(this.props.events.length);
+            if (newEvents.length) {
+                newEvents.forEach(this.publishEvent);
+            }
         }
     },
 
