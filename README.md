@@ -6,6 +6,8 @@ Molten is a WebUI for the REST API exposed by [Salt](http://saltstack.com/).
 Molten aims to make the API features accessible and to provide an easily deployable alternative to the salt commandline cli interfaces.
 No additional service besides `salt-api` is required.
 
+<div id="headsep">
+
 ## Features:
 * Fast. No page reloads, molten is a SPA (single page app) and keeps state during navigation.
 * Full access to all salt clients supported via Rest API. 
