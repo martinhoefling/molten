@@ -1,14 +1,12 @@
 [![Build Status](https://travis-ci.org/martinhoefling/molten.svg)](https://travis-ci.org/martinhoefling/molten)
 
-<!-- CUT -->
-
 # Molten - Salt Rest-API WebUI
 
 Molten is a WebUI for the REST API exposed by [Salt](http://saltstack.com/).
 Molten aims to make the API features accessible and to provide an easily deployable alternative to the salt commandline cli interfaces.
 No additional service besides `salt-api` is required.
 
-<!-- CUT -->
+<!-- HEADEND -->
 
 ## Features:
 * Fast. No page reloads, molten is a SPA (single page app) and keeps state during navigation.
