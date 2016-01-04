@@ -66,7 +66,6 @@ const FunctionConfiguration = React.createClass({
     },
 
     onFunctionSelect(selectedFunction) {
-        this.refs.functionInput.setValue(selectedFunction);
         this.setState({ functionInput: selectedFunction });
         this.props.onConfigChange(this.getConfig({ fun: selectedFunction }));
     },
@@ -98,8 +97,8 @@ const FunctionConfiguration = React.createClass({
                     onChange={this.onFunctionChange}
                     validationRegexp={/^[\w\.]+\.[\w\.]+$/}
                     validationErrorMsg='invalid function'
-                    defaultValue={this.props.config.fun}
-                    style={{ 'max-width': '220px' }}
+                    value={this.state.functionInput}
+                    style={{ maxWidth: '220px' }}
                 />
                 <ValidatedTextField
                     ref='argumentInput'
@@ -110,7 +109,7 @@ const FunctionConfiguration = React.createClass({
                     validationRegexp={/^\S+(\s+\S+)*\s*$/}
                     validationErrorMsg='invalid arguments'
                     defaultValue={argstr}
-                    style={{ 'max-width': '220px' }}
+                    style={{ maxWidth: '220px' }}
                 />
                 <ValidatedTextField
                     hintText='e.g. saltenv="stable"'
@@ -120,7 +119,7 @@ const FunctionConfiguration = React.createClass({
                     validationRegexp={/^(\S+\s*=\s*\S+)(\s+\S+\s*=\s*\S+)*\s*$/}
                     validationErrorMsg='invalid keyword args'
                     defaultValue={kwargstr}
-                    style={{ 'max-width': '220px' }}
+                    style={{ maxWidth: '220px' }}
                 />
             </div>
         );

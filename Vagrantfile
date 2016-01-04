@@ -11,7 +11,6 @@ Vagrant.configure(2) do |config|
     hostconfig.vm.provision "shell", inline: <<-SHELL
         set -ux  end
         /vagrant/vagrant/bootstrap-dev.sh
-va
         SHELL
   end
 

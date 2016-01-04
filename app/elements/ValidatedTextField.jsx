@@ -6,7 +6,8 @@ const ValidatedTextField = React.createClass({
     propTypes: {
         validationRegexp: React.PropTypes.instanceOf(RegExp).isRequired,
         validationErrorMsg: React.PropTypes.string.isRequired,
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func,
+        value: React.PropTypes.any
     },
 
     getDefaultProps() {
@@ -19,9 +20,10 @@ const ValidatedTextField = React.createClass({
         return { errorText: '' };
     },
 
-    setValue(value) {
-        this.validate(value);
-        return this.refs.textfield.setValue(value);
+    componentWillUpdate(newProps) {
+        if (newProps.value !== this.props.value) {
+            this.validateAndSetError(newProps.value);
+        }
     },
 
     setErrorText(value) {
@@ -29,14 +31,14 @@ const ValidatedTextField = React.createClass({
     },
 
     onChange(event) {
-        return this.validate(event.target.value);
+        return this.validateAndSetError(event.target.value);
     },
 
     focus() {
         return this.refs.textfield.focus();
     },
 
-    validate(value) {
+    validateAndSetError(value) {
         var valid = value.search(this.props.validationRegexp) > -1;
         if (value) {
             this.setErrorText(valid ? '' : this.props.validationErrorMsg);

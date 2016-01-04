@@ -2,6 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 import SelectField from 'material-ui/lib/select-field';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 import Paper from 'material-ui/lib/paper';
 import ValidatedTextField from 'elements/ValidatedTextField';
 import Checkbox from 'material-ui/lib/checkbox';
@@ -19,8 +20,7 @@ const ClientConfiguration = React.createClass({
         onConfigChange: React.PropTypes.func.isRequired
     },
 
-    onClientChange(event) {
-        var client = event.target.value;
+    onClientChange(event, index, client) {
         this.props.onConfigChange(this.getConfig(client));
     },
 
@@ -117,10 +117,9 @@ const ClientConfiguration = React.createClass({
                 hintText='e.g. 10% or 115'
                 floatingLabelText={disabled.batch ? 'no batch support' : 'batch size'}
                 disabled={disabled.batch}
-                defaultValue={this.props.config.batch}
+                value={this.props.config.batch || ''}
                 onChange={this.onBatchChange}
-                onFocus={() => this.refs.batchInput.setValue(this.props.config.batch || '')}
-                style={{ 'max-width': '140px' }}
+                style={{ maxWidth: '140px' }}
                 validationRegexp={/^[0-9]+%?$/}
                 validationErrorMsg='must be int or percentage'
                 />
@@ -136,10 +135,9 @@ const ClientConfiguration = React.createClass({
                 hintText='timeout in seconds'
                 floatingLabelText={disabled.timeout ?  'no timeout support' : 'Timeout'}
                 disabled={disabled.timeout}
-                defaultValue={this.props.config.timeout}
+                value={this.props.config.timeout || ''}
                 onChange={this.onTimeoutChange}
-                onFocus={() => this.refs.timeoutInput.setValue(this.props.config.timeout || '')}
-                style={{ 'max-width': '140px' }}
+                style={{ maxWidth: '140px' }}
                 validationRegexp={/^[0-9]+$/}
                 validationErrorMsg='invalid int'
                 />
@@ -147,20 +145,19 @@ const ClientConfiguration = React.createClass({
     },
 
     renderClientSelectDropdown() {
-        var clientMenuItems = this.props.clients.map(client => ({
-            payload: client,
-            text: client.getName()
-        }));
+        var clientMenuItems = this.props.clients.map(client => (
+            <MenuItem value={client} primaryText={client.getName()} key={client.getName()}/>
+        ));
 
         return (
             <div className={styles.client}>
                 <SelectField
                     floatingLabelText='Client'
                     style={{ width: '100px' }}
-                    menuItems={clientMenuItems}
                     value={this.props.currentClient}
-                    selectedIndex={this.props.clients.indexOf(this.props.currentClient)}
-                    onChange={this.onClientChange}/>
+                    onChange={this.onClientChange}>
+                    {clientMenuItems}
+                </SelectField>
            </div>
         );
     },

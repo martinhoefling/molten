@@ -44,6 +44,10 @@ export const clearSetting = setting => ({ type: Constants.CLEAR_SETTING, setting
 export const serverEventReceived = event => ({ type: Constants.SERVER_EVENT_RECEIVED, event });
 export const clearEvents = () => ({ type: Constants.CLEAR_EVENTS });
 
+export const setClientConfiguration = config => ({ type: Constants.SET_CLIENT_CONFIGURATION, config });
+export const setTargetConfiguration = config => ({ type: Constants.SET_TARGET_CONFIGURATION, config });
+export const setFunctionConfiguration = config => ({ type: Constants.SET_FUNCTION_CONFIGURATION, config });
+
 function _dispatchAndRedirect(dispatch, action) {
     dispatch(action);
     if (!action.error || action.error.status === 401) {

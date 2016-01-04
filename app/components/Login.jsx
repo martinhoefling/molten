@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, History } from 'react-router';
+import { Link } from 'react-router';
+import { pushState } from 'redux-router';
 
 import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
@@ -11,11 +12,11 @@ import Constants from 'Constants';
 import styles from './Login.less';
 
 const Login = React.createClass({
-    mixins: [History],
 
     propTypes: {
         currentSession: React.PropTypes.object,
         sessionErrorMessage: React.PropTypes.string,
+        pushState: React.PropTypes.func.isRequired,
         createSession: React.PropTypes.func.isRequired
     },
 
@@ -28,7 +29,7 @@ const Login = React.createClass({
 
     componentWillUpdate(nextProps) {
         if (nextProps.currentSession) {
-            this.history.pushState(null, Constants.URL.ROOT);
+            this.props.pushState(null, Constants.URL.ROOT);
         }
     },
 
@@ -106,4 +107,4 @@ function select(state) {
     };
 }
 
-export default connect(select, { createSession })(Login);
+export default connect(select, { createSession, pushState })(Login);

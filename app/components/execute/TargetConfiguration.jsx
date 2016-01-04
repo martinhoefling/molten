@@ -4,6 +4,8 @@ import classnames from 'classnames';
 
 import ValidatedTextField from 'elements/ValidatedTextField';
 import SelectField from 'material-ui/lib/select-field';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+
 import Paper from 'material-ui/lib/paper';
 
 import rowStyles from 'components/RowLayout.less';
@@ -36,8 +38,8 @@ const RunnerConfiguration = React.createClass({
         return EXPRESSION_FORM[0];
     },
 
-    onExprFormChange(event) {
-        this.props.onConfigChange(this.getConfig(event.target.value));
+    onExprFormChange(event, index, exprForm) {
+        this.props.onConfigChange(this.getConfig(exprForm));
     },
 
     getConfig(exprFormItem, options) {
@@ -60,7 +62,9 @@ const RunnerConfiguration = React.createClass({
     },
 
     render() {
-        var menuItems = EXPRESSION_FORM.map(item => ({ text: item.name, payload: item }));
+        var menuItems = EXPRESSION_FORM.map(item => (
+            <MenuItem value={item} primaryText={item.name} key={item.name}/>
+        ));
 
         return (
             <Paper className={classnames(rowStyles.this, styles.this)} Depth={2}>
@@ -69,10 +73,10 @@ const RunnerConfiguration = React.createClass({
                     style={{ width: '130px' }}
                     value={this.getCurrentExprForm()}
                     disabled={this.props.disabled}
-                    menuItems={menuItems}
-                    selectedIndex={EXPRESSION_FORM.indexOf(this.getCurrentExprForm())}
                     onChange={this.onExprFormChange}
-                    />
+                    >
+                    {menuItems}
+                </SelectField>
                 <ValidatedTextField
                     disabled={this.props.disabled}
                     hintText={this.getCurrentExprForm().description}

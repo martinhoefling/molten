@@ -1,7 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { ReduxRouter } from 'redux-router';
-import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 
 import Theme from 'Theme';
 import routes from 'Routes';
@@ -9,6 +8,8 @@ import store from 'store';
 
 import keymap from 'keymap';
 import ShortcutsManager from 'react-shortcuts';
+
+import DevTools from './DevTools';
 
 const shortcutManager = new ShortcutsManager(keymap);
 
@@ -29,11 +30,11 @@ const Root = React.createClass({
         return (
             <div>
                 <Provider store={store}>
-                    <ReduxRouter routes={routes}/>
+                    <div>
+                        <ReduxRouter routes={routes}/>
+                        <DevTools/>
+                    </div>
                 </Provider>
-                <DebugPanel top right bottom>
-                    <DevTools store={store} monitor={LogMonitor} />
-                </DebugPanel>
             </div>
         );
     }

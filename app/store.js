@@ -3,7 +3,6 @@ import { routerStateReducer, reduxReactRouter } from 'redux-router';
 import Thunk from 'redux-thunk';
 import createHistory from 'history/lib/createBrowserHistory';
 import createLogger from 'redux-logger';
-import { devTools } from 'redux-devtools';
 
 import Session from 'reducers/SessionReducer';
 import Capabilities from 'reducers/CapabilityReducer';
@@ -14,6 +13,7 @@ import Documentation from 'reducers/DocumentationReducer';
 import Minions from 'reducers/MinionReducer';
 import Settings from 'reducers/SettingsReducer';
 import routes from 'Routes';
+import DevTools from 'containers/DevTools';
 
 const reducers = combineReducers({
     Session, Capabilities, Commands, Events, Jobs, Documentation, Minions, Settings,
@@ -29,5 +29,6 @@ export default compose(
         routes,
         createHistory
     }),
-    devTools()
+    DevTools.instrument()
+
 )(createStore)(reducers);

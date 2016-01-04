@@ -1,5 +1,5 @@
 const keymap = {
-    ExecuteTab: {
+    ExecuteCommandTab: {
         SUBMIT: {
             osx: 'command+s',
             windows: 'ctrl+s',
