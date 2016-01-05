@@ -10,7 +10,7 @@ import TargetConfiguration from 'components/execute/TargetConfiguration';
 import FunctionConfiguration from 'components/execute/FunctionConfiguration';
 import CommandDisplay from 'components/execute/CommandDisplay';
 import LoadingIndicator from 'elements/LoadingIndicator';
-import { executeCommand, setClientConfiguration,
+import { executeCommand, storeCommand, setClientConfiguration,
     setTargetConfiguration, setFunctionConfiguration } from 'ActionCreators';
 
 import tabStyle from './Tab.less';
@@ -19,6 +19,7 @@ import styles from './ExecuteCommandTab.less';
 const ExecuteCommandTab = React.createClass({
     propTypes: {
         executeCommand: React.PropTypes.func,
+        storeCommand: React.PropTypes.func,
         clients: React.PropTypes.array,
         currentClient: React.PropTypes.object,
         clientFetchInProgress: React.PropTypes.bool,
@@ -42,6 +43,8 @@ const ExecuteCommandTab = React.createClass({
 
     onSubmit() {
         this.props.executeCommand(this.getCommand());
+        var timestamp = new Date();
+        this.props.storeCommand(timestamp, this.props.clientConfig, this.props.targetConfig, this.props.functionConfig);
     },
 
     getCurrentClient() {
@@ -168,5 +171,5 @@ function select(state) {
     };
 }
 
-export default connect(select, { executeCommand, setClientConfiguration,
+export default connect(select, { executeCommand, storeCommand, setClientConfiguration,
     setTargetConfiguration, setFunctionConfiguration })(ExecuteCommandTab);

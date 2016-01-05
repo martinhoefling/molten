@@ -48,6 +48,8 @@ export default {
     SERVER_EVENT_RECEIVED: 'SERVER_EVENT_RECEIVED',
     CLEAR_EVENTS: 'CLEAR_EVENTS',
 
+    STORE_COMMAND: 'STORE_COMMAND',
+
     DOCUMENTATION_TYPE: {
         EXECUTE: 'execution',
         RUNNER: 'runner',

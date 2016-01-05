@@ -7,6 +7,7 @@ import createLogger from 'redux-logger';
 import Session from 'reducers/SessionReducer';
 import Capabilities from 'reducers/CapabilityReducer';
 import Commands from 'reducers/CommandReducer';
+import CommandHistory from 'reducers/CommandHistoryReducer';
 import Events from 'reducers/EventReducer';
 import Jobs from 'reducers/JobReducer';
 import Documentation from 'reducers/DocumentationReducer';
@@ -16,7 +17,7 @@ import routes from 'Routes';
 import DevTools from 'containers/DevTools';
 
 const reducers = combineReducers({
-    Session, Capabilities, Commands, Events, Jobs, Documentation, Minions, Settings,
+    Session, Capabilities, Commands, CommandHistory, Events, Jobs, Documentation, Minions, Settings,
     router: routerStateReducer
 });
 
