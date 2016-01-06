@@ -4,7 +4,7 @@ import _ from 'lodash';
 import classnames from 'classnames';
 import RaisedButton from 'material-ui/lib/raised-button';
 
-import { getClients } from 'models/Clients';
+import { getClients, getClient } from 'models/Clients';
 import ClientConfiguration from 'components/execute/ClientConfiguration';
 import TargetConfiguration from 'components/execute/TargetConfiguration';
 import FunctionConfiguration from 'components/execute/FunctionConfiguration';
@@ -49,12 +49,7 @@ const ExecuteCommandTab = React.createClass({
 
     getCurrentClient() {
         if (this.props.clientConfig.client) {
-            var spl = this.props.clientConfig.client.split('_');
-            var name = spl[0];
-            var client = _.find(this.props.clients, client => client.getName() === name);
-            var mode = spl[1] || null;
-            client.setMode(mode);
-            return client;
+            return getClient(this.props.clientConfig.client, this.props.clients);
         }
         return this.props.clients[0];
     },

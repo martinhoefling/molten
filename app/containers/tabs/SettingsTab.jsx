@@ -1,11 +1,10 @@
 import React from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { setSetting } from 'ActionCreators';
 
 import RaisedButton from 'material-ui/lib/raised-button';
 import Checkbox from 'material-ui/lib/checkbox';
-
-import localStore from 'helpers/localstore';
 
 import tabStyle from './Tab.less';
 
@@ -21,7 +20,7 @@ const SettingsTab = React.createClass({
                 <RaisedButton
                     label='Clear local storage'
                     primary={true}
-                    onClick={() => localStore.clear() }
+                    onClick={() => _.noop() }
                 />
                 <Checkbox
                     name='displayEventsAsToasts'

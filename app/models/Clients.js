@@ -78,3 +78,12 @@ export function getClients(clientStringList) {
     });
     return _.values(clients);
 }
+
+export function getClient(clientString, clients) {
+    var spl = clientString.split('_');
+    var name = spl[0];
+    var client = _.find(clients, client => client.getName() === name);
+    var mode = spl[1] || null;
+    client.setMode(mode);
+    return client;
+}

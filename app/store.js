@@ -15,6 +15,7 @@ import Minions from 'reducers/MinionReducer';
 import Settings from 'reducers/SettingsReducer';
 import routes from 'Routes';
 import DevTools from 'containers/DevTools';
+import {persistStore, autoRehydrate} from 'redux-persist';
 
 const reducers = combineReducers({
     Session, Capabilities, Commands, CommandHistory, Events, Jobs, Documentation, Minions, Settings,
@@ -24,12 +25,16 @@ const reducers = combineReducers({
 const logger = createLogger();
 
 // Compose reduxReactRouter with other store enhancers
-export default compose(
+const store = compose(
+    autoRehydrate(),
     applyMiddleware(Thunk, logger),
     reduxReactRouter({
         routes,
         createHistory
     }),
     DevTools.instrument()
-
 )(createStore)(reducers);
+
+persistStore(store, { whitelist: ['Commands', 'CommandHistory', 'Settings'] });
+
+export default store;

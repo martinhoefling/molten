@@ -71,6 +71,7 @@
     "node-libs-browser": "^0.5.3",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.1",
+    "redux-persist": "^1.5.0",
     "style-loader": "^0.13.0",
     "underscore.string": "^3.2.2",
     "webpack": "^1.12.6",
