@@ -5,7 +5,6 @@
 
     .object {
         cursor: default;
-        display: table;
         padding: 5px;
         width: 100%;
         height: 100%;
@@ -16,8 +15,13 @@
         word-break: normal;
     }
 
-    .object-key,.object-value {
-        display: table-cell;
+    .object-key {
+        flex-grow: 0;
+        min-width: 20%;
+    }
+
+    .object-value {
+        flex-grow: 1;
     }
 
     .object-key,.object-value,.array-item-marker,.array-item-content {
@@ -29,7 +33,8 @@
     }
 
     .object-property {
-        display: table-row;
+        display: flex;
+        flex-direction: row;
     }
 
     .object-collapsed:after {

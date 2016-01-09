@@ -2,8 +2,10 @@ import React from 'react';
 import classnames from 'classnames';
 
 import Paper from 'material-ui/lib/paper';
+import RaisedButton from 'material-ui/lib/raised-button';
 
-import { getClient } from 'models/Clients';
+import { getClient, MODE } from 'models/Clients';
+import StructuredElement from 'elements/StructuredElement';
 
 import styles from './ExecutedCommand.less';
 
@@ -13,8 +15,14 @@ const ExecutedCommand = React.createClass({
         clients: React.PropTypes.array.isRequired
     },
 
+    onLoadCommand() {
+    },
+
+    onRemoveCommand() {
+    },
+
     renderFunction() {
-        return <span className='function'>{this.props.command.functionConfig.fun}</span>;
+        return <span className='function'>Function: {this.props.command.functionConfig.fun}</span>;
     },
 
     renderArguments() {
@@ -48,7 +56,7 @@ const ExecutedCommand = React.createClass({
     renderExecutionCount() {
         return (
             <span>
-                executions: <span className='execution-count'>{this.props.command.timestamps.length}</span>
+                Executions: <span className='execution-count'>{this.props.command.timestamps.length}</span>
             </span>
         );
     },
@@ -63,10 +71,44 @@ const ExecutedCommand = React.createClass({
         );
     },
 
+    renderArguments(name, obj) {
+        if (obj) {
+            return (
+                <div className='body-element'>
+                    <StructuredElement element={{ [name]: obj }}/>
+                </div>
+            );
+        }
+        return null;
+    },
+
     renderBody() {
+        var command = this.props.command;
+        var ret = command.targetConfig.ret;
+        var timeout = command.clientConfig.timeout;
+        var mode = getClient(this.props.command.clientConfig.client, this.props.clients).getMode();
+        var args = command.functionConfig.arg;
+        var kwargs = command.functionConfig.kwarg;
+        var summary = {
+            Asynchronous: mode === MODE.ASYNC ? 'yes' : 'no'
+        };
+
+        if (mode === MODE.BATCH) {
+            summary['Batched Execution'] = command.clientConfig.batch;
+        }
+        if (timeout) {
+            summary.Timeout = timeout;
+        }
+        if (ret) {
+            summary.Returner = ret;
+        }
         return (
             <div className='body'>
-
+                <div className='body-element'>
+                    <StructuredElement element={summary}/>
+                </div>
+                {this.renderArguments('Arguments', args)}
+                {this.renderArguments('Keyword Arguments', kwargs)}
             </div>
         );
     },
@@ -74,7 +116,20 @@ const ExecutedCommand = React.createClass({
     renderFooter() {
         return (
             <div className='footer'>
-
+                <div className={styles.button}>
+                    <RaisedButton
+                        label='Load Command'
+                        primary={true}
+                        onClick={this.onLoadCommand}
+                    />
+                </div>
+                <div className={styles.button}>
+                    <RaisedButton
+                        label='Remove Command'
+                        primary={true}
+                        onClick={this.onRemoveCommand}
+                    />
+                </div>
             </div>
         );
     },
