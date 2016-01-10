@@ -12,13 +12,9 @@ import styles from './ExecutedCommand.less';
 const ExecutedCommand = React.createClass({
     propTypes: {
         command: React.PropTypes.object.isRequired,
-        clients: React.PropTypes.array.isRequired
-    },
-
-    onLoadCommand() {
-    },
-
-    onRemoveCommand() {
+        clients: React.PropTypes.array.isRequired,
+        onLoadCommand: React.PropTypes.func.isRequired,
+        onRemoveCommand: React.PropTypes.func.isRequired
     },
 
     renderFunction() {
@@ -120,14 +116,14 @@ const ExecutedCommand = React.createClass({
                     <RaisedButton
                         label='Load Command'
                         primary={true}
-                        onClick={this.onLoadCommand}
+                        onClick={() => this.props.onLoadCommand(this.props.command)}
                     />
                 </div>
                 <div className={styles.button}>
                     <RaisedButton
                         label='Remove Command'
                         primary={true}
-                        onClick={this.onRemoveCommand}
+                        onClick={() => this.props.onRemoveCommand(this.props.command)}
                     />
                 </div>
             </div>

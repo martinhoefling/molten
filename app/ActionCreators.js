@@ -41,6 +41,9 @@ var getDocumentationSuccess = (docType, documentation) =>
 export const storeCommand = (timestamp, clientConfig, targetConfig, functionConfig) =>
     ({ type: Constants.STORE_COMMAND, timestamp, clientConfig, targetConfig, functionConfig });
 
+export const clearCommands = () => ({ type: Constants.CLEAR_COMMANDS });
+export const clearCommand = (command) => ({ type: Constants.CLEAR_COMMAND, command });
+
 export const setSetting = (setting, value) => ({ type: Constants.SET_SETTING, setting, value });
 export const clearSetting = setting => ({ type: Constants.CLEAR_SETTING, setting });
 

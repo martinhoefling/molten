@@ -23,12 +23,6 @@ const TabHeaders = React.createClass({
         location: React.PropTypes.object.isRequired
     },
 
-    getInitialState() {
-        return {
-            activeTab: 'execution'
-        };
-    },
-
     componentWillMount() {
         if (!this.props.currentSession) {
             this.props.testSessionStatus();
@@ -51,7 +45,8 @@ const TabHeaders = React.createClass({
         }, this);
 
         var path = this.props.location.pathname.substring(config.APP_BASE_URL.length + 1),
-            index = Math.max(0, _.findIndex(TABS, tab => path.indexOf(tab.toLowerCase()) === 0));
+            tabstr = path.split('/')[0],
+            index = Math.max(0, _.findIndex(TABS, tab => tabstr.indexOf(tab.toLowerCase()) === 0));
 
         return (
             <Tabs initialSelectedIndex={index}>
