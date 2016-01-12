@@ -6,7 +6,7 @@ Molten is a WebUI for the REST API exposed by [Salt](http://saltstack.com/).
 Molten aims to make the API features accessible and to provide an easily deployable alternative to the salt commandline cli interfaces.
 No additional service besides `salt-api` is required.
 
-<img src='/screenshots/molten-exec-result.png' alt="Molten Execution View" style="width: 400px;"/>
+<img src='/screenshots/molten-exec-result.png' alt="Molten Execution View" width="480px">
 
 To get a quick impression have a look at the [screenshots](/screenshots/Screenshots.md).
 
