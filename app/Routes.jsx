@@ -28,7 +28,7 @@ const Routes = (
             <Route component={MinionsTab} path='minion' />
             <Route component={EventsTab} path='event' />
             <Route component={SettingsTab} path='settings' />
-            <IndexRoute component={ExecuteTab} />
+            <IndexRoute component={ExecuteCommandTab} />
         </Route>
         <Redirect from='*' to={Constants.URL.ROOT} />
     </Route>
