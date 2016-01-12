@@ -2,7 +2,6 @@ import { combineReducers, compose, createStore, applyMiddleware } from 'redux';
 import { routerStateReducer, reduxReactRouter } from 'redux-router';
 import Thunk from 'redux-thunk';
 import createHistory from 'history/lib/createBrowserHistory';
-import createLogger from 'redux-logger';
 
 import Session from 'reducers/SessionReducer';
 import Capabilities from 'reducers/CapabilityReducer';
@@ -15,6 +14,7 @@ import Minions from 'reducers/MinionReducer';
 import Settings from 'reducers/SettingsReducer';
 import routes from 'Routes';
 import DevTools from 'containers/DevTools';
+
 import {persistStore, autoRehydrate} from 'redux-persist';
 
 const reducers = combineReducers({
@@ -22,17 +22,31 @@ const reducers = combineReducers({
     router: routerStateReducer
 });
 
-const logger = createLogger();
+var middlewares = [
+    Thunk
+];
 
-// Compose reduxReactRouter with other store enhancers
-const store = compose(
+if (process.env.NODE_ENV !== 'production') {
+    var createLogger = require('redux-logger');
+    var logger = createLogger();
+    middlewares.push(logger);
+}
+
+var composers = [
     autoRehydrate(),
-    applyMiddleware(Thunk, logger),
+    applyMiddleware(...middlewares),
     reduxReactRouter({
         routes,
         createHistory
-    }),
-    DevTools.instrument()
+    })
+];
+
+if (process.env.NODE_ENV !== 'production') {
+    composers.push(DevTools.instrument());
+}
+// Compose reduxReactRouter with other store enhancers
+const store = compose(
+    ... composers
 )(createStore)(reducers);
 
 persistStore(store, { whitelist: ['Commands', 'CommandHistory', 'Settings'] });

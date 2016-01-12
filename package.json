@@ -12,6 +12,7 @@
     "build-dev": "webpack --progress --profile --colors",
     "watch": "webpack --progress --profile --colors --watch",
     "build": "webpack --optimize-minimize --optimize-occurence-order --optimize-dedupe --progress --profile --colors",
+    "release": "rm -rf release; cp -R dist release; cp index.html release; rm -rf release/molten; webpack --config ./webpack.config.prod.js --optimize-minimize --optimize-occurence-order --optimize-dedupe --progress --profile --colors",
     "start": "npm run serve | npm run dev",
     "serve": "./node_modules/.bin/http-server -p 8080",
     "dev": "webpack-dev-server --progress --colors --port 8090",

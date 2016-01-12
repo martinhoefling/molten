@@ -20,7 +20,7 @@ const ExecuteTab = React.createClass({
 
     renderTabs() {
         var path = this.props.location.pathname.substring(config.APP_BASE_URL.length + 1),
-        tabstr = path.split('/')[1],
+        tabstr = path.split('/')[1] || '',
         index = Math.max(0, _.findIndex(TABS, tab => tabstr.indexOf(tab.toLowerCase()) === 0));
         return (
             <Tabs initialSelectedIndex={index}>

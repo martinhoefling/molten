@@ -21,6 +21,7 @@ const Routes = (
             <Route component={ExecuteTab} path='execute'>
                 <Route component={ExecuteCommandTab} path='command' />
                 <Route component={ExecuteHistoryTab} path='history' />
+                <IndexRoute component={ExecuteCommandTab} />
             </Route>
             <Route component={JobsTab} path='job' />
             <Route component={DetailedJobTab} path='job/:jid' />

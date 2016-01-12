@@ -26,13 +26,20 @@ const Root = React.createClass({
         };
     },
 
+    renderDevTools() {
+        if (process.env.NODE_ENV !== 'production') {
+            return <DevTools/>;
+        }
+        return null;
+    },
+
     render() {
         return (
             <div>
                 <Provider store={store}>
                     <div>
                         <ReduxRouter routes={routes}/>
-                        <DevTools/>
+                        {this.renderDevTools}
                     </div>
                 </Provider>
             </div>
