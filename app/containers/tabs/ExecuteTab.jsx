@@ -5,6 +5,8 @@ import { pushState } from 'redux-router';
 import Tab from 'material-ui/lib/tabs/tab';
 import Tabs from 'material-ui/lib/tabs/tabs';
 
+import ExecuteCommandTab from 'containers/tabs/ExecuteCommandTab';
+
 import Constants from 'Constants';
 import config from 'config';
 
@@ -42,11 +44,18 @@ const ExecuteTab = React.createClass({
         this.props.pushState(null, Constants.URL.ROOT + 'execute/' + tab.props.route);
     },
 
+    renderChildren() {
+        if (this.props.children) {
+            return <div>{this.props.children}</div>;
+        }
+        return <ExecuteCommandTab />;
+    },
+
     render() {
         return (
             <div className={tabStyle.this}>
                 {this.renderTabs()}
-                {this.props.children}
+                {this.renderChildren()}
             </div>
         );
     }
