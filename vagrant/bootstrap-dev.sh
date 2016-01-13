@@ -2,19 +2,17 @@
 echo "deb http://repo.saltstack.com/apt/debian/latest jessie main" > /etc/apt/sources.list.d/salt.list
 wget -q -O- "https://repo.saltstack.com/apt/debian/latest/SALTSTACK-GPG-KEY.pub" | apt-key add -
 sudo apt-get update
-sudo apt-get install -y salt-master salt-api salt-minion
+sudo apt-get install -y salt-master salt-minion
 rsync -av /vagrant/vagrant/salt/ /etc/salt/
 service salt-master stop
 service salt-minion stop
-service salt-api stop
-service salt-api stop
 service salt-master start
 service salt-minion start
-service salt-api start
-sleep 5
+sleep 10
 salt-key -y -a themaster
-sleep 5
 salt-key -L
+
+sleep 15
 salt '*' test.ping
-useradd test
-echo test:molten | chpasswd
+salt '*' saltutil.pillar_refresh
+salt '*' state.sls testuser
