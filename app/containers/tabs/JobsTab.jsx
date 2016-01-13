@@ -90,21 +90,15 @@ const JobsTab = React.createClass({
     }
 });
 
-function compareJIDs(a, b) {
-    if (a.jid < b.jid) {
-        return -1;
-    }
-    if (a.jid > b.jid) {
-        return 1;
-    }
-    return 0;
-}
-
 function select(state) {
     return {
-        jobs: Object.keys(state.Jobs.jobs).map(key => (state.Jobs.jobs[key])).sort(compareJIDs),
+        jobs: Object.keys(state.Jobs.jobs)
+            .map(key => (state.Jobs.jobs[key])).sort(function(a, b) {
+                return b.jid - a.jid;
+            }),
         fetchInProgress: state.Jobs.fetchingJobsInProgress
     };
 }
 
 export default connect(select)(JobsTab);
+
