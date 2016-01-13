@@ -154,18 +154,11 @@ const Event = React.createClass({
     }
 });
 
-function compareJIDs(a, b) {
-    if (a.jid < b.jid) {
-        return -1;
-    }
-    if (a.jid > b.jid) {
-        return 1;
-    }
-    return 0;
-}
-
 function select(state, ownProps) {
-    var sortedJobs = Object.keys(state.Jobs.jobs).map(key => (state.Jobs.jobs[key])).sort(compareJIDs);
+    var sortedJobs = Object.keys(state.Jobs.jobs)
+        .map(key => (state.Jobs.jobs[key])).sort(function(a, b) {
+            return b.jid - a.jid;
+        });
     var minionJobs = sortedJobs.filter(function (job) {
         if (!job.Minions) {
             return false;
