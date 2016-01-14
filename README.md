@@ -10,8 +10,6 @@ No additional service besides `salt-api` is required.
 
 To get a quick impression have a look at the [screenshots](/doc/Screenshots.md).
 
-<!-- HEADEND -->
-
 ## Features:
 * Fast. No page reloads, molten is a SPA (single page app) and keeps state during navigation.
 * Full access to all salt clients supported via Rest API.
