@@ -19,9 +19,7 @@ To get a quick impression have a look at the [screenshots](/doc/Screenshots.md).
 * Job history and rescheduling of jobs
 * Simple deployment: no additional Python / Node.js or Go application required.
 
-## Getting Started:
-
-### Quick Demo
+## Quick Demo
 
 Make sure that [vagrant](https://www.vagrantup.com/) is installed.
 
@@ -37,9 +35,13 @@ vagrant up demo
 
 Connect to http://192.168.42.43:8000/molten/ as user test with password molten.
 
-### [Configuration](/doc/Setup.md)
+## [Releases](https://github.com/martinhoefling/molten/releases)
 
-### Compatibility
+[Current Release](https://github.com/martinhoefling/molten/releases/latest)
+
+## [Configuration](/doc/Setup.md)
+
+## Compatibility
 
 Molten should in principle be compatible with all salt versions that include the netapi.
 - Function documentation is working if master *and* client [versions are at least 2015.8.0](https://github.com/saltstack/salt/pull/25020)
