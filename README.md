@@ -37,7 +37,7 @@ Connect to http://192.168.42.43:8000/molten/ as user test with password molten.
 
 [Current Release](https://github.com/martinhoefling/molten/releases/latest)
 
-## [Configuration](/doc/Setup.md)
+## [Installation and Configuration](/doc/Setup.md)
 
 ## Compatibility
 
