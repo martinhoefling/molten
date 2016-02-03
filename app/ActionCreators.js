@@ -62,15 +62,14 @@ function _dispatchAndRedirect(dispatch, action) {
     }
 }
 
-export function createSession(username, password) {
+export function createSession(username, password, eauth) {
     return function(dispatch) {
         dispatch(setSession());
-        // TODO: Make eauth configurable
         REST.createSession({
                 basepath: config.API_BASE_URL,
-                username: username,
-                password: password,
-                eauth: 'pam'
+                username,
+                password,
+                eauth
             },
             session => dispatch(_sessionSuccess(session)),
             error => dispatch(setSessionFail(error))

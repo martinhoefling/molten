@@ -5,11 +5,15 @@ import { pushState } from 'redux-router';
 
 import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
+import SelectField from 'material-ui/lib/select-field';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 
 import { createSession } from 'ActionCreators';
 import Constants from 'Constants';
 
 import styles from './Login.less';
+
+const EAUTH_METHODS = ['pam', 'ldap'];
 
 const Login = React.createClass({
 
@@ -23,7 +27,8 @@ const Login = React.createClass({
     getInitialState() {
         return {
             username: '',
-            password: ''
+            password: '',
+            eauth: 'pam'
         };
     },
 
@@ -41,13 +46,17 @@ const Login = React.createClass({
         this.setState({ password: event.target.value });
     },
 
+    onEauthChange(event) {
+        this.setState({ eauth: event.target.value });
+    },
+
     inputValid() {
         return this.state.username.length && this.state.password.length;
     },
 
     login() {
         if (this.inputValid()) {
-            this.props.createSession(this.state.username, this.state.password);
+            this.props.createSession(this.state.username, this.state.password, this.state.eauth);
         }
     },
 
@@ -57,6 +66,9 @@ const Login = React.createClass({
 
     renderLogin() {
         var errorMessage = this.props.sessionErrorMessage;
+
+        var menuItems = EAUTH_METHODS.map(
+          item => <MenuItem value={item} primaryText={item} key={item}/>);
 
         return (
             <div className={styles.this}>
@@ -76,6 +88,13 @@ const Login = React.createClass({
                     onChange={this.onPasswordChange}
                     onEnterKeyDown={this.login}
                     />
+                <SelectField
+                    floatingLabelText='Client'
+                    style={{ width: '100px' }}
+                    value={EAUTH_METHODS[0]}
+                    onChange={this.onEauthChange}>
+                    {menuItems}
+                </SelectField>
                 <span
                     className={styles.errorMessage}>
                     {errorMessage}
