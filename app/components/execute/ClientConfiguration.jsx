@@ -39,8 +39,7 @@ const ClientConfiguration = React.createClass({
         this.props.onConfigChange(config);
     },
 
-    onBatchChange(event, valid) {
-        var value = event.target.value;
+    onBatchChange(event, index, value) {
         var client = this.props.currentClient;
         var config = this.getConfig(client);
         if (valid || !value) {

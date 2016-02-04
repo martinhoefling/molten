@@ -46,8 +46,8 @@ const Login = React.createClass({
         this.setState({ password: event.target.value });
     },
 
-    onEauthChange(event) {
-        this.setState({ eauth: event.target.value });
+    onEauthChange(event, index, value) {
+        this.setState({ eauth: value });
     },
 
     inputValid() {
@@ -91,7 +91,7 @@ const Login = React.createClass({
                 <SelectField
                     floatingLabelText='Client'
                     style={{ width: '100px' }}
-                    value={EAUTH_METHODS[0]}
+                    value={this.state.eauth}
                     onChange={this.onEauthChange}>
                     {menuItems}
                 </SelectField>
