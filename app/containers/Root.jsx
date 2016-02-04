@@ -39,7 +39,7 @@ const Root = React.createClass({
                 <Provider store={store}>
                     <div>
                         <ReduxRouter routes={routes}/>
-                        {this.renderDevTools}
+                        {this.renderDevTools()}
                     </div>
                 </Provider>
             </div>
