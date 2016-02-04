@@ -1,12 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import ReactToastr, { ToastContainer } from 'react-toastr';
+import { ToastMessage, ToastContainer } from 'react-toastr';
 import classnames from 'classnames';
 
 import styles from './Toast.less';
 
-var ToastMessageFactory = React.createFactory(ReactToastr.ToastMessage.animation);
+var ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
 const EVENT_LIST = [
     {
