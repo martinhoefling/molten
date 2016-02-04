@@ -26,6 +26,7 @@
     "classnames": "^2.2.1",
     "fbjs": "^0.6.0",
     "lodash": "^3.10.1",
+    "history": "^1.17.0",
     "material-ui": "^0.14.1",
     "moment": "^2.10.6",
     "react": "^0.14.3",
