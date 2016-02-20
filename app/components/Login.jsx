@@ -89,7 +89,7 @@ const Login = React.createClass({
                     onEnterKeyDown={this.login}
                     />
                 <SelectField
-                    floatingLabelText='Client'
+                    floatingLabelText='EAuth'
                     style={{ width: '100px' }}
                     value={this.state.eauth}
                     onChange={this.onEauthChange}>
