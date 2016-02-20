@@ -1,21 +1,10 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "debian/jessie64"
-  #config.vm.box = "parallels/debian-8.2"
   config.vm.box_check_update = false
-  # VirtualBox provider specifics
   config.vm.provider "virtualbox" do |vb|
    vb.memory = "1024"
-   #vb.cpus = 2
+   vb.cpus = 2
   end
-  # Parallels provider specifics
-  #config.vm.provider "parallels" do |prl|
-  # prl.memory = 1024
-  # prl.cpus = 2
-  #end
-  #config.vm.provider "vmware_fusion" do |v|
-  # v.vmx["memsize"] = 1024
-  # v.vmx["numvcpus"] = 2
-  #end
 
   config.vm.define "dev" do |hostconfig|
     hostconfig.vm.synced_folder "./dist", "/molten"
