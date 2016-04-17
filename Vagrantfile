@@ -7,7 +7,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "dev" do |hostconfig|
-    hostconfig.vm.synced_folder "./dist", "/molten"
+    hostconfig.vm.synced_folder "./dist", "/molten", type: "rsync"
     hostconfig.vm.network "private_network", ip: "192.168.42.42"
     hostconfig.vm.provision "shell", inline: <<-SHELL
         set -ux
@@ -32,7 +32,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "dev-cloud" do |hostconfig|
-    hostconfig.vm.synced_folder "./dist", "/molten"
+    hostconfig.vm.synced_folder "./dist", "/molten", type: "rsync"
     hostconfig.vm.network "private_network", ip: "192.168.42.44"
     hostconfig.vm.provision "shell", inline: <<-SHELL
         set -ux
