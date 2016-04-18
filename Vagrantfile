@@ -1,5 +1,5 @@
 Vagrant.configure(2) do |config|
-  config.vm.box = "debian/jessie64"
+  config.vm.box = "ubuntu/trusty64"
   config.vm.box_check_update = false
   config.vm.provider "virtualbox" do |vb|
    vb.memory = "1024"
@@ -7,7 +7,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "dev" do |hostconfig|
-    hostconfig.vm.synced_folder "./dist", "/molten", type: "rsync"
+    hostconfig.vm.synced_folder "./dist", "/molten"
     hostconfig.vm.network "private_network", ip: "192.168.42.42"
     hostconfig.vm.provision "shell", inline: <<-SHELL
         set -ux
@@ -22,6 +22,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define "demo" do |hostconfig|
     hostconfig.vm.network "private_network", ip: "192.168.42.43"
+    hostconfig.vm.box = "debian/jessie64"
     hostconfig.vm.provision "shell", inline: <<-SHELL
         set -ux
         /vagrant/vagrant/bootstrap-dev.sh
