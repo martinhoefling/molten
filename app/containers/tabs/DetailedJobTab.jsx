@@ -25,13 +25,27 @@ const DetailedJobTab = React.createClass({
         }
     },
 
+    renderJobData(data) {
+        if (!data) {
+            return 'job not found';
+        }
+        return <StructuredElement downloadEnabled data={data}/>;
+    },
+
+    renderJobResult(data) {
+        if (!data) {
+            return 'no result yet';
+        }
+        return <StructuredElement downloadEnabled data={data}/>;
+    },
+
     renderJob() {
         return (
             <div className={styles.jobSummary}>
                 <div className={styles.informationHeader}>Job information for {this.props.params.jid}:</div>
-                <StructuredElement downloadEnabled data={this.props.job || 'job not found'}/>
+                {this.renderJobData(this.props.job)}
                 <div className={styles.resultsHeader}>Results of {this.props.params.jid}:</div>
-                <StructuredElement downloadEnabled data={this.props.result || 'no result yet'}/>
+                {this.renderJobResult(this.props.result)}
             </div>
         );
     },
