@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import Constants from 'Constants';
 import styles from './StructuredElement.less';
 
-const JID_REGEX = /^'(\d{20})'$/;
+const JID_REGEX = /^"(\d{20})"$/;
 
 const theme = {
     scheme: 'molten',
