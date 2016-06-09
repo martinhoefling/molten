@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import Paper from 'material-ui/lib/paper';
 import RaisedButton from 'material-ui/lib/raised-button';
 
-import CollapsedStructuredElement from 'elements/CollapsedStructuredElement';
+import StructuredElement from 'elements/StructuredElement';
 import { executeCommand } from 'ActionCreators';
 
 import rowStyles from 'components/RowLayout.less';
@@ -62,10 +62,10 @@ const Event = React.createClass({
         var pillar = this.getLatestJob('pillar.items');
         if (pillar) {
             return (
-                <CollapsedStructuredElement
+                <StructuredElement
                     downloadEnabled
-                    arraysCollapsed={true}
-                    element={{ pillar }}
+                    arrayCollapseLimit={0}
+                    data={{ pillar }}
                 />
             );
         }
@@ -76,10 +76,10 @@ const Event = React.createClass({
         var recentJobs = this.props.minionJobs;
         if (recentJobs) {
             return (
-                <CollapsedStructuredElement
+                <StructuredElement
                     downloadEnabled
-                    arraysCollapsed={true}
-                    element={{ 'recent jobs': recentJobs }}
+                    arrayCollapseLimit={0}
+                    data={{ 'recent jobs': recentJobs }}
                 />
             );
         }
@@ -90,10 +90,10 @@ const Event = React.createClass({
         var highstate = this.getLatestJob('state.highstate');
         if (highstate) {
             return (
-                <CollapsedStructuredElement
+                <StructuredElement
                     downloadEnabled
-                    arraysCollapsed={true}
-                    element={{ highstate }}
+                    arrayCollapseLimit={0}
+                    data={{ highstate }}
                 />
             );
         }
@@ -114,10 +114,10 @@ const Event = React.createClass({
 
     renderGrainsElement() {
         return (
-            <CollapsedStructuredElement
+            <StructuredElement
                 downloadEnabled
-                arraysCollapsed={true}
-                element={{ grains: this.props.minion.grains }}/>
+                arrayCollapseLimit={0}
+                data={{ grains: this.props.minion.grains }}/>
         );
     },
 

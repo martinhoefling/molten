@@ -21,7 +21,7 @@ const CommandDisplay = React.createClass({
         return (
             <Paper className={classnames(rowStyles.this, styles.this)} Depth={2}>
                 <div className={styles.content}>
-                    <StructuredElement element={this.props.command} downloadEnabled={this.props.downloadEnabled} />
+                    <StructuredElement data={this.props.command} downloadEnabled={this.props.downloadEnabled} />
                 </div>
             </Paper>
         );

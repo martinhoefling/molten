@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import Paper from 'material-ui/lib/paper';
 
-import CollapsedStructuredElement from 'elements/CollapsedStructuredElement';
+import StructuredElement from 'elements/StructuredElement';
 import Constants from 'Constants';
 
 import rowStyles from 'components/RowLayout.less';
@@ -36,10 +36,10 @@ const JobSummary = React.createClass({
     renderBody() {
         return (
             <div>
-                <CollapsedStructuredElement
+                <StructuredElement
                     downloadEnabled
-                    collapseOnly={['return']}
-                    element={this.props.job}/>
+                    collapsedKeys={['return']}
+                    data={this.props.job}/>
             </div>
             );
     },

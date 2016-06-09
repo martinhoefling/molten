@@ -71,7 +71,7 @@ const ExecutedCommand = React.createClass({
         if (obj) {
             return (
                 <div className='body-element'>
-                    <StructuredElement element={{ [name]: obj }}/>
+                    <StructuredElement data={{ [name]: obj }}/>
                 </div>
             );
         }
@@ -101,7 +101,7 @@ const ExecutedCommand = React.createClass({
         return (
             <div className='body'>
                 <div className='body-element'>
-                    <StructuredElement element={summary}/>
+                    <StructuredElement data={summary}/>
                 </div>
                 {this.renderArguments('Arguments', args)}
                 {this.renderArguments('Keyword Arguments', kwargs)}

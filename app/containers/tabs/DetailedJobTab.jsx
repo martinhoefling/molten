@@ -13,7 +13,7 @@ const DetailedJobTab = React.createClass({
 
     propTypes: {
         params: React.PropTypes.object,
-        job: React.PropTypes.object.isRequired,
+        job: React.PropTypes.object,
         result: React.PropTypes.object,
         fetchInProgress: React.PropTypes.bool.isRequired,
         loadJobResult: React.PropTypes.func.isRequired
@@ -29,9 +29,9 @@ const DetailedJobTab = React.createClass({
         return (
             <div className={styles.jobSummary}>
                 <div className={styles.informationHeader}>Job information for {this.props.params.jid}:</div>
-                <StructuredElement downloadEnabled element={this.props.job || 'job not found'}/>
+                <StructuredElement downloadEnabled data={this.props.job || 'job not found'}/>
                 <div className={styles.resultsHeader}>Results of {this.props.params.jid}:</div>
-                <StructuredElement downloadEnabled element={this.props.result || 'no result yet'}/>
+                <StructuredElement downloadEnabled data={this.props.result || 'no result yet'}/>
             </div>
         );
     },

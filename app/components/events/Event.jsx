@@ -2,7 +2,7 @@ import React from 'react';
 import Paper from 'material-ui/lib/paper';
 import classnames from 'classnames';
 import moment from 'moment';
-import CollapsedStructuredElement from 'elements/CollapsedStructuredElement';
+import StructuredElement from 'elements/StructuredElement';
 
 import rowStyles from 'components/RowLayout.less';
 import styles from './Event.less';
@@ -70,10 +70,10 @@ const Event = React.createClass({
     renderBody() {
         return (
             <div>
-                <CollapsedStructuredElement
+                <StructuredElement
                     downloadEnabled
-                    collapseOnly={['return']}
-                    element={this.props.event.data}/>
+                    collapsedKeys={['return']}
+                    data={this.props.event.data}/>
             </div>
             );
     },
