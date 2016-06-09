@@ -1,12 +1,15 @@
-import React from "react";
-import {Link} from "react-router";
-import RaisedButton from "material-ui/lib/raised-button";
-import JSONTree from "react-json-tree";
-import classnames from "classnames";
-import Constants from "Constants";
-import styles from "./StructuredElement.less";
+import React from 'react';
+import {Link} from 'react-router';
+import RaisedButton from 'material-ui/lib/raised-button';
+import JSONTree from 'react-json-tree';
+import classnames from 'classnames';
+import YAML from 'json2yaml';
+import { connect } from 'react-redux';
 
-const JID_REGEX = /^"(\d{20})"$/;
+import Constants from 'Constants';
+import styles from './StructuredElement.less';
+
+const JID_REGEX = /^'(\d{20})'$/;
 
 const theme = {
     scheme: 'molten',
@@ -34,7 +37,20 @@ const StructuredElement = React.createClass({
         data: React.PropTypes.any.isRequired,
         downloadEnabled: React.PropTypes.bool,
         arrayCollapseLimit: React.PropTypes.number,
-        collapsedKeys: React.PropTypes.array
+        collapsedKeys: React.PropTypes.array,
+        settings: React.PropTypes.object
+    },
+
+    getDefaultProps() {
+        return {
+            downloadEnabled: false,
+            arrayCollapseLimit: -1,
+            collapsedKeys: [],
+            settings: {
+                asYaml: false,
+                displayData: false
+            }
+        };
     },
 
     labelRenderer(label) {
@@ -50,13 +66,12 @@ const StructuredElement = React.createClass({
     },
 
     nodeExpanded(key, data, level) {
-        if (!(this.props.arrayCollapseLimit === undefined) &&
-            Array.isArray(data) && data.length >= this.props.arrayCollapseLimit) {
+        if (Array.isArray(data) && data.length >= this.props.arrayCollapseLimit) {
             console.log(key, data, level);
             return false;
         }
 
-        if (this.props.collapsedKeys && this.props.collapsedKeys.find(item => key === item) > -1) {
+        if (this.props.collapsedKeys.find(item => key === item) > -1) {
             return false;
         }
 
@@ -80,13 +95,16 @@ const StructuredElement = React.createClass({
 
     renderDownload() {
         if (this.props.downloadEnabled) {
+            var theAction = this.props.settings.displayData ? 'open' : 'download';
+            var theType = this.props.settings.asYaml ? 'yaml' : 'json';
+
             return (
                 <div className={styles.downloadPlacement}>
                     <div className={styles.download}>
                         <RaisedButton
-                            title='download as json'
+                            title={theAction + ' as ' + theType}
                             secondary={true}
-                            label='json'
+                            label={theType}
                             onClick={this.downloadElement}
                         />
                     </div>
@@ -97,8 +115,17 @@ const StructuredElement = React.createClass({
     },
 
     downloadElement() {
-        var jsonData = 'data:application/octet-stream;charset=utf-8,' +
-            encodeURIComponent(JSON.stringify(this.props.data, null, 2));
+        var jsonData;
+        if (this.props.settings.displayData) {
+            jsonData = 'data:text/' + (this.props.settings.asYaml ? 'yaml' : 'json') + ';charset=utf-8,';
+        } else {
+            jsonData = 'data:application/octet-stream;charset=utf-8,';
+        }
+        if (this.props.settings.asYaml) {
+            jsonData += encodeURIComponent(YAML.stringify(this.props.data));
+        } else {
+            jsonData += encodeURIComponent(JSON.stringify(this.props.data, null, 2));
+        }
         window.open(jsonData);
     },
 
@@ -112,4 +139,10 @@ const StructuredElement = React.createClass({
     }
 });
 
-export default StructuredElement;
+function select(state) {
+    return {
+        settings: state.Settings
+    };
+}
+
+export default connect(select)(StructuredElement);
