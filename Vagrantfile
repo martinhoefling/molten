@@ -1,5 +1,5 @@
 Vagrant.configure(2) do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "debian/jessie64"
   config.vm.box_check_update = false
   config.vm.provider "virtualbox" do |vb|
    vb.memory = "1024"
@@ -22,7 +22,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.define "demo" do |hostconfig|
     hostconfig.vm.network "private_network", ip: "192.168.42.43"
-    hostconfig.vm.box = "debian/jessie64"
     hostconfig.vm.provision "shell", inline: <<-SHELL
         set -ux
         /vagrant/vagrant/bootstrap-dev.sh

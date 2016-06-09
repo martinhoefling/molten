@@ -4,10 +4,10 @@ wget -q -O- "https://repo.saltstack.com/apt/debian/latest/SALTSTACK-GPG-KEY.pub"
 sudo apt-get update
 sudo apt-get install -y salt-master salt-minion
 rsync -av /vagrant/vagrant/salt/ /etc/salt/
-service salt-master stop
-service salt-minion stop
-service salt-master start
-service salt-minion start
+systemctl stop salt-master
+systemctl stop  salt-minion
+systemctl start salt-master
+systemctl start salt-minion
 sleep 10
 salt-key -y -a themaster
 salt-key -L
