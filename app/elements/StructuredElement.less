@@ -1,77 +1,4 @@
 :local(.this) {
-    word-break: break-all;
-    width: 100%;
-    height: 100%;
-
-    .object {
-        cursor: default;
-        padding: 5px;
-        width: 100%;
-        height: 100%;
-    }
-
-    .object-key {
-        cursor: pointer;
-        word-break: normal;
-    }
-
-    .object-key {
-        flex-grow: 0;
-        min-width: 20%;
-    }
-
-    .object-value {
-        flex-grow: 1;
-    }
-
-    .object-key,.object-value,.array-item-marker,.array-item-content {
-        padding: 2px 4px;
-    }
-
-    .object-key:after {
-        content: ': '
-    }
-
-    .object-property {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .object-collapsed:after {
-        content: '{...}';
-        cursor: pointer;
-    }
-
-    .object.empty:after {
-        content: '{ }'
-    }
-
-    .array {
-        cursor: default;
-        padding: 5px;
-        width: 100%;
-        height: 100%;
-    }
-
-    .array-item {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-    }
-
-    .array-item.collapsed:after {
-        content: '[...]';
-        cursor: pointer;
-    }
-
-    .array-item-marker:after {
-        content: '- ';
-        cursor: pointer;
-    }
-
-    .array.empty:after {
-        content: '[  ]';
-    }
 }
 
 :local(.download) {
@@ -85,4 +12,7 @@
     position: relative;
 }
 
+:local(.label) {
+    position: relative;
+}
 
