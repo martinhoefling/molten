@@ -6,6 +6,9 @@ sudo apt-get install -y salt-master salt-minion
 rsync -av /vagrant/vagrant/salt/ /etc/salt/
 systemctl stop salt-master
 systemctl stop  salt-minion
+killall salt-master
+killall salt-minion
+sleep 10
 systemctl start salt-master
 systemctl start salt-minion
 sleep 10
