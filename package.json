@@ -1,6 +1,6 @@
 {
   "name": "molten",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Molten is a Salt Web API UI written in React. ",
   "main": "app.js",
   "repository": {

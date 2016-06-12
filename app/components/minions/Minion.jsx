@@ -14,6 +14,7 @@ import styles from './Minion.less';
 const Event = React.createClass({
     propTypes: {
         minion: React.PropTypes.object.isRequired,
+        commandInProgress: React.PropTypes.bool.isRequired,
         minionJobs: React.PropTypes.array.isRequired,
         jobResults: React.PropTypes.object.isRequired,
         executeCommand: React.PropTypes.func.isRequired
@@ -38,10 +39,19 @@ const Event = React.createClass({
         this.setState({ highstateRequested: true });
     },
 
+    onRequestReload() {
+        if (this.state.pillarLoadRequested) {
+            var lowstate = { client: 'local', tgt: this.props.minion.id, fun: 'pillar.items' };
+            this.props.executeCommand(lowstate);
+        }
+        var lowstate = { client: 'local', tgt: this.props.minion.id, fun: 'grains.items' };
+        this.props.executeCommand(lowstate);
+    },
+
     getLatestJob(funcName) {
         var filteredJobs = this.props.minionJobs.filter(job => job.Function === funcName);
         if (filteredJobs.length) {
-            var jid = _.last(filteredJobs).jid;
+            var jid = filteredJobs[0].jid;
             return this.props.jobResults[jid] || {};
         }
         return null;
@@ -113,11 +123,12 @@ const Event = React.createClass({
     },
 
     renderGrainsElement() {
+        var grains = this.getLatestJob('grains.items')[this.props.minion.id] || this.props.minion.grains;
         return (
             <StructuredElement
                 downloadEnabled
                 arrayCollapseLimit={0}
-                data={{ grains: this.props.minion.grains }}/>
+                data={{ grains }}/>
         );
     },
 
@@ -138,6 +149,14 @@ const Event = React.createClass({
                         label='Highstate'
                         primary={true}
                         onClick={this.onRequestHighstate}
+                        />
+                </div>
+                <div className={styles.button}>
+                    <RaisedButton
+                        disabled={this.props.commandInProgress}
+                        label='Reload Minion Pillar / Grains'
+                        primary={true}
+                        onClick={this.onRequestReload}
                         />
                 </div>
             </div>
@@ -168,6 +187,7 @@ function select(state, ownProps) {
 
     return {
         minionJobs,
+        commandInProgress: state.Commands.inProgress,
         jobResults: state.Jobs.jobResults
     };
 }
