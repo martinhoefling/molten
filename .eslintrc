@@ -37,7 +37,7 @@
         "react/self-closing-comp": 2,
         "react/wrap-multilines": 0,
         "jsx-quotes": [2, "prefer-single"],
-        "strict": [2, "global"],
+        "strict": [0, "global"],
         "semi": 2,
         "no-unused-vars": 2
     },
