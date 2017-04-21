@@ -1,7 +1,7 @@
 import { combineReducers, compose, createStore, applyMiddleware } from 'redux';
-import { routerStateReducer, reduxReactRouter } from 'redux-router';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+
 import Thunk from 'redux-thunk';
-import createHistory from 'history/lib/createBrowserHistory';
 
 import Session from 'reducers/SessionReducer';
 import Capabilities from 'reducers/CapabilityReducer';
@@ -12,33 +12,31 @@ import Jobs from 'reducers/JobReducer';
 import Documentation from 'reducers/DocumentationReducer';
 import Minions from 'reducers/MinionReducer';
 import Settings from 'reducers/SettingsReducer';
-import routes from 'Routes';
 import DevTools from 'containers/DevTools';
 
 import {persistStore, autoRehydrate} from 'redux-persist';
+import createBrowserHistory from 'history/createBrowserHistory';
+
+export const browserHistory = createBrowserHistory();
 
 const reducers = combineReducers({
-    Session, Capabilities, Commands, CommandHistory, Events, Jobs, Documentation, Minions, Settings,
-    router: routerStateReducer
+    Session, Capabilities, Commands, CommandHistory, Events, Jobs, Documentation, Minions, Settings
 });
 
 var middlewares = [
-    Thunk
+    Thunk,
+    routerMiddleware(browserHistory)
 ];
 
 if (process.env.NODE_ENV !== 'production') {
-    var createLogger = require('redux-logger');
-    var logger = createLogger();
+    var LoggerFactory = require('redux-logger');
+    var logger = LoggerFactory.createLogger();
     middlewares.push(logger);
 }
 
 var composers = [
     autoRehydrate(),
-    applyMiddleware(...middlewares),
-    reduxReactRouter({
-        routes,
-        createHistory
-    })
+    applyMiddleware(...middlewares)
 ];
 
 if (process.env.NODE_ENV !== 'production') {
@@ -47,7 +45,7 @@ if (process.env.NODE_ENV !== 'production') {
 // Compose reduxReactRouter with other store enhancers
 const store = compose(
     ... composers
-)(createStore)(reducers);
+)(createStore)(connectRouter(browserHistory)(reducers));
 
 persistStore(store, { whitelist: ['Commands', 'CommandHistory', 'Settings'] });
 

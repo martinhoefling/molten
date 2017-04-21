@@ -51,7 +51,7 @@ export function searchFunctionDocumentation(documentation, type, funcstr) {
         return _s.startsWith(modfunc, funcstr);
     });
 
-    if (_.contains(funcs, funcstr)) {
+    if (_.includes(funcs, funcstr)) {
         return _getFunctionDocumentation(documentation, type, funcstr);
     }
 

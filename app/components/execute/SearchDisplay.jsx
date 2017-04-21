@@ -1,14 +1,18 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classnames from 'classnames';
 
 import rowStyles from 'components/RowLayout.less';
 import styles from './SearchDisplay.less';
 
-const SearchDisplay = React.createClass({
+const SearchDisplay = createReactClass({
+    displayName: 'SearchDisplay',
+
     propTypes: {
-        search: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object]).isRequired,
-        onFunctionSelect: React.PropTypes.func
+        search: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+        onFunctionSelect: PropTypes.func
     },
 
     getDefaultProps() {

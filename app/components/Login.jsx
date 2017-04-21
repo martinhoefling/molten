@@ -1,12 +1,14 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import { pushState } from 'redux-router';
+import { Link } from 'react-router-dom';
+import { push } from 'connected-react-router';
 
-import TextField from 'material-ui/lib/text-field';
-import FlatButton from 'material-ui/lib/flat-button';
-import SelectField from 'material-ui/lib/select-field';
-import MenuItem from 'material-ui/lib/menus/menu-item';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 import { createSession } from 'ActionCreators';
 import Constants from 'Constants';
@@ -15,13 +17,14 @@ import styles from './Login.less';
 
 const EAUTH_METHODS = ['pam', 'ldap'];
 
-const Login = React.createClass({
+const Login = createReactClass({
+    displayName: 'Login',
 
     propTypes: {
-        currentSession: React.PropTypes.object,
-        sessionErrorMessage: React.PropTypes.string,
-        pushState: React.PropTypes.func.isRequired,
-        createSession: React.PropTypes.func.isRequired
+        currentSession: PropTypes.object,
+        sessionErrorMessage: PropTypes.string,
+        push: PropTypes.func.isRequired,
+        createSession: PropTypes.func.isRequired
     },
 
     getInitialState() {
@@ -34,7 +37,7 @@ const Login = React.createClass({
 
     componentWillUpdate(nextProps) {
         if (nextProps.currentSession) {
-            this.props.pushState(null, Constants.URL.ROOT);
+            this.props.push(Constants.URL.ROOT);
         }
     },
 
@@ -77,7 +80,6 @@ const Login = React.createClass({
                     floatingLabelText='Username'
                     value={this.state.username}
                     onChange={this.onUsernameChange}
-                    onEnterKeyDown={this.focusPassword}
                     />
                 <TextField
                     ref='passwordTextField'
@@ -86,7 +88,6 @@ const Login = React.createClass({
                     type='password'
                     value={this.state.password}
                     onChange={this.onPasswordChange}
-                    onEnterKeyDown={this.login}
                     />
                 <SelectField
                     floatingLabelText='EAuth'
@@ -126,4 +127,4 @@ function select(state) {
     };
 }
 
-export default connect(select, { createSession, pushState })(Login);
+export default connect(select, { createSession, push })(Login);

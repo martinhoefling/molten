@@ -1,9 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
-import Paper from 'material-ui/lib/paper';
-import RaisedButton from 'material-ui/lib/raised-button';
+import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import StructuredElement from 'elements/StructuredElement';
 import { executeCommand } from 'ActionCreators';
@@ -11,13 +13,15 @@ import { executeCommand } from 'ActionCreators';
 import rowStyles from 'components/RowLayout.less';
 import styles from './Minion.less';
 
-const Event = React.createClass({
+const Event = createReactClass({
+    displayName: 'Event',
+
     propTypes: {
-        minion: React.PropTypes.object.isRequired,
-        commandInProgress: React.PropTypes.bool.isRequired,
-        minionJobs: React.PropTypes.array.isRequired,
-        jobResults: React.PropTypes.object.isRequired,
-        executeCommand: React.PropTypes.func.isRequired
+        minion: PropTypes.object.isRequired,
+        commandInProgress: PropTypes.bool.isRequired,
+        minionJobs: PropTypes.array.isRequired,
+        jobResults: PropTypes.object.isRequired,
+        executeCommand: PropTypes.func.isRequired
     },
 
     getInitialState() {
@@ -28,13 +32,13 @@ const Event = React.createClass({
     },
 
     onLoadPillar() {
-        var lowstate = { client: 'local', tgt: this.props.minion.id, fun: 'pillar.items' };
+        const lowstate = { client: 'local', tgt: this.props.minion.id, fun: 'pillar.items' };
         this.props.executeCommand(lowstate);
         this.setState({ pillarLoadRequested: true });
     },
 
     onRequestHighstate() {
-        var lowstate = { client: 'local', tgt: this.props.minion.id, fun: 'state.highstate', kwarg: 'queue=true' };
+        const lowstate = { client: 'local', tgt: this.props.minion.id, fun: 'state.highstate', kwarg: 'queue=true' };
         this.props.executeCommand(lowstate);
         this.setState({ highstateRequested: true });
     },
@@ -71,11 +75,12 @@ const Event = React.createClass({
     renderPillarElement() {
         var pillar = this.getLatestJob('pillar.items');
         if (pillar) {
+            const pillarStruct = pillar[this.props.minion.id] || pillar;
             return (
                 <StructuredElement
                     downloadEnabled
                     arrayCollapseLimit={0}
-                    data={{ pillar }}
+                    data={{ pillar: pillarStruct }}
                 />
             );
         }
@@ -182,7 +187,7 @@ function select(state, ownProps) {
         if (!job.Minions) {
             return false;
         }
-        return _.contains(job.Minions, ownProps.minion.id);
+        return _.includes(job.Minions, ownProps.minion.id);
     });
 
     return {

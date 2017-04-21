@@ -1,8 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { pushState } from 'redux-router';
+import { push } from 'connected-react-router';
 
-import RaisedButton from 'material-ui/lib/raised-button';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import ExecutedCommand from 'components/execute/ExecutedCommand';
 import { getClients } from 'models/Clients';
@@ -12,23 +14,25 @@ import Constants from 'Constants';
 
 import styles from './ExecuteHistoryTab.less';
 
-const ExecuteHistoryTab = React.createClass({
+const ExecuteHistoryTab = createReactClass({
+    displayName: 'ExecuteHistoryTab',
+
     propTypes: {
-        commandHistory: React.PropTypes.array.isRequired,
-        clients: React.PropTypes.array,
-        clearCommand: React.PropTypes.func.isRequired,
-        clearCommands: React.PropTypes.func.isRequired,
-        setClientConfiguration: React.PropTypes.func.isRequired,
-        setTargetConfiguration: React.PropTypes.func.isRequired,
-        setFunctionConfiguration: React.PropTypes.func.isRequired,
-        pushState: React.PropTypes.func.isRequired
+        commandHistory: PropTypes.array.isRequired,
+        clients: PropTypes.array,
+        clearCommand: PropTypes.func.isRequired,
+        clearCommands: PropTypes.func.isRequired,
+        setClientConfiguration: PropTypes.func.isRequired,
+        setTargetConfiguration: PropTypes.func.isRequired,
+        setFunctionConfiguration: PropTypes.func.isRequired,
+        push: PropTypes.func.isRequired
     },
 
     loadCommand(command) {
         this.props.setClientConfiguration(command.clientConfig);
         this.props.setTargetConfiguration(command.targetConfig);
         this.props.setFunctionConfiguration(command.functionConfig);
-        this.props.pushState(null, Constants.URL.ROOT + 'execute/command');
+        this.props.push(Constants.URL.ROOT + 'execute/command');
     },
 
     removeCommand(command) {
@@ -63,7 +67,7 @@ const ExecuteHistoryTab = React.createClass({
 });
 
 function select(state) {
-    var clients = state.Capabilities.capabilities ? getClients(state.Capabilities.capabilities.clients) : null;
+    const clients = state.Capabilities.capabilities ? getClients(state.Capabilities.capabilities.clients) : null;
 
     return {
         commandHistory: state.CommandHistory,
@@ -71,5 +75,5 @@ function select(state) {
     };
 }
 
-export default connect(select, { clearCommand, clearCommands, pushState,
+export default connect(select, { clearCommand, clearCommands, push,
     setClientConfiguration, setTargetConfiguration, setFunctionConfiguration })(ExecuteHistoryTab);

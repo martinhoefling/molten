@@ -1,6 +1,5 @@
 {
     "fileExtensions": [".js", ".jsx"],
-    "esnext": true,
 
     "requireCurlyBraces": [
         "else",

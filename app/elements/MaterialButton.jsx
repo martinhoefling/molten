@@ -1,13 +1,17 @@
 import React from 'react';
-import IconButton from 'material-ui/lib/icon-button';
+import PropTypes from 'prop-types';
 
-const MaterialButton = React.createClass({
+import createReactClass from 'create-react-class';
+import IconButton from 'material-ui/IconButton';
+
+const MaterialButton = createReactClass({
+    displayName: 'MaterialButton',
 
     propTypes: {
-        iconClass: React.PropTypes.string.isRequired,
-        onClick: React.PropTypes.func.isRequired,
-        iconStyle: React.PropTypes.object,
-        title: React.PropTypes.string
+        iconClass: PropTypes.string.isRequired,
+        onClick: PropTypes.func.isRequired,
+        iconStyle: PropTypes.object,
+        title: PropTypes.string
     },
 
     render() {

@@ -1,11 +1,16 @@
 import React from 'react';
-import CircularProgress from 'material-ui/lib/circular-progress';
+import PropTypes from 'prop-types';
+
+import createReactClass from 'create-react-class';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import style from './LoadingIndicator.less';
 
-const LoadingIndicator = React.createClass({
+const LoadingIndicator = createReactClass({
+    displayName: 'LoadingIndicator',
+
     propTypes: {
-        children: React.PropTypes.node
+        children: PropTypes.node
 
     },
 

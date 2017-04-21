@@ -88,7 +88,7 @@ export default function jobReducer(state = initialState, action) {
             });
         case Constants.GET_JOB_SUCCESS:
             jobInfo = action.job.info[0];
-            var result = action.job.return[0].data;
+            var result = action.job.return[0].data || action.job.info[0].Result;
             return Object.assign({}, state, {
                 jobsBeingFetched: Object.assign({}, state.jobsBeingFetched, { [action.jid]: false }),
                 jobs: Object.assign(

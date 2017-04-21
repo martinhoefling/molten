@@ -20,7 +20,7 @@ _.assign(Client.prototype, {
     },
 
     hasMode(mode) {
-        return _.contains(this.modes, mode);
+        return _.includes(this.modes, mode);
     },
 
     setMode(mode) {

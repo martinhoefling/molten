@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 
@@ -9,19 +11,20 @@ import { loadJobResult } from 'ActionCreators';
 import tabStyle from './Tab.less';
 import styles from './DetailedJobTab.less';
 
-const DetailedJobTab = React.createClass({
+const DetailedJobTab = createReactClass({
+    displayName: 'DetailedJobTab',
 
     propTypes: {
-        params: React.PropTypes.object,
-        job: React.PropTypes.object,
-        result: React.PropTypes.object,
-        fetchInProgress: React.PropTypes.bool.isRequired,
-        loadJobResult: React.PropTypes.func.isRequired
+        params: PropTypes.object,
+        job: PropTypes.object,
+        result: PropTypes.object,
+        fetchInProgress: PropTypes.bool.isRequired,
+        loadJobResult: PropTypes.func.isRequired
     },
 
     componentWillMount() {
         if (_.isEmpty(this.props.result)) {
-            this.props.loadJobResult(this.props.params.jid);
+            this.props.loadJobResult(this.props.match.params.jid);
         }
     },
 
@@ -42,9 +45,9 @@ const DetailedJobTab = React.createClass({
     renderJob() {
         return (
             <div className={styles.jobSummary}>
-                <div className={styles.informationHeader}>Job information for {this.props.params.jid}:</div>
+                <div className={styles.informationHeader}>Job information for {this.props.match.params.jid}:</div>
                 {this.renderJobData(this.props.job)}
-                <div className={styles.resultsHeader}>Results of {this.props.params.jid}:</div>
+                <div className={styles.resultsHeader}>Results of {this.props.match.params.jid}:</div>
                 {this.renderJobResult(this.props.result)}
             </div>
         );
@@ -54,7 +57,7 @@ const DetailedJobTab = React.createClass({
         if (this.props.fetchInProgress) {
             return (
                 <LoadingIndicator>
-                    Loading Job {this.props.params.jid}
+                    Loading Job {this.props.match.params.jid}
                 </LoadingIndicator>
             );
         }
@@ -67,7 +70,7 @@ const DetailedJobTab = React.createClass({
 });
 
 function select(state, ownProps) {
-    var jid = ownProps.params.jid;
+    const jid = ownProps.match.params.jid;
     return {
         job: state.Jobs.jobs[jid],
         result: state.Jobs.jobResults[jid],

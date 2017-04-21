@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 
-import Paper from 'material-ui/lib/paper';
+import Paper from 'material-ui/Paper';
 
 import StructuredElement from 'elements/StructuredElement';
 import Constants from 'Constants';
@@ -10,10 +12,12 @@ import Constants from 'Constants';
 import rowStyles from 'components/RowLayout.less';
 import styles from './JobSummary.less';
 
-const JobSummary = React.createClass({
+const JobSummary = createReactClass({
+    displayName: 'JobSummary',
+
     propTypes: {
-        job: React.PropTypes.object.isRequired,
-        filtered: React.PropTypes.bool
+        job: PropTypes.object.isRequired,
+        filtered: PropTypes.bool
     },
 
     getDefaultProps() {

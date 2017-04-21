@@ -1,23 +1,27 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import SelectField from 'material-ui/lib/select-field';
-import MenuItem from 'material-ui/lib/menus/menu-item';
-import Paper from 'material-ui/lib/paper';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import Paper from 'material-ui/Paper';
 import ValidatedTextField from 'elements/ValidatedTextField';
-import Checkbox from 'material-ui/lib/checkbox';
+import Checkbox from 'material-ui/Checkbox';
 
 import { MODE }  from 'models/Clients';
 
 import rowStyles from 'components/RowLayout.less';
 import styles from './ClientConfiguration.less';
 
-const ClientConfiguration = React.createClass({
+const ClientConfiguration = createReactClass({
+    displayName: 'ClientConfiguration',
+
     propTypes: {
-        clients: React.PropTypes.array.isRequired,
-        currentClient: React.PropTypes.object.isRequired,
-        config: React.PropTypes.object.isRequired,
-        onConfigChange: React.PropTypes.func.isRequired
+        clients: PropTypes.array.isRequired,
+        currentClient: PropTypes.object.isRequired,
+        config: PropTypes.object.isRequired,
+        onConfigChange: PropTypes.func.isRequired
     },
 
     onClientChange(event, index, client) {
@@ -164,7 +168,7 @@ const ClientConfiguration = React.createClass({
 
     render() {
         return (
-            <Paper className={classnames(rowStyles.this, styles.this)} Depth={2}>
+            <Paper className={classnames(rowStyles.this, styles.this)} zDepth={2}>
                 <div className={styles.clientselect}>
                     {this.renderClientSelectDropdown()}
                     {this.renderAsync()}

@@ -1,10 +1,12 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 
-import RaisedButton from 'material-ui/lib/raised-button';
-import TextField from 'material-ui/lib/text-field';
-import Toggle from 'material-ui/lib/toggle';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Toggle from 'material-ui/Toggle';
 
 import Event from 'components/events/Event';
 import { clearEvents } from 'ActionCreators';
@@ -12,10 +14,12 @@ import { clearEvents } from 'ActionCreators';
 import tabStyle from './Tab.less';
 import style from './EventsTab.less';
 
-const EventsTab = React.createClass({
+const EventsTab = createReactClass({
+    displayName: 'EventsTab',
+
     propTypes: {
-        events: React.PropTypes.array.isRequired,
-        clearEvents: React.PropTypes.func.isRequired
+        events: PropTypes.array.isRequired,
+        clearEvents: PropTypes.func.isRequired
     },
 
     getInitialState() {
@@ -29,10 +33,8 @@ const EventsTab = React.createClass({
     componentWillUpdate(nextProps, nextState) {
         if (this.state.paused && !nextState.paused) {
             this.setState({ events: nextProps.events.slice() });
-        } else {
-            if (this.props.events !== nextProps.events) {
-                this.setState({ events: nextProps.events.slice() });
-            }
+        } else if (!this.state.paused && this.props.events !== nextProps.events) {
+            this.setState({ events: nextProps.events.slice() });
         }
     },
 
@@ -50,7 +52,7 @@ const EventsTab = React.createClass({
                     style={{ width: '120px' }}
                     value='togglePause'
                     onToggle={() => this.setState({ paused: !this.state.paused })}
-                    label='pause'/>
+                    label={this.state.paused ? 'paused' : 'pause'}/>
                 <TextField
                     hintText='Tag filter regex'
                     floatingLabelText='Tag Filter'
@@ -62,10 +64,10 @@ const EventsTab = React.createClass({
     },
 
     renderEvents(events) {
-        var eventComponents = this.state.events.map(function (event, ndx) {
+        const eventComponents = this.state.events.map(function (event, ndx) {
             return (
                 <Event key={ndx}
-                       filtered={!_.contains(events, event)}
+                       filtered={!_.includes(events, event)}
                        event={event}/>
             );
         });

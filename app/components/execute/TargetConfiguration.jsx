@@ -1,12 +1,14 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classnames from 'classnames';
 
 import ValidatedTextField from 'elements/ValidatedTextField';
-import SelectField from 'material-ui/lib/select-field';
-import MenuItem from 'material-ui/lib/menus/menu-item';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
-import Paper from 'material-ui/lib/paper';
+import Paper from 'material-ui/Paper';
 
 import rowStyles from 'components/RowLayout.less';
 import styles from './TargetConfiguration.less';
@@ -24,11 +26,13 @@ const EXPRESSION_FORM = [
     { name: 'compound', description: 'Pass a compound match string' }
 ];
 
-const RunnerConfiguration = React.createClass({
+const RunnerConfiguration = createReactClass({
+    displayName: 'RunnerConfiguration',
+
     propTypes: {
-        config: React.PropTypes.object.isRequired,
-        onConfigChange: React.PropTypes.func.isRequired,
-        disabled: React.PropTypes.bool.isRequired
+        config: PropTypes.object.isRequired,
+        onConfigChange: PropTypes.func.isRequired,
+        disabled: PropTypes.bool.isRequired
     },
 
     getCurrentExprForm() {
@@ -67,7 +71,7 @@ const RunnerConfiguration = React.createClass({
         ));
 
         return (
-            <Paper className={classnames(rowStyles.this, styles.this)} Depth={2}>
+            <Paper className={classnames(rowStyles.this, styles.this)} zDepth={2}>
                 <SelectField
                     floatingLabelText='Matcher'
                     style={{ width: '130px' }}

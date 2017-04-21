@@ -1,4 +1,4 @@
-import { pushState } from 'redux-router';
+import { push } from 'connected-react-router';
 import _ from 'lodash';
 
 import Constants from 'Constants';
@@ -58,7 +58,7 @@ function _dispatchAndRedirect(dispatch, action) {
     dispatch(action);
     if (!action.error || action.error.status === 401) {
         dispatch(setSession());
-        dispatch(pushState(null, Constants.URL.LOGIN));
+        dispatch(push(Constants.URL.LOGIN));
     }
 }
 

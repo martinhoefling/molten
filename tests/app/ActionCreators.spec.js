@@ -126,10 +126,10 @@ describe('ActionCreators', function () {
 
                             it('dispatch pushState', function () {
                                 expect(dispatchCapabilitiesMock.calls.argsFor(3)).toEqual([{
-                                    type: '@@reduxReactRouter/historyAPI',
+                                    type: '@@router/CALL_HISTORY_METHOD',
                                     payload: {
-                                        method: 'pushState',
-                                        args: [null, '/molten/login']
+                                        method: 'push',
+                                        args: ['/molten/login']
                                     }
                                 }]);
                             });
@@ -299,13 +299,15 @@ describe('ActionCreators', function () {
                 });
 
                 it('dispatch pushState', function () {
-                    expect(dispatchMock.calls.argsFor(3)).toEqual([{
-                        type: '@@reduxReactRouter/historyAPI',
-                        payload: {
-                            method: 'pushState',
-                            args: [null, '/molten/login']
+                    expect(dispatchMock.calls.argsFor(3)).toEqual([
+                        {
+                            type: '@@router/CALL_HISTORY_METHOD',
+                            payload: {
+                                method: 'push',
+                                args: ['/molten/login']
+                            }
                         }
-                    }]);
+                        ]);
                 });
             });
         });

@@ -1,13 +1,18 @@
 import React from 'react';
-import _ from 'lodash';
-import TextField from 'material-ui/lib/text-field';
+import PropTypes from 'prop-types';
 
-const ValidatedTextField = React.createClass({
+import createReactClass from 'create-react-class';
+import _ from 'lodash';
+import TextField from 'material-ui/TextField';
+
+const ValidatedTextField = createReactClass({
+    displayName: 'ValidatedTextField',
+
     propTypes: {
-        validationRegexp: React.PropTypes.instanceOf(RegExp).isRequired,
-        validationErrorMsg: React.PropTypes.string.isRequired,
-        onChange: React.PropTypes.func,
-        value: React.PropTypes.any
+        validationRegexp: PropTypes.instanceOf(RegExp).isRequired,
+        validationErrorMsg: PropTypes.string.isRequired,
+        onChange: PropTypes.func,
+        value: PropTypes.any
     },
 
     getDefaultProps() {

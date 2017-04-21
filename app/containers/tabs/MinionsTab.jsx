@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import LoadingIndicator from 'elements/LoadingIndicator';
@@ -6,10 +8,12 @@ import Minion from 'components/minions/Minion';
 
 import tabStyle from './Tab.less';
 
-const MinionsTab = React.createClass({
+const MinionsTab = createReactClass({
+    displayName: 'MinionsTab',
+
     propTypes: {
-        fetchingMinionsInProgress: React.PropTypes.bool.isRequired,
-        minions: React.PropTypes.array.isRequired
+        fetchingMinionsInProgress: PropTypes.bool.isRequired,
+        minions: PropTypes.array.isRequired
     },
 
     renderMinions() {

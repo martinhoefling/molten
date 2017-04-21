@@ -56,7 +56,7 @@ export function postAPI(options, success, fail) {
 
 export function testSession(options, success, fail) {
     options.lowstate = SESSION_TEST;
-    return this.postAPI(options, success, fail);
+    return postAPI(options, success, fail);
 }
 
 export function obtainDocumentation(options, success, fail) {
@@ -64,7 +64,7 @@ export function obtainDocumentation(options, success, fail) {
         client: 'runner',
         fun: 'doc.' + options.type
     };
-    return this.postAPI(options, success, fail);
+    return postAPI(options, success, fail);
 }
 
 export function getMinions(options, success, fail) {

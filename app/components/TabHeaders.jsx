@@ -1,9 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { pushState } from 'redux-router';
+import { push } from 'connected-react-router';
 
-import Tab from 'material-ui/lib/tabs/tab';
-import Tabs from 'material-ui/lib/tabs/tabs';
+import Tab from 'material-ui/Tabs/Tab';
+import Tabs from 'material-ui/Tabs/Tabs';
 
 import { testSessionStatus, logout } from 'ActionCreators';
 import MaterialButton from 'elements/MaterialButton';
@@ -14,13 +16,15 @@ import styles from './TabHeaders.less';
 
 const TABS = ['Execute', 'Job', 'Minion', 'Event', 'Settings'];
 
-const TabHeaders = React.createClass({
+const TabHeaders = createReactClass({
+    displayName: 'TabHeaders',
+
     propTypes: {
-        currentSession: React.PropTypes.object,
-        testSessionStatus: React.PropTypes.func.isRequired,
-        logout: React.PropTypes.func.isRequired,
-        pushState: React.PropTypes.func.isRequired,
-        location: React.PropTypes.object.isRequired
+        currentSession: PropTypes.object,
+        testSessionStatus: PropTypes.func.isRequired,
+        logout: PropTypes.func.isRequired,
+        push: PropTypes.func.isRequired,
+        location: PropTypes.object.isRequired
     },
 
     componentWillMount() {
@@ -39,8 +43,7 @@ const TabHeaders = React.createClass({
                 <Tab
                     label={name}
                     key={name}
-                    route={name.toLowerCase()}
-                    onActive={this._onActive} />
+                    onActive={() => this._onActive(name.toLowerCase())} />
             );
         }, this);
 
@@ -55,11 +58,11 @@ const TabHeaders = React.createClass({
         );
     },
 
-    _onActive(tab) {
+    _onActive(route) {
         if (this.props.currentSession) {
-            this.props.pushState(null, Constants.URL.ROOT + tab.props.route);
+            this.props.push(Constants.URL.ROOT + route);
         } else {
-            this.props.pushState(null, Constants.URL.LOGIN);
+            this.props.push(Constants.URL.LOGIN);
         }
     },
 
@@ -92,4 +95,4 @@ function select(state) {
     };
 }
 
-export default connect(select, { testSessionStatus, logout, pushState })(TabHeaders);
+export default connect(select, { testSessionStatus, logout, push })(TabHeaders);

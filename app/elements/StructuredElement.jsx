@@ -1,10 +1,14 @@
 import React from 'react';
-import {Link} from 'react-router';
-import RaisedButton from 'material-ui/lib/raised-button';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
 import JSONTree from 'react-json-tree';
 import classnames from 'classnames';
 import YAML from 'json2yaml';
 import { connect } from 'react-redux';
+
+import { push } from 'connected-react-router';
 
 import Constants from 'Constants';
 import styles from './StructuredElement.less';
@@ -14,7 +18,7 @@ const JID_REGEX = /^"(\d{20})"$/;
 const theme = {
     scheme: 'molten',
     author: 'based on solarized from ethan schoonover (http://ethanschoonover.com/solarized)',
-    base00: '#002b36',
+    base00: '#000000',
     base01: '#073642',
     base02: '#586e75',
     base03: '#657b83',
@@ -32,13 +36,16 @@ const theme = {
     base0F: '#d33682'
 };
 
-const StructuredElement = React.createClass({
+const StructuredElement = createReactClass({
+    displayName: 'StructuredElement',
+
     propTypes: {
-        data: React.PropTypes.any.isRequired,
-        downloadEnabled: React.PropTypes.bool,
-        arrayCollapseLimit: React.PropTypes.number,
-        collapsedKeys: React.PropTypes.array,
-        settings: React.PropTypes.object
+        data: PropTypes.any.isRequired,
+        downloadEnabled: PropTypes.bool,
+        arrayCollapseLimit: PropTypes.number,
+        collapsedKeys: PropTypes.array,
+        settings: PropTypes.object,
+        push: PropTypes.func.isRequired
     },
 
     getDefaultProps() {
@@ -59,7 +66,7 @@ const StructuredElement = React.createClass({
 
     valueRenderer(value) {
         if (value.match && value.match(JID_REGEX)) {
-            var matchGroup = value.match(JID_REGEX)[1];
+            const matchGroup = value.match(JID_REGEX)[1];
             return <Link to={`${Constants.URL.JOB}/${matchGroup}`}>{matchGroup}</Link>;
         }
         return value;
@@ -145,4 +152,4 @@ function select(state) {
     };
 }
 
-export default connect(select)(StructuredElement);
+export default connect(select, { push })(StructuredElement);

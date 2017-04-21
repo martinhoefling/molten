@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
@@ -16,10 +18,12 @@ function UTCNow() {
     return new Date(loc.valueOf() + 60000 * loc.getTimezoneOffset());
 }
 
-const JobsTab = React.createClass({
+const JobsTab = createReactClass({
+    displayName: 'JobsTab',
+
     propTypes: {
-        jobs: React.PropTypes.array.isRequired,
-        fetchInProgress: React.PropTypes.bool.isRequired
+        jobs: PropTypes.array.isRequired,
+        fetchInProgress: PropTypes.bool.isRequired
     },
 
     getInitialState() {

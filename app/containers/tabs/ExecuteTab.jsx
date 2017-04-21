@@ -1,10 +1,14 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { pushState } from 'redux-router';
+import { push } from 'connected-react-router';
+import { Switch, Route } from 'react-router';
 
-import Tab from 'material-ui/lib/tabs/tab';
-import Tabs from 'material-ui/lib/tabs/tabs';
+import Tab from 'material-ui/Tabs/Tab';
+import Tabs from 'material-ui/Tabs/Tabs';
 
+import ExecuteHistoryTab from 'containers/tabs/ExecuteHistoryTab';
 import ExecuteCommandTab from 'containers/tabs/ExecuteCommandTab';
 
 import Constants from 'Constants';
@@ -12,50 +16,66 @@ import config from 'config';
 
 import tabStyle from './Tab.less';
 
-const TABS = ['command', 'history'];
+const TABS = [
+    {
+        name: 'command',
+        label: 'Execute Job'
 
-const ExecuteTab = React.createClass({
+    },
+    {
+        name: 'history',
+        label: 'Execution History'
+    }
+];
+
+const ExecuteTab = createReactClass({
+    displayName: 'ExecuteTab',
+
     propTypes: {
-        pushState: React.PropTypes.func.isRequired,
-        location: React.PropTypes.object.isRequired
+        match: PropTypes.object.isRequired,
+        push: PropTypes.func.isRequired,
+        location: PropTypes.object.isRequired
     },
 
     renderTabs() {
-        var path = this.props.location.pathname.substring(config.APP_BASE_URL.length + 1),
-        tabstr = path.split('/')[1] || '',
-        index = Math.max(0, _.findIndex(TABS, tab => tabstr.indexOf(tab.toLowerCase()) === 0));
+        const tabs = TABS.map((tab) => {
+                return <Tab
+                    key={tab.name}
+                    value={tab.name}
+                    onActive={() => this._onActive(tab.name)}
+                    label={tab.label}
+                />;
+            }),
+            path = this.props.location.pathname.substring(config.APP_BASE_URL.length + 1),
+            tabstr = path.split('/')[1] || '',
+            index = Math.max(0, _.findIndex(TABS, tab => tabstr.indexOf(tab.name.toLowerCase()) === 0));
+
         return (
-            <Tabs initialSelectedIndex={index}>
-                <Tab
-                    route='command'
-                    onActive={this._onActive}
-                    label='Execute Job'
-                />
-                <Tab
-                    route='history'
-                    onActive={this._onActive}
-                    label='Execution History'
-                />
+            <Tabs initialSelectedIndex={index} value={tabstr}>
+                {tabs}
             </Tabs>
         );
     },
 
-    _onActive(tab) {
-        this.props.pushState(null, Constants.URL.ROOT + 'execute/' + tab.props.route);
+    _onActive(route) {
+        this.props.push(Constants.URL.ROOT + 'execute/' + route);
     },
 
-    renderChildren() {
-        if (this.props.children) {
-            return <div>{this.props.children}</div>;
-        }
-        return <ExecuteCommandTab />;
+    renderTabContent() {
+        return (
+            <Switch>
+                <Route component={ExecuteCommandTab} path={`${this.props.match.url}/command`} />
+                <Route component={ExecuteHistoryTab} path={`${this.props.match.url}/history`} />
+                <Route component={ExecuteCommandTab} path={`${this.props.match.url}/`} />
+            </Switch>
+        );
     },
 
     render() {
         return (
             <div className={tabStyle.this}>
                 {this.renderTabs()}
-                {this.renderChildren()}
+                {this.renderTabContent()}
             </div>
         );
     }
@@ -67,4 +87,5 @@ function select(state) {
     };
 }
 
-export default connect(select, { pushState })(ExecuteTab);
+export default connect(select, { push })(ExecuteTab);
+

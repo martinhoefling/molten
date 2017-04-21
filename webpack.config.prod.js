@@ -1,34 +1,31 @@
-var webpack = require('webpack');
-
 module.exports = {
     context: __dirname,
     entry: ['./app/app.jsx'],
     output: {
         filename: 'molten.js',
-        path: './release/molten',
+        path: __dirname + '/release/molten',
         publicPath: 'assets'
     },
     module: {
-        preLoaders: [
+        rules: [
             {
-                test: /\.jsx$|\.js$/,
-                loader: 'eslint-loader',
-                include: __dirname + '/app'
-            }
-        ],
-        loaders: [
+                enforce: "pre",
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: "eslint-loader"
+            },
             {
-                test: /\.jsx$|\.js$/,
+                test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/,
-                loader: 'babel',
+                loader: 'babel-loader',
                 query: {
                     cacheDirectory: true,
-                    presets: ['es2015', 'react']
+                    presets: ['es2017', 'react']
                 }
             },
             {
                 test: /\.less$/,
-                loader: 'style!css!less'
+                loader: 'style-loader!css-loader!less-loader'
             },
             {
                 test: /\.png$/,
@@ -41,9 +38,8 @@ module.exports = {
             react: __dirname + '/node_modules/react',
             'react/addons': __dirname + '/node_modules/react/addons'
         },
-        root: __dirname + '/app',
-        extensions: ['', '.js', '.jsx'],
-        modulesDirectories: ['node_modules']
+        extensions: ['.js', '.jsx'],
+        modules: ['node_modules', __dirname + '/app']
     },
     plugins: [
         new webpack.DefinePlugin({

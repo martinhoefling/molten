@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { ToastMessage, ToastContainer } from 'react-toastr';
@@ -83,10 +85,12 @@ const EVENT_LIST = [
     }
 ];
 
-const Toast = React.createClass({
+const Toast = createReactClass({
+    displayName: 'Toast',
+
     propTypes: {
-        enabled: React.PropTypes.bool.isRequired,
-        events: React.PropTypes.array.isRequired
+        enabled: PropTypes.bool.isRequired,
+        events: PropTypes.array.isRequired
     },
 
     publishEvent(event) {

@@ -1,20 +1,24 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import Paper from 'material-ui/lib/paper';
-import RaisedButton from 'material-ui/lib/raised-button';
+import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { getClient, MODE } from 'models/Clients';
 import StructuredElement from 'elements/StructuredElement';
 
 import styles from './ExecutedCommand.less';
 
-const ExecutedCommand = React.createClass({
+const ExecutedCommand = createReactClass({
+    displayName: 'ExecutedCommand',
+
     propTypes: {
-        command: React.PropTypes.object.isRequired,
-        clients: React.PropTypes.array.isRequired,
-        onLoadCommand: React.PropTypes.func.isRequired,
-        onRemoveCommand: React.PropTypes.func.isRequired
+        command: PropTypes.object.isRequired,
+        clients: PropTypes.array.isRequired,
+        onLoadCommand: PropTypes.func.isRequired,
+        onRemoveCommand: PropTypes.func.isRequired
     },
 
     renderFunction() {

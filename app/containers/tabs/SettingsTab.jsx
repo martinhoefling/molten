@@ -1,17 +1,21 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { setSetting } from 'ActionCreators';
 
-import RaisedButton from 'material-ui/lib/raised-button';
-import Checkbox from 'material-ui/lib/checkbox';
+import RaisedButton from 'material-ui/RaisedButton';
+import Checkbox from 'material-ui/Checkbox';
 
 import tabStyle from './Tab.less';
 
-const SettingsTab = React.createClass({
+const SettingsTab = createReactClass({
+    displayName: 'SettingsTab',
+
     propTypes: {
-        settings: React.PropTypes.object.isRequired,
-        setSetting: React.PropTypes.func.isRequired
+        settings: PropTypes.object.isRequired,
+        setSetting: PropTypes.func.isRequired
     },
 
     render() {

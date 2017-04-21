@@ -1,8 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import classnames from 'classnames';
-import RaisedButton from 'material-ui/lib/raised-button';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { getClients, getClient } from 'models/Clients';
 import ClientConfiguration from 'components/execute/ClientConfiguration';
@@ -16,21 +18,23 @@ import { executeCommand, storeCommand, setClientConfiguration,
 import tabStyle from './Tab.less';
 import styles from './ExecuteCommandTab.less';
 
-const ExecuteCommandTab = React.createClass({
+const ExecuteCommandTab = createReactClass({
+    displayName: 'ExecuteCommandTab',
+
     propTypes: {
-        executeCommand: React.PropTypes.func,
-        storeCommand: React.PropTypes.func,
-        clients: React.PropTypes.array,
-        currentClient: React.PropTypes.object,
-        clientFetchInProgress: React.PropTypes.bool,
-        currentResult: React.PropTypes.object,
-        commandInProgress: React.PropTypes.bool,
-        setClientConfiguration: React.PropTypes.func.isRequired,
-        setTargetConfiguration: React.PropTypes.func.isRequired,
-        setFunctionConfiguration: React.PropTypes.func.isRequired,
-        clientConfig: React.PropTypes.object.isRequired,
-        targetConfig: React.PropTypes.object.isRequired,
-        functionConfig: React.PropTypes.object.isRequired
+        executeCommand: PropTypes.func,
+        storeCommand: PropTypes.func,
+        clients: PropTypes.array,
+        currentClient: PropTypes.object,
+        clientFetchInProgress: PropTypes.bool,
+        currentResult: PropTypes.object,
+        commandInProgress: PropTypes.bool,
+        setClientConfiguration: PropTypes.func.isRequired,
+        setTargetConfiguration: PropTypes.func.isRequired,
+        setFunctionConfiguration: PropTypes.func.isRequired,
+        clientConfig: PropTypes.object.isRequired,
+        targetConfig: PropTypes.object.isRequired,
+        functionConfig: PropTypes.object.isRequired
     },
 
     getCommand() {

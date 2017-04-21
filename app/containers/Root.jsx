@@ -1,27 +1,34 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import { ReduxRouter } from 'redux-router';
+import { Switch, Redirect, Route } from 'react-router';
+import { ConnectedRouter } from 'connected-react-router';
+
+import Main from 'containers/Main';
+
+import Constants from 'Constants';
 
 import Theme from 'Theme';
-import routes from 'Routes';
 import store from 'store';
+import { browserHistory } from 'store';
 
 import keymap from 'keymap';
-import ShortcutsManager from 'react-shortcuts';
+import { ShortcutManager } from 'react-shortcuts';
 
 import DevTools from './DevTools';
 
-const shortcutManager = new ShortcutsManager(keymap);
+const shortcutManager = new ShortcutManager(keymap);
 
-const Root = React.createClass({
+const Root = createReactClass({
+    displayName: 'Root',
+
     childContextTypes: {
-        muiTheme: React.PropTypes.object.isRequired,
-        shortcuts: React.PropTypes.object.isRequired
+        shortcuts: PropTypes.object.isRequired
     },
 
     getChildContext: function () {
         return {
-            muiTheme: Theme,
             shortcuts: shortcutManager
         };
     },
@@ -35,14 +42,19 @@ const Root = React.createClass({
 
     render() {
         return (
-            <div>
+            <Theme>
                 <Provider store={store}>
                     <div>
-                        <ReduxRouter routes={routes}/>
+                        <ConnectedRouter history={browserHistory}>
+                            <Switch>
+                                <Route path={Constants.URL.ROOT} component={Main}/>
+                                <Redirect from='*' to={Constants.URL.ROOT} />
+                            </Switch>
+                        </ConnectedRouter>
                         {this.renderDevTools()}
                     </div>
                 </Provider>
-            </div>
+            </Theme>
         );
     }
 });

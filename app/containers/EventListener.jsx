@@ -1,18 +1,22 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import config from 'config';
 import { serverEventReceived } from 'ActionCreators';
 
-const Events = React.createClass({
+const Events = createReactClass({
+    displayName: 'Events',
+
     propTypes: {
-        error: React.PropTypes.string,
-        serverEventReceived: React.PropTypes.func.isRequired
+        error: PropTypes.string,
+        serverEventReceived: PropTypes.func.isRequired
     },
 
     componentDidMount() {
-        var sourceURL = config.API_BASE_URL + '/events';
-        var source = new EventSource(sourceURL);
+        const sourceURL = config.API_BASE_URL + '/events';
+        const source = new EventSource(sourceURL);
         source.onopen = function() {
             console.debug('server event stream opened: ' + sourceURL);
         };
@@ -25,7 +29,6 @@ const Events = React.createClass({
     render() {
         return (<div>{this.props.error}</div>);
     }
-
 });
 
 export default connect(null, { serverEventReceived })(Events);

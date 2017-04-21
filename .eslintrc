@@ -1,5 +1,12 @@
 {
-    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 7,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true
+        }
+    },
     "env": {
         "node": true,
         "browser": true
@@ -7,7 +14,7 @@
     "ecmaFeatures": {
         "arrowFunctions": true,
         "blockBindings": true,
-        "classes": false,
+        "classes": true,
         "defaultParams": false,
         "destructuring": true,
         "forOf": true,
@@ -30,7 +37,7 @@
         "react/jsx-uses-vars": 2,
         "react/no-did-mount-set-state": 2,
         "react/no-did-update-set-state": 2,
-        "react/no-multi-comp": 2,
+        "react/no-multi-comp": 0,
         "react/no-unknown-property": 1,
         "react/prop-types": [2, { "ignore": ["location", "children"] }],
         "react/react-in-jsx-scope": 2,

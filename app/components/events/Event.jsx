@@ -1,5 +1,7 @@
 import React from 'react';
-import Paper from 'material-ui/lib/paper';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
+import Paper from 'material-ui/Paper';
 import classnames from 'classnames';
 import moment from 'moment';
 import StructuredElement from 'elements/StructuredElement';
@@ -9,10 +11,12 @@ import styles from './Event.less';
 
 const UPDATE_INTERVAL = 10000;
 
-const Event = React.createClass({
+const Event = createReactClass({
+    displayName: 'Event',
+
     propTypes: {
-        event: React.PropTypes.object.isRequired,
-        filtered: React.PropTypes.bool
+        event: PropTypes.object.isRequired,
+        filtered: PropTypes.bool
     },
 
     getDefaultProps() {

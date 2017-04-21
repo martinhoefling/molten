@@ -1,8 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import classnames from 'classnames';
-import Paper from 'material-ui/lib/paper';
+import Paper from 'material-ui/Paper';
 
 import ValidatedTextField from 'elements/ValidatedTextField';
 import SearchDisplay from 'components/execute/SearchDisplay';
@@ -13,12 +15,14 @@ import styles from './FunctionConfiguration.less';
 
 const FUNC_WITH_TRAILING_WS_REGEX = /([\w\.]+)(\s+)/;
 
-const FunctionConfiguration = React.createClass({
+const FunctionConfiguration = createReactClass({
+    displayName: 'FunctionConfiguration',
+
     propTypes: {
-        config: React.PropTypes.object.isRequired,
-        currentClient: React.PropTypes.object.isRequired,
-        onConfigChange: React.PropTypes.func.isRequired,
-        documentation: React.PropTypes.object
+        config: PropTypes.object.isRequired,
+        currentClient: PropTypes.object.isRequired,
+        onConfigChange: PropTypes.func.isRequired,
+        documentation: PropTypes.object
     },
 
     getInitialState() {
@@ -102,7 +106,7 @@ const FunctionConfiguration = React.createClass({
                 />
                 <ValidatedTextField
                     ref='argumentInput'
-                    hintText='Arguments as list'
+                    hintText='arguments (one per line)'
                     floatingLabelText='Arguments'
                     multiLine={true}
                     onChange={this.onValueChanged.bind(this, 'arg')}
@@ -112,7 +116,7 @@ const FunctionConfiguration = React.createClass({
                     style={{ maxWidth: '220px' }}
                 />
                 <ValidatedTextField
-                    hintText='e.g. saltenv="stable"'
+                    hintText='saltenv="stable" (one per line)'
                     floatingLabelText='Keyword Arguments'
                     multiLine={true}
                     onChange={this.onValueChanged.bind(this, 'kwarg')}
@@ -127,7 +131,7 @@ const FunctionConfiguration = React.createClass({
 
     render() {
         return (
-            <Paper className={classnames(rowStyles.this, styles.this)} Depth={2}>
+            <Paper className={classnames(rowStyles.this, styles.this)} zDepth={2}>
                 {this.renderInputs()}
                 <div className={styles.documentation}>
                     {this.renderFunctionSearch()}
