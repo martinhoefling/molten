@@ -9,7 +9,7 @@ cache:
 
 script:
   - "yarn run lint"
-  - "yarn run build"
+  - "yarn run build-travis"
   - "yarn run release"
   - "./node_modules/.bin/karma start --browsers Firefox --single-run"
 before_install:
