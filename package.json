@@ -11,7 +11,7 @@
     "test": "./node_modules/.bin/karma start --browsers Chrome --single-run",
     "build-dev": "webpack --progress --profile --colors",
     "watch": "webpack --progress --profile --colors --watch",
-    "build": "webpack --optimize-minimize --optimize-occurence-order --optimize-dedupe --progress --profile --colors",
+    "build": "webpack --optimize-minimize --progress --profile --colors",
     "release": "rm -rf release; cp -R dist release; cp index.html release; rm -rf release/molten; webpack --config ./webpack.config.prod.js --optimize-minimize --optimize-occurence-order --optimize-dedupe --progress --profile --colors",
     "start": "node devServer.js",
     "serve": "./node_modules/.bin/http-server -p 8080",
@@ -23,6 +23,7 @@
   "author": "Martin Hoefling",
   "license": "MIT",
   "dependencies": {
+    "babel-preset-es2015-native-modules": "^6.9.4",
     "babel-preset-es2017": "^6.24.1",
     "classnames": "^2.2.1",
     "connected-react-router": "^4.1.0",
