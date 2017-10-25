@@ -27,7 +27,7 @@ Vagrant.configure(2) do |config|
         /vagrant/vagrant/bootstrap-dev.sh
         salt-call state.sls molten.full
         systemctl restart salt-master
-        echo "You can now connect to as user test / molten"
+        echo "You can now connect to http://192.168.42.43:8000/molten/ as user test / molten"
         SHELL
   end
 
