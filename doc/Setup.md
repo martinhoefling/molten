@@ -32,7 +32,8 @@ Currently, the user (`test` in the above example) must have access to runner/whe
 Note: It is strongly recommended to either enable SSL encryption for the REST API or to bind the REST API to the loopback interface.
 
 ### Install Molten on Salt Master
-- Extract [release tarball](https://github.com/martinhoefling/molten/releases/download/v0.2.0/molten-0.2.0.tar.gz) to `/opt/molten`.
+- Extract [release tarball](https://github.com/martinhoefling/molten/releases/download/v0.3.1/molten-0.3.1.tar.gz) to `/opt/molten`.
+
 
 or
 
