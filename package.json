@@ -84,7 +84,7 @@
     "redux-devtools-log-monitor": "^1.0.1",
     "redux-persist": "^4.6.0",
     "style-loader": "^0.16.1",
-    "underscore.string": "^3.2.2",
+    "underscore.string": "^3.3.5",
     "webpack": "^2.4.1",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-hot-middleware": "^2.7.1"
