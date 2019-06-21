@@ -60,7 +60,7 @@
     "babel-preset-react": "^6.2.4",
     "babel-preset-react-hmre": "^1.1.0",
     "css-loader": "^0.28.0",
-    "eslint": "^3.19.0",
+    "eslint": "^4.18.2",
     "eslint-loader": "^1.1.1",
     "eslint-plugin-react": "^6.10.3",
     "esprima-fb": "^15001.1001.0-dev-harmony-fb",
