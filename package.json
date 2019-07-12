@@ -31,7 +31,7 @@
     "fbjs": "^0.8.12",
     "history": "^4.6.1",
     "json2yaml": "^1.1.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "material-ui": "^0.17.4",
     "moment": "^2.10.6",
     "prop-types": "^15.5.8",
