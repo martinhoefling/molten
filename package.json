@@ -33,7 +33,7 @@
     "json2yaml": "^1.1.0",
     "lodash": "^4.17.13",
     "material-ui": "^0.17.4",
-    "moment": "^2.10.6",
+    "moment": "^2.19.3",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-addons-update": "^15.5.2",
