@@ -50,7 +50,7 @@
     "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.0",
-    "superagent": "^3.5.2"
+    "superagent": "^5.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.2.4",
